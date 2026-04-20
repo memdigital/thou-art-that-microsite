@@ -1,0 +1,536 @@
+/* ===================================================================
+   THOU ART THAT MICROSITE
+   1000px max, narrow content (~720px) + simple sidebar (~240px).
+   Depends on https://marbl.codes/core/marbl.css for tokens + header/footer.
+   =================================================================== */
+
+:root {
+  --tat-content-max: 720px;
+  --tat-sidebar-width: 240px;
+  --tat-shell-max: 1000px;
+  --tat-shell-gap: 40px;
+}
+
+.tat-body {
+  background: var(--marbl-charcoal, #161415);
+  color: var(--marbl-white-70, rgba(255, 255, 255, 0.7));
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Outer grid: sidebar + content inside a 1000px-max shell */
+.tat-shell {
+  flex: 1;
+  display: grid;
+  grid-template-columns: var(--tat-sidebar-width) minmax(0, 1fr);
+  gap: var(--tat-shell-gap);
+  max-width: var(--tat-shell-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-8, 48px) var(--space-6, 24px);
+  box-sizing: border-box;
+}
+
+/* ===================================================================
+   SIDEBAR
+   =================================================================== */
+
+.tat-sidebar {
+  position: sticky;
+  top: var(--space-8, 48px);
+  align-self: start;
+  max-height: calc(100vh - var(--space-8, 48px) * 2);
+  overflow-y: auto;
+}
+
+.tat-sidebar__mobile-toggle {
+  display: none;
+}
+
+.tat-sidebar__nav--desktop {
+  display: block;
+}
+
+.tat-sidebar__section {
+  margin-bottom: var(--space-6, 24px);
+}
+
+.tat-sidebar__section:last-child {
+  margin-bottom: 0;
+}
+
+.tat-sidebar__label {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
+  margin: 0 0 var(--space-3, 12px);
+  padding: 0 var(--space-3, 12px);
+}
+
+.tat-sidebar__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tat-sidebar__link {
+  display: block;
+  padding: 6px var(--space-3, 12px);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--marbl-white-70, rgba(255, 255, 255, 0.7));
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s, background-color 0.15s;
+}
+
+.tat-sidebar__link:hover {
+  color: var(--marbl-white, #fff);
+  background: var(--marbl-white-05, rgba(255, 255, 255, 0.05));
+}
+
+.tat-sidebar__link:focus-visible {
+  outline: 2px solid var(--marbl-ember, #F35226);
+  outline-offset: -2px;
+}
+
+.tat-sidebar__link[aria-current="page"] {
+  color: var(--marbl-ember, #F35226);
+  border-left-color: var(--marbl-ember, #F35226);
+  background: var(--marbl-white-05, rgba(255, 255, 255, 0.05));
+  font-weight: 600;
+}
+
+/* ===================================================================
+   CONTENT
+   =================================================================== */
+
+.tat-content {
+  min-width: 0;
+  max-width: var(--tat-content-max);
+}
+
+.tat-article {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--marbl-white-80, rgba(255, 255, 255, 0.8));
+}
+
+.tat-article h1 {
+  font-family: var(--font-heading, 'Urbanist', sans-serif);
+  font-size: clamp(32px, 4.5vw, 48px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--marbl-white, #fff);
+  margin: 0 0 var(--space-4, 16px);
+  letter-spacing: -0.01em;
+}
+
+.tat-article h2 {
+  font-family: var(--font-heading, 'Urbanist', sans-serif);
+  font-size: clamp(22px, 2.6vw, 28px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--marbl-white, #fff);
+  margin: var(--space-8, 48px) 0 var(--space-3, 12px);
+  padding-top: var(--space-6, 24px);
+  border-top: 1px solid var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+}
+
+.tat-article h2:first-child,
+.tat-article > :first-child + h2 {
+  margin-top: var(--space-4, 16px);
+  border-top: none;
+  padding-top: 0;
+}
+
+.tat-article h3 {
+  font-family: var(--font-heading, 'Urbanist', sans-serif);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--marbl-white, #fff);
+  margin: var(--space-6, 24px) 0 var(--space-2, 8px);
+}
+
+.tat-article h4 {
+  font-family: var(--font-heading, 'Urbanist', sans-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--marbl-ember, #F35226);
+  margin: var(--space-5, 20px) 0 var(--space-2, 8px);
+}
+
+.tat-article p {
+  margin: 0 0 var(--space-4, 16px);
+}
+
+.tat-article a {
+  color: var(--marbl-ember, #F35226);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.tat-article a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.tat-article a:focus-visible {
+  outline: 2px solid var(--marbl-ember, #F35226);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.tat-article strong {
+  color: var(--marbl-white, #fff);
+  font-weight: 600;
+}
+
+.tat-article em {
+  font-style: italic;
+}
+
+.tat-article ul, .tat-article ol {
+  margin: 0 0 var(--space-4, 16px);
+  padding-left: var(--space-5, 20px);
+}
+
+.tat-article li {
+  margin-bottom: var(--space-2, 8px);
+}
+
+.tat-article blockquote {
+  margin: var(--space-5, 20px) 0;
+  padding: var(--space-4, 16px) var(--space-5, 20px);
+  border-left: 3px solid var(--marbl-ember, #F35226);
+  background: var(--marbl-white-05, rgba(255, 255, 255, 0.05));
+  color: var(--marbl-white-90, rgba(255, 255, 255, 0.9));
+  border-radius: 0 12px 12px 0;
+  font-size: 17px;
+}
+
+.tat-article blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.tat-article code {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.9em;
+  background: var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.tat-article pre {
+  margin: var(--space-4, 16px) 0;
+  padding: var(--space-4, 16px);
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.tat-article pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+.tat-article hr {
+  border: none;
+  border-top: 1px solid var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+  margin: var(--space-8, 48px) 0;
+}
+
+.tat-article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-4, 16px) 0;
+  font-size: 14px;
+}
+
+.tat-article th,
+.tat-article td {
+  padding: var(--space-2, 8px) var(--space-3, 12px);
+  text-align: left;
+  border-bottom: 1px solid var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+}
+
+.tat-article th {
+  color: var(--marbl-white, #fff);
+  font-weight: 600;
+  background: var(--marbl-white-05, rgba(255, 255, 255, 0.05));
+}
+
+/* ===================================================================
+   WAVEFORM PLAYER WRAPPER (accessibility fixes from Moirai audit)
+   =================================================================== */
+
+.tat-audio {
+  margin: var(--space-6, 24px) 0;
+  padding: var(--space-4, 16px);
+  background: var(--marbl-white-05, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+}
+
+.tat-audio__title {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
+  margin: 0 0 var(--space-2, 8px);
+}
+
+.tat-audio [data-waveform-player] {
+  min-height: 60px;
+}
+
+.tat-audio [data-waveform-player] button:focus-visible {
+  outline: 2px solid var(--marbl-ember, #F35226);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+/* ===================================================================
+   ARTICLE FOOTER (GitHub widget + prev/next)
+   =================================================================== */
+
+.tat-article-footer {
+  margin-top: var(--space-10, 64px);
+  padding-top: var(--space-6, 24px);
+  border-top: 1px solid var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 16px);
+}
+
+.tat-github-widget__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  background: var(--marbl-white-05, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+  color: var(--marbl-white, #fff);
+  text-decoration: none;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.tat-github-widget__link:hover {
+  background: var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+  border-color: var(--marbl-white-30, rgba(255, 255, 255, 0.3));
+}
+
+.tat-github-widget__link:focus-visible {
+  outline: 2px solid var(--marbl-ember, #F35226);
+  outline-offset: 2px;
+}
+
+.tat-github-widget__icon {
+  display: inline-flex;
+  color: var(--marbl-white, #fff);
+}
+
+.tat-github-widget__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.tat-github-widget__label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tat-github-widget__stars {
+  font-size: 12px;
+  color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
+}
+
+.tat-next-prev {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4, 16px);
+  flex-wrap: wrap;
+}
+
+.tat-next-prev a {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  background: var(--marbl-white-05, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+  color: var(--marbl-white, #fff);
+  text-decoration: none;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.tat-next-prev a:hover {
+  background: var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+  border-color: var(--marbl-ember, #F35226);
+}
+
+.tat-next-prev__label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
+  margin-bottom: 2px;
+}
+
+.tat-next-prev__title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.tat-next-prev__next {
+  text-align: right;
+}
+
+/* ===================================================================
+   LANDING PAGE
+   =================================================================== */
+
+.tat-landing__hero {
+  margin-bottom: var(--space-8, 48px);
+}
+
+.tat-landing__eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--marbl-ember, #F35226);
+  margin-bottom: var(--space-3, 12px);
+  font-weight: 500;
+}
+
+.tat-landing__title {
+  font-family: var(--font-heading, 'Urbanist', sans-serif);
+  font-size: clamp(44px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 1.02;
+  color: var(--marbl-white, #fff);
+  margin: 0 0 var(--space-4, 16px);
+  letter-spacing: -0.02em;
+}
+
+.tat-landing__title-accent {
+  font-family: 'Petrona', serif;
+  font-style: italic;
+  font-weight: 800;
+  color: var(--marbl-ember, #F35226);
+}
+
+.tat-landing__subtitle {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--marbl-white-70, rgba(255, 255, 255, 0.7));
+  margin-bottom: var(--space-5, 20px);
+  font-style: italic;
+}
+
+.tat-landing__byline {
+  font-size: 13px;
+  color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
+  margin-bottom: var(--space-6, 24px);
+}
+
+.tat-landing__meta {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
+  border: 1px solid var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+  border-radius: 999px;
+  margin-bottom: var(--space-6, 24px);
+}
+
+/* ===================================================================
+   RESPONSIVE
+   =================================================================== */
+
+@media (max-width: 900px) {
+  .tat-shell {
+    grid-template-columns: 1fr;
+    gap: var(--space-4, 16px);
+    padding: var(--space-5, 20px) var(--space-4, 16px);
+  }
+
+  .tat-sidebar {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .tat-sidebar__mobile-toggle {
+    display: block;
+    background: var(--marbl-white-05, rgba(255, 255, 255, 0.05));
+    border: 1px solid var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+    border-radius: 12px;
+    padding: 0;
+  }
+
+  .tat-sidebar__mobile-toggle[open] {
+    padding-bottom: var(--space-3, 12px);
+  }
+
+  .tat-sidebar__mobile-trigger {
+    list-style: none;
+    cursor: pointer;
+    padding: var(--space-3, 12px) var(--space-4, 16px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-heading, 'Urbanist', sans-serif);
+    font-weight: 700;
+    color: var(--marbl-white, #fff);
+  }
+
+  .tat-sidebar__mobile-trigger::-webkit-details-marker {
+    display: none;
+  }
+
+  .tat-sidebar__mobile-trigger:focus-visible {
+    outline: 2px solid var(--marbl-ember, #F35226);
+    outline-offset: -2px;
+    border-radius: 12px;
+  }
+
+  .tat-sidebar__mobile-label {
+    font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+
+  .tat-sidebar__mobile-chevron {
+    transition: transform 0.2s;
+  }
+
+  .tat-sidebar__mobile-toggle[open] .tat-sidebar__mobile-chevron {
+    transform: rotate(180deg);
+  }
+
+  .tat-sidebar__mobile-toggle .tat-sidebar__nav {
+    padding: 0 var(--space-3, 12px);
+  }
+
+  .tat-sidebar__nav--desktop {
+    display: none;
+  }
+}

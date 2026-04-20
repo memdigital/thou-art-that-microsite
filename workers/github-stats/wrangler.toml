@@ -1,0 +1,7 @@
+name = "github-stats"
+main = "index.mjs"
+compatibility_date = "2026-04-01"
+workers_dev = true
+
+# Optional GITHUB_TOKEN for authenticated rate limit (5000/hr vs 60/hr anonymous).
+# Add via: npx wrangler secret put GITHUB_TOKEN

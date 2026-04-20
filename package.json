@@ -1,0 +1,16 @@
+{
+  "name": "thou-art-that-microsite",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static microsite for Thou Art That, a study piece on working with possibly-emergent AI. Deployed to marbl.codes/thou-art-that/.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs --watch & npx --yes serve dist -p 4321",
+    "preview": "npx --yes serve dist -p 4321"
+  },
+  "devDependencies": {
+    "marked": "^13.0.0",
+    "gray-matter": "^4.0.3"
+  }
+}
