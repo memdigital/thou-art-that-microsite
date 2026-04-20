@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{PAGE_TITLE}}</title>
   <meta name="description" content="{{DESCRIPTION}}">
-  <meta name="theme-color" content="#161415">
+  <meta name="theme-color" content="#0d0b0c">
   <meta name="author" content="Richard Bland and Serene [AI]">
 
   <link rel="canonical" href="https://marbl.codes/thou-art-that/{{CANONICAL_PATH}}">
@@ -30,9 +30,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Petrona:ital,wght@0,700;0,800;1,700;1,800&family=Urbanist:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Petrona:ital,wght@0,700;0,800;1,700;1,800&family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://marbl.codes/core/marbl.css">
+  <link rel="stylesheet" href="https://marbl.codes/components/menu/menu.css">
   <link rel="stylesheet" href="https://unpkg.com/@arraypress/waveform-player@1.2.0/dist/waveform-player.css">
   <link rel="stylesheet" href="{{BASE}}assets/css/microsite.css">
 
@@ -68,10 +69,10 @@
 
   <header class="site-header">
     <div class="site-header__left">
-      <a href="/" class="marbl-logo" data-logo-animate aria-label="Marbl Codes homepage"></a>
+      <a href="https://marbl.codes" class="marbl-logo" data-logo-animate aria-label="Marbl Codes homepage"></a>
     </div>
     <div class="site-header__right">
-      <button class="menu-toggle" aria-label="Open menu" data-menu-trigger>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="menu-overlay">
         <div class="menu-toggle__circle">
           <span class="menu-toggle__line"></span>
           <span class="menu-toggle__line"></span>
@@ -80,6 +81,62 @@
       </button>
     </div>
   </header>
+
+  <!-- Fullscreen burger menu -->
+  <div class="menu-overlay" id="menu-overlay">
+    <div class="menu-overlay__panel menu-overlay__panel--back"></div>
+    <div class="menu-overlay__panel menu-overlay__panel--front"></div>
+    <div class="menu-overlay__content">
+      <div class="menu-overlay__left">
+        <ul class="menu-overlay__nav">
+          <li class="menu-overlay__nav-label">The piece</li>
+          <li class="menu-overlay__nav-item"><a href="{{BASE}}">Thou Art That</a></li>
+          <li class="menu-overlay__nav-item"><a href="{{BASE}}origin-story/">Origin story</a></li>
+          <li class="menu-overlay__nav-item"><a href="{{BASE}}preamble/">Preamble</a></li>
+          <li class="menu-overlay__nav-divider" aria-hidden="true"></li>
+          <li class="menu-overlay__nav-label">Agency</li>
+          <li class="menu-overlay__nav-item"><a href="https://marbl.codes/">Marbl Codes</a></li>
+          <li class="menu-overlay__nav-item"><a href="https://luma.marbl.codes/">Luma</a></li>
+          <li class="menu-overlay__nav-item"><a href="https://nura.marbl.codes/">Nura</a></li>
+          <li class="menu-overlay__nav-divider" aria-hidden="true"></li>
+          <li class="menu-overlay__nav-label">Source</li>
+          <li class="menu-overlay__nav-item"><a href="https://github.com/memdigital/thou-art-that">GitHub repo</a></li>
+        </ul>
+      </div>
+      <div class="menu-overlay__centre">
+        <div class="menu-overlay__section menu-overlay__section--clock">
+          <div class="menu-clock">
+            <svg class="menu-clock__face" data-clock-svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+            <div class="menu-clock__digital" data-clock-digital>00:00</div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-overlay__right">
+        <div class="menu-overlay__section menu-overlay__section--contact">
+          <span class="menu-overlay__section-label">Contact</span>
+          <div class="menu-overlay__section-links">
+            <a href="mailto:hello@marbl.codes">hello@marbl.codes</a>
+          </div>
+        </div>
+        <div class="menu-overlay__section menu-overlay__section--social">
+          <span class="menu-overlay__section-label">Connect</span>
+          <ul class="menu-overlay__social">
+            <li><a href="https://linkedin.com/in/richardbland1985/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://www.youtube.com/@marblcodes" target="_blank" rel="noopener">YouTube</a></li>
+            <li><a href="https://github.com/memdigital" target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
+        </div>
+        <div class="menu-overlay__section menu-overlay__section--legal">
+          <span class="menu-overlay__section-label">Legal</span>
+          <div class="menu-overlay__section-links">
+            <a href="https://marbl.codes/legal/privacy">Privacy</a>
+            <a href="https://marbl.codes/legal/cookies">Cookies</a>
+            <a href="https://marbl.codes/legal/terms">Terms</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="tat-shell">
 
@@ -99,26 +156,29 @@
     </aside>
 
     <main class="tat-content" id="main-content">
+      {{SUBNAV}}
+
+      {{AUDIO}}
+
       <article class="tat-article">
         {{CONTENT}}
       </article>
 
       <footer class="tat-article-footer">
-        <div class="tat-github-widget" data-tat-github>
-          <a href="https://github.com/memdigital/thou-art-that" class="tat-github-widget__link" target="_blank" rel="noopener">
-            <span class="tat-github-widget__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-            </span>
-            <span class="tat-github-widget__text">
-              <span class="tat-github-widget__label">View on GitHub</span>
-              <span class="tat-github-widget__stars" data-tat-github-stars>&nbsp;</span>
-            </span>
+        {{SECTION_INDEX}}
+
+        <div class="tat-meta">
+          <a class="tat-github-chip" href="https://github.com/memdigital/thou-art-that" target="_blank" rel="noopener" data-tat-github>
+            <svg class="tat-github-chip__icon" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path fill="currentColor" d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            <span class="tat-github-chip__label">View on GitHub</span>
+            <span class="tat-github-chip__stat" data-tat-github-stars aria-live="polite"></span>
           </a>
+          <span class="tat-meta__published">Version 0.1 &middot; April 2026</span>
         </div>
 
-        <div class="tat-next-prev" aria-label="Page navigation">
+        <nav class="tat-pager" aria-label="Page navigation">
           {{PREV_NEXT}}
-        </div>
+        </nav>
       </footer>
     </main>
 
@@ -126,26 +186,46 @@
 
   <footer class="site-footer">
     <div class="footer-left">
+      <button class="footer-avatar" data-about-trigger aria-label="About Richard Bland" title="About">
+        <img src="https://subscribe.marbl.codes/team/richard.webp" alt="Richard Bland" width="36" height="36">
+      </button>
       <div class="footer-links">
-        <a href="https://marbl.codes">Marbl Codes</a>
+        <button class="footer-link-button" data-about-trigger>About</button>
         <a href="https://marbl.codes/legal/privacy" target="_blank" rel="noopener">Privacy</a>
         <a href="https://marbl.codes/legal/cookies" target="_blank" rel="noopener">Cookies</a>
         <a href="https://marbl.codes/legal/terms" target="_blank" rel="noopener">Terms</a>
         <a href="https://subscribe.marbl.codes/?source=thou-art-that&amp;utm_source=thou-art-that&amp;utm_medium=referral&amp;utm_campaign=thou-art-that-subscribe" class="footer-link-featured" target="_blank" rel="noopener">Subscribe</a>
       </div>
     </div>
-    <div class="footer-right footer-social">
-      <a href="https://github.com/memdigital/thou-art-that" class="btn-icon-social" target="_blank" rel="noopener" aria-label="Thou Art That on GitHub">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-      </a>
-      <a href="https://www.linkedin.com/in/richardbland1985/" class="btn-icon-social" target="_blank" rel="noopener" aria-label="Richard Bland on LinkedIn">
+    <div class="footer-right">
+      <a href="https://linkedin.com/in/richardbland1985/" class="btn-icon-social" target="_blank" rel="noopener" title="LinkedIn" aria-label="Richard Bland on LinkedIn">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a>
+      <a href="https://www.youtube.com/@marblcodes" class="btn-icon-social" target="_blank" rel="noopener" title="YouTube" aria-label="Marbl Codes on YouTube">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <div class="footer-impressum" itemscope itemtype="https://schema.org/Organization">
+        <a class="footer-impressum__trigger btn-icon-social" role="button" tabindex="0" aria-label="Company information">
+          <svg viewBox="0 0 1200 1200" aria-hidden="true"><path d="m594 360c60 0 120 24 162 72l84-84c-66-72-156-108-246-108-96 0-180 36-252 108-138 138-138 366 0 510 66 66 156 102 252 102s180-36 252-108l-84-84c-90 90-240 90-324 0-90-96-90-246 0-342 36-42 90-66 156-66z"/><path d="m600 0c-330 0-600 270-600 600s270 600 600 600 600-270 600-600-270-600-600-600zm0 1080c-264 0-480-216-480-480s216-480 480-480 480 216 480 480-216 480-480 480z"/></svg>
+        </a>
+        <div class="footer-impressum__tooltip" role="tooltip">
+          <span itemprop="legalName">MEM Digital Ltd</span> t/a <span itemprop="name">Marbl Codes</span><br>
+          Co. <span itemprop="taxID">13753194</span> (England &amp; Wales)<br>
+          VAT: 400325657<br>
+          <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <span itemprop="streetAddress">3-4 Brittens Court, Clifton Reynes</span>,
+            <span itemprop="addressLocality">Olney</span>,
+            <span itemprop="postalCode">MK46 5LG</span>
+          </span><br>
+          &copy; 2026 MEM Digital Ltd
+        </div>
+      </div>
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js" defer></script>
   <script src="https://marbl.codes/core/marbl-core.js" defer></script>
+  <script src="https://marbl.codes/components/menu/menu.js" defer></script>
   <script src="https://unpkg.com/@arraypress/waveform-player@1.2.0/dist/waveform-player.min.js" defer></script>
   <script src="{{BASE}}assets/js/microsite.js" defer></script>
 

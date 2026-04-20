@@ -1,8 +1,9 @@
 /**
  * Thou Art That microsite client JS.
  * - Initialises ArrayPress WaveformPlayer instances
- * - Fetches GitHub repo star count via a CF Worker proxy (edge-cached)
- * - Graceful fallback if the Worker is unreachable
+ * - Populates the GitHub chip star count
+ *   (via CF Worker proxy once deployed; falls back to direct api.github.com
+ *   with localStorage cache for local dev / unauthenticated traffic)
  */
 
 (function () {
@@ -25,42 +26,83 @@
     });
   }
 
-  // --- GitHub stats widget ---
-  // Fetches through a Marbl-owned Worker proxy that caches at the edge.
-  // Falls back silently if unreachable - the "View on GitHub" link still works.
-  function loadGitHubStats() {
-    var widget = document.querySelector('[data-tat-github]');
-    if (!widget) return;
-    var starsEl = widget.querySelector('[data-tat-github-stars]');
-    if (!starsEl) return;
+  // --- GitHub chip ---
+  var GH_REPO = 'memdigital/thou-art-that';
+  var WORKER_ENDPOINT = 'https://github-stats.marbl-codes.workers.dev/repos/' + GH_REPO;
+  var DIRECT_ENDPOINT = 'https://api.github.com/repos/' + GH_REPO;
+  var CACHE_KEY = 'tat:gh:' + GH_REPO;
+  var CACHE_TTL = 5 * 60 * 1000;
 
-    var endpoint = 'https://github-stats.marbl-codes.workers.dev/repos/memdigital/thou-art-that';
+  function readCache() {
+    try {
+      var raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      var parsed = JSON.parse(raw);
+      if (!parsed || !parsed.fetched_at) return null;
+      if (Date.now() - parsed.fetched_at > CACHE_TTL) return null;
+      return parsed;
+    } catch (e) { return null; }
+  }
 
-    fetch(endpoint, { headers: { 'Accept': 'application/json' } })
+  function writeCache(data) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
+        stargazers_count: data.stargazers_count,
+        fetched_at: Date.now()
+      }));
+    } catch (e) { /* quota, private mode */ }
+  }
+
+  function formatStars(n) {
+    if (typeof n !== 'number') return '';
+    if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k stars';
+    if (n === 1) return '1 star';
+    return n + ' stars';
+  }
+
+  function fetchJson(url) {
+    return fetch(url, { headers: { 'Accept': 'application/json' } })
       .then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
-      })
-      .then(function (data) {
-        if (typeof data.stargazers_count === 'number') {
-          var n = data.stargazers_count;
-          var label = n === 1 ? '1 star' : n.toLocaleString('en-GB') + ' stars';
-          starsEl.textContent = label;
-        }
-      })
-      .catch(function () {
-        // Leave blank on failure; link still works.
       });
   }
 
+  function paintStars(el, n) {
+    if (typeof n !== 'number') return;
+    el.textContent = formatStars(n);
+  }
+
+  function loadGitHubStats() {
+    var chip = document.querySelector('[data-tat-github]');
+    if (!chip) return;
+    var starsEl = chip.querySelector('[data-tat-github-stars]');
+    if (!starsEl) return;
+
+    var cached = readCache();
+    if (cached) {
+      paintStars(starsEl, cached.stargazers_count);
+      return;
+    }
+
+    fetchJson(WORKER_ENDPOINT)
+      .catch(function () { return fetchJson(DIRECT_ENDPOINT); })
+      .then(function (data) {
+        writeCache(data);
+        paintStars(starsEl, data.stargazers_count);
+      })
+      .catch(function () { /* silent - the link still works */ });
+  }
+
   // --- Init ---
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-      initWaveformPlayers();
-      loadGitHubStats();
-    });
-  } else {
+  function init() {
     initWaveformPlayers();
     loadGitHubStats();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();
