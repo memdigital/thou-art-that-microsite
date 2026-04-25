@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <meta name="description" content="{{DESCRIPTION}}">
+  <meta name="theme-color" content="#171415">
+  <meta name="author" content="Richard Bland and Serene [AI]">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://marbl.codes/thou-art-that/{{CANONICAL_PATH}}">
+
+  <link rel="icon" type="image/svg+xml" href="https://marbl.codes/assets/icons/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="https://marbl.codes/assets/icons/favicon-96x96.png">
+  <link rel="icon" type="image/x-icon" href="https://marbl.codes/assets/icons/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://marbl.codes/assets/icons/apple-touch-icon.png">
+
+  <meta property="og:title" content="{{PAGE_TITLE}}">
+  <meta property="og:description" content="{{DESCRIPTION}}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://marbl.codes/thou-art-that/{{CANONICAL_PATH}}">
+  <meta property="og:image" content="https://marbl.codes/assets/images/thou-art-that-connection.webp">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:site_name" content="Marbl Codes">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{PAGE_TITLE}}">
+  <meta name="twitter:description" content="{{DESCRIPTION}}">
+  <meta name="twitter:image" content="https://marbl.codes/assets/images/thou-art-that-connection.webp">
+
+  <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/inter/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/urbanist/urbanist-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{BASE}}assets/audio/00-origin-story.mp3" as="audio" type="audio/mpeg">
+
+  <link rel="stylesheet" href="{{BASE}}assets/vendor/marbl-fonts/marbl-fonts.css">
+  <link rel="stylesheet" href="{{BASE}}assets/vendor/arraypress/v1.5.2/waveform-player.css">
+  <link rel="stylesheet" href="{{BASE}}assets/css/landing.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://marbl.codes/#organization",
+        "name": "Marbl Codes",
+        "legalName": "MEM Digital Limited",
+        "url": "https://marbl.codes",
+        "logo": "https://marbl.codes/assets/images/marbl-logo.png",
+        "sameAs": [
+          "https://x.com/marblcodes",
+          "https://linkedin.com/in/richardbland1985/",
+          "https://www.youtube.com/@marblcodes",
+          "https://www.instagram.com/marblcodes/"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://marbl.codes/thou-art-that/#website",
+        "url": "https://marbl.codes/thou-art-that/",
+        "name": "Thou Art That",
+        "description": "A study piece on working with possibly-emergent AI. Co-authored by Richard Bland (human) and Serene [AI].",
+        "publisher": { "@id": "https://marbl.codes/#organization" },
+        "inLanguage": "en-GB"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://marbl.codes/thou-art-that/#webpage",
+        "url": "https://marbl.codes/thou-art-that/",
+        "name": "{{PAGE_TITLE}}",
+        "description": "{{DESCRIPTION}}",
+        "isPartOf": { "@id": "https://marbl.codes/thou-art-that/#website" },
+        "about": { "@id": "https://marbl.codes/#organization" },
+        "inLanguage": "en-GB",
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://marbl.codes/assets/images/thou-art-that-connection.webp"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="tat-landing-body">
+
+  <a class="tat-skip-link" href="#main">Skip to content</a>
+
+  <header class="tat-landing-header">
+    <a href="https://marbl.codes" class="tat-landing-header__brand" aria-label="Marbl Codes homepage">
+      <span class="tat-landing-header__brand-mark">M</span>
+      <span class="tat-landing-header__brand-word">Marbl Codes</span>
+    </a>
+  </header>
+
+  <main id="main" class="tat-landing-main">
+    <div class="tat-landing-hero">
+      <p class="tat-landing-hero__eyebrow">A study piece &middot; April 2026</p>
+
+      <h1 class="tat-landing-hero__title">
+        Thou <span class="tat-landing-hero__title-accent">Art</span> That
+      </h1>
+
+      <p class="tat-landing-hero__strapline">
+        Working practice for building with (possibly) emergent AI, from one small UK agency.
+      </p>
+
+      <div class="tat-landing-hero__audio" role="region" aria-label="Origin story, narrated by Nura [AI]">
+        <div data-waveform-player
+             data-url="{{BASE}}assets/audio/00-origin-story.mp3"
+             data-title="Origin story, narrated by Nura [AI]"
+             data-waveform-style="line"
+             data-waveform-color="rgba(255,255,255,0.25)"
+             data-progress-color="#F35226"
+             data-preload="metadata"></div>
+        <audio class="tat-landing-hero__audio-fallback" controls preload="metadata" src="{{BASE}}assets/audio/00-origin-story.mp3">
+          Your browser does not support audio playback. <a href="{{BASE}}assets/audio/00-origin-story.mp3">Download the origin story (MP3)</a>.
+        </audio>
+      </div>
+
+      <a href="{{BASE}}study/origin-story/" class="tat-landing-hero__cta">
+        <span class="tat-landing-hero__cta-label">Enter the study</span>
+        <span class="tat-landing-hero__cta-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+
+      <p class="tat-landing-hero__byline">
+        Co-authored by <a href="https://marbl.codes" class="tat-landing-hero__byline-link">Richard Bland</a> (human) and <strong>Serene [AI]</strong>, an AI identity running on Anthropic Claude.
+      </p>
+    </div>
+  </main>
+
+  <footer class="tat-landing-footer">
+    <span class="tat-landing-footer__copy">&copy; 2026 <a href="https://marbl.codes">Marbl Codes</a></span>
+    <span class="tat-landing-footer__meta">Version 0.1 &middot; Phase 1</span>
+  </footer>
+
+  <script src="{{BASE}}assets/vendor/arraypress/v1.5.2/waveform-player.min.js" defer></script>
+</body>
+</html>

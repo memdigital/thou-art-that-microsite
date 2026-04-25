@@ -1,0 +1,318 @@
+/* ===================================================================
+   Thou Art That — Landing
+   Centred hero. site-header (slim) + hero + site-footer.
+   No sidebar, no chrome — Phase 2 introduces the dashboard.
+
+   Per PLAN.md (locked 24 April 2026, Phase 1 deliverables).
+   =================================================================== */
+
+:root {
+  --tat-bg: #171415;
+  --tat-surface: #1d1a1b;
+  --tat-text: rgba(255, 255, 255, 0.9);
+  --tat-text-muted: rgba(255, 255, 255, 0.6);
+  --tat-text-dim: rgba(255, 255, 255, 0.45);
+  --tat-border: rgba(255, 255, 255, 0.08);
+  --tat-ember: #F35226;
+  --tat-ember-soft: rgba(243, 82, 38, 0.12);
+  --tat-radius: 10px;
+  --tat-radius-pill: 9999px;
+  --tat-ease: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* ===== Reset (minimal — not a full reset, just landing essentials) ===== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--tat-bg);
+  color: var(--tat-text);
+  font-family: var(--marbl-font-body, 'Inter', system-ui, sans-serif);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; }
+
+/* ===== Skip link (a11y) ===== */
+
+.tat-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--tat-ember);
+  color: #fff;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 var(--tat-radius) 0;
+  z-index: 100;
+}
+.tat-skip-link:focus {
+  left: 0;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ===== Landing layout: header / main / footer flex column ===== */
+
+.tat-landing-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Header (slim — just Marbl wordmark linking out) ===== */
+
+.tat-landing-header {
+  display: flex;
+  align-items: center;
+  padding: 24px 40px;
+}
+
+.tat-landing-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--tat-text);
+  font-family: var(--marbl-font-display, 'Urbanist', sans-serif);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: color 0.2s ease;
+}
+.tat-landing-header__brand:hover,
+.tat-landing-header__brand:focus-visible {
+  color: var(--tat-ember);
+  outline: none;
+}
+
+.tat-landing-header__brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--tat-ember);
+  color: #fff;
+  border-radius: var(--tat-radius);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.tat-landing-header__brand-word {
+  font-size: 16px;
+}
+
+@media (max-width: 480px) {
+  .tat-landing-header { padding: 20px 24px; }
+  .tat-landing-header__brand-word { display: none; }
+}
+
+/* ===== Main: centred hero ===== */
+
+.tat-landing-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px 100px;
+}
+
+.tat-landing-hero {
+  max-width: 680px;
+  width: 100%;
+  text-align: center;
+}
+
+.tat-landing-hero__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--tat-ember);
+  margin: 0 0 20px;
+}
+
+.tat-landing-hero__title {
+  font-family: var(--marbl-font-display, 'Urbanist', sans-serif);
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin: 0 0 24px;
+  color: var(--tat-text);
+}
+
+.tat-landing-hero__title-accent {
+  font-family: var(--marbl-font-accent, 'Petrona', Georgia, serif);
+  font-style: italic;
+  font-weight: 700;
+  color: var(--tat-ember);
+}
+
+.tat-landing-hero__strapline {
+  font-size: clamp(17px, 2vw, 20px);
+  line-height: 1.5;
+  color: var(--tat-text-muted);
+  margin: 0 auto 48px;
+  max-width: 540px;
+}
+
+/* ===== Hero audio (waveform-player wrapper, narrow) ===== */
+
+.tat-landing-hero__audio {
+  margin: 0 auto 40px;
+  max-width: 520px;
+  text-align: left;
+}
+
+.tat-landing-hero__audio-fallback {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+}
+
+/* Hide native audio when the waveform-player has initialised. */
+.tat-landing-hero__audio:has([data-waveform-initialized]) .tat-landing-hero__audio-fallback {
+  display: none;
+}
+
+/* ===== Animated ember CTA ===== */
+
+.tat-landing-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 28px;
+  background: var(--tat-ember);
+  color: #fff;
+  font-family: var(--marbl-font-body, 'Inter', sans-serif);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  border-radius: var(--tat-radius);
+  transition:
+    transform 0.2s var(--tat-ease),
+    background 0.2s ease;
+  margin-bottom: 40px;
+}
+
+.tat-landing-hero__cta:hover,
+.tat-landing-hero__cta:focus-visible {
+  background: #ff6638;
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.tat-landing-hero__cta:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.tat-landing-hero__cta-arrow {
+  display: inline-block;
+  transition: transform 0.3s var(--tat-ease);
+}
+
+.tat-landing-hero__cta:hover .tat-landing-hero__cta-arrow,
+.tat-landing-hero__cta:focus-visible .tat-landing-hero__cta-arrow {
+  transform: translateX(4px);
+}
+
+/* ===== Byline ===== */
+
+.tat-landing-hero__byline {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--tat-text-dim);
+  margin: 0;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tat-landing-hero__byline strong {
+  font-weight: 600;
+  color: var(--tat-text-muted);
+}
+
+.tat-landing-hero__byline-link {
+  color: var(--tat-text-muted);
+  text-decoration: underline;
+  text-decoration-color: var(--tat-border);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+.tat-landing-hero__byline-link:hover,
+.tat-landing-hero__byline-link:focus-visible {
+  color: var(--tat-ember);
+  text-decoration-color: var(--tat-ember);
+  outline: none;
+}
+
+/* ===== Footer (slim, single line, flex split) ===== */
+
+.tat-landing-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 40px;
+  border-top: 1px solid var(--tat-border);
+  font-size: 12px;
+  color: var(--tat-text-dim);
+  font-family: var(--marbl-font-body, 'Inter', sans-serif);
+}
+
+.tat-landing-footer a {
+  color: var(--tat-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.tat-landing-footer a:hover,
+.tat-landing-footer a:focus-visible {
+  color: var(--tat-ember);
+  outline: none;
+}
+
+@media (max-width: 480px) {
+  .tat-landing-footer {
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px 24px;
+  }
+}
+
+/* ===== Reduced-motion ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .tat-landing-hero__cta,
+  .tat-landing-hero__cta-arrow,
+  .tat-landing-header__brand {
+    transition: none;
+  }
+}
+
+/* ===== Waveform-player overrides (Marbl-aligned) ===== */
+
+[data-waveform-player] {
+  background: transparent !important;
+}
+.waveform-player {
+  background: transparent !important;
+}
+.waveform-track {
+  background: transparent !important;
+}
+
+/* Suppress the library's selection / focus ring on canvas — we want a clean line. */
+[data-waveform-player] canvas:focus,
+[data-waveform-player] canvas:active {
+  outline: none !important;
+}

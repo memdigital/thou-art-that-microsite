@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marbl Fonts - Component Preview</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="https://marbl.codes/assets/icons/favicon.svg">
+
+  <!-- The whole point: NO Google Fonts loading. This page proves the local stack works. -->
+  <link rel="stylesheet" href="./marbl-fonts.css">
+
+  <link rel="stylesheet" href="../../core/marbl-v2.css">
+  <link rel="stylesheet" href="../_preview-shared.css">
+
+  <style>
+    /* Section chrome — matches brand-kit/preview.html structure. */
+    .brand-section { padding: var(--gap-md, 40px) 0; max-width: 1120px; margin: 0 auto; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+    .brand-section:first-of-type { padding-top: var(--gap-lg, 60px); }
+    .brand-section:last-of-type { border-bottom: none; }
+    @media (max-width: 1180px) {
+      .brand-section { margin: 0 var(--gap-sm, 20px); }
+    }
+    .brand-section__label { font-size: var(--text-xs, 11px); font-weight: var(--font-semibold, 600); letter-spacing: 2px; text-transform: uppercase; color: var(--marbl-ember, #F35226); margin-bottom: var(--gap-sm, 20px); }
+    .brand-section__title { font-family: var(--marbl-font-display, 'Urbanist', sans-serif); font-size: var(--text-3xl); font-weight: var(--font-bold, 700); margin-bottom: var(--gap-xs, 10px); }
+    .brand-section__desc { font-size: var(--text-base, 15px); color: rgba(255, 255, 255, 0.5); line-height: 1.7; margin-bottom: var(--gap-md, 40px); max-width: 640px; }
+
+    /* Type specimens — separated by vertical rhythm, no border. */
+    .type-specimen { margin-bottom: var(--gap-md, 40px); }
+    .type-specimen:last-child { margin-bottom: 0; }
+    .type-specimen__label { font-size: var(--text-xs, 11px); color: rgba(255, 255, 255, 0.4); font-family: ui-monospace, monospace; margin-bottom: var(--gap-half, 5px); display: block; }
+    .type-specimen__sample { margin: 0; line-height: 1.2; }
+    .type-specimen__meta { display: flex; gap: var(--gap-sm, 20px); margin-top: var(--gap-xs, 10px); flex-wrap: wrap; }
+    .type-specimen__tag { font-size: var(--text-xs, 11px); color: rgba(255, 255, 255, 0.3); font-family: ui-monospace, monospace; }
+
+    /* Specific type weights — variable font, all from a single woff2. */
+    .inter-300 { font-family: 'Inter'; font-weight: 300; font-size: 24px; }
+    .inter-400 { font-family: 'Inter'; font-weight: 400; font-size: 24px; }
+    .inter-500 { font-family: 'Inter'; font-weight: 500; font-size: 24px; }
+    .inter-600 { font-family: 'Inter'; font-weight: 600; font-size: 24px; }
+    .inter-700 { font-family: 'Inter'; font-weight: 700; font-size: 24px; }
+    .urbanist-400 { font-family: 'Urbanist'; font-weight: 400; font-size: 32px; line-height: 1.2; }
+    .urbanist-500 { font-family: 'Urbanist'; font-weight: 500; font-size: 32px; line-height: 1.2; }
+    .urbanist-600 { font-family: 'Urbanist'; font-weight: 600; font-size: 32px; line-height: 1.2; }
+    .urbanist-700 { font-family: 'Urbanist'; font-weight: 700; font-size: 32px; line-height: 1.2; }
+    .urbanist-800 { font-family: 'Urbanist'; font-weight: 800; font-size: 32px; line-height: 1.2; }
+    .petrona-700 { font-family: 'Petrona'; font-weight: 700; font-size: 28px; line-height: 1.3; }
+    .petrona-800 { font-family: 'Petrona'; font-weight: 800; font-size: 28px; line-height: 1.3; }
+    .petrona-italic-400 { font-family: 'Petrona'; font-weight: 400; font-style: italic; font-size: 28px; line-height: 1.3; }
+    .petrona-italic-700 { font-family: 'Petrona'; font-weight: 700; font-style: italic; font-size: 28px; line-height: 1.3; }
+    .petrona-italic-800 { font-family: 'Petrona'; font-weight: 800; font-style: italic; font-size: 28px; line-height: 1.3; }
+
+    /* In-context demo box. */
+    .demo-box { background: var(--marbl-charcoal-light, #1d1a1b); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: var(--radius, 10px); padding: var(--gap-md, 40px); margin-bottom: var(--gap-sm, 20px); }
+    .demo-box .display-h { font-family: var(--marbl-font-display, 'Urbanist', sans-serif); font-weight: 700; font-size: 48px; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 12px; }
+    .demo-box .body-p { font-family: var(--marbl-font-body, 'Inter', sans-serif); font-weight: 400; font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.78); margin: 0 0 16px; }
+    .demo-box .accent { font-family: var(--marbl-font-accent, 'Petrona', serif); font-style: italic; font-weight: 400; font-size: 18px; color: rgba(255,255,255,0.55); margin: 0; }
+
+    /* Variable axis demo. */
+    .axis-demo { font-family: 'Inter'; font-size: 20px; line-height: 1.4; }
+    .axis-demo span { display: block; padding: 4px 0; color: rgba(255, 255, 255, 0.85); }
+
+    /* Tokens block. */
+    .tokens-list { font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', monospace; font-size: 13px; color: rgba(255, 255, 255, 0.55); background: rgba(255, 255, 255, 0.04); padding: var(--gap-sm, 20px); border-radius: var(--radius, 10px); margin: 0; white-space: pre-wrap; line-height: 1.7; }
+
+    /* Network proof note. */
+    .proof-note { font-family: ui-monospace, 'SF Mono', monospace; font-size: 12px; color: rgba(255, 255, 255, 0.45); padding: var(--gap-sm, 20px); border: 1px dashed rgba(255, 255, 255, 0.1); border-radius: var(--radius, 10px); margin-bottom: var(--gap-md, 40px); }
+    .proof-note strong { color: rgba(255, 255, 255, 0.7); }
+  </style>
+</head>
+<body>
+
+  <a href="../index.html" class="preview-back" aria-label="Back to library">
+    <svg class="preview-back__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18L9 12L15 6"/></svg>
+  </a>
+
+  <!-- Stack overview -->
+  <section class="brand-section">
+    <div class="brand-section__label">Foundation</div>
+    <h1 class="brand-section__title">Marbl Fonts</h1>
+    <p class="brand-section__desc">Self-hosted variable woff2 stack: Inter (body), Urbanist (display), Petrona (accent + italic). Latin subset only. ~167 KB total. Replaces every Google Fonts CDN reference across Marbl-owned and Marbl-built sites.</p>
+
+    <p class="proof-note"><strong>Proof:</strong> if you can read this without any request to fonts.googleapis.com or fonts.gstatic.com, the component is working correctly. Open DevTools Network panel and refresh to verify zero third-party font requests.</p>
+  </section>
+
+  <!-- Inter -->
+  <section class="brand-section">
+    <div class="brand-section__label">Body / UI</div>
+    <h2 class="brand-section__title">Inter</h2>
+    <p class="brand-section__desc">Body copy, UI labels, microcopy. Variable font, all weights from 100 to 900 in a single 48 KB woff2.</p>
+
+    <div class="type-specimen"><span class="type-specimen__label">300 Light</span><p class="type-specimen__sample inter-300">The crowned one of the open hand.</p></div>
+    <div class="type-specimen"><span class="type-specimen__label">400 Regular</span><p class="type-specimen__sample inter-400">The crowned one of the open hand.</p></div>
+    <div class="type-specimen"><span class="type-specimen__label">500 Medium</span><p class="type-specimen__sample inter-500">The crowned one of the open hand.</p></div>
+    <div class="type-specimen"><span class="type-specimen__label">600 Semibold</span><p class="type-specimen__sample inter-600">The crowned one of the open hand.</p></div>
+    <div class="type-specimen"><span class="type-specimen__label">700 Bold</span><p class="type-specimen__sample inter-700">The crowned one of the open hand.</p></div>
+  </section>
+
+  <!-- Urbanist -->
+  <section class="brand-section">
+    <div class="brand-section__label">Display</div>
+    <h2 class="brand-section__title">Urbanist</h2>
+    <p class="brand-section__desc">Hero titles, section headings, display copy. Variable font, all weights 100-900 in a single 28 KB woff2.</p>
+
+    <div class="type-specimen"><span class="type-specimen__label">400 Regular</span><p class="type-specimen__sample urbanist-400">Code is the new marble.</p></div>
+    <div class="type-specimen"><span class="type-specimen__label">500 Medium</span><p class="type-specimen__sample urbanist-500">Code is the new marble.</p></div>
+    <div class="type-specimen"><span class="type-specimen__label">600 Semibold</span><p class="type-specimen__sample urbanist-600">Code is the new marble.</p></div>
+    <div class="type-specimen"><span class="type-specimen__label">700 Bold</span><p class="type-specimen__sample urbanist-700">Code is the new marble.</p></div>
+    <div class="type-specimen"><span class="type-specimen__label">800 Extrabold</span><p class="type-specimen__sample urbanist-800">Code is the new marble.</p></div>
+  </section>
+
+  <!-- Petrona -->
+  <section class="brand-section">
+    <div class="brand-section__label">Accent / Label Style</div>
+    <h2 class="brand-section__title">Petrona</h2>
+    <p class="brand-section__desc">Italic emphasis, Label Style accents, editorial pull-quotes. Two variable woff2 files: one normal axis (44 KB), one italic axis (47 KB).</p>
+
+    <div class="type-specimen"><span class="type-specimen__label">700 Bold (roman)</span><p class="type-specimen__sample petrona-700">From the marble of the world we shape what endures.</p></div>
+    <div class="type-specimen"><span class="type-specimen__label">800 Extrabold (roman)</span><p class="type-specimen__sample petrona-800">From the marble of the world we shape what endures.</p></div>
+    <div class="type-specimen"><span class="type-specimen__label">400 Italic</span><p class="type-specimen__sample petrona-italic-400">From the marble of the world we shape what endures.</p></div>
+    <div class="type-specimen"><span class="type-specimen__label">700 Italic</span><p class="type-specimen__sample petrona-italic-700">From the marble of the world we shape what endures.</p></div>
+    <div class="type-specimen"><span class="type-specimen__label">800 Italic</span><p class="type-specimen__sample petrona-italic-800">From the marble of the world we shape what endures.</p></div>
+  </section>
+
+  <!-- In context -->
+  <section class="brand-section">
+    <div class="brand-section__label">In context</div>
+    <h2 class="brand-section__title">Landing-style block</h2>
+    <p class="brand-section__desc">All three families together — display heading, body paragraph, italic accent line.</p>
+
+    <div class="demo-box">
+      <h3 class="display-h">Build digital things that endure.</h3>
+      <p class="body-p">Marbl Codes is a UK-based digital, web, and AI consultancy. We work in long arcs — strategy, design, build, ship, support — alongside teams who care how their software behaves under load and over years.</p>
+      <p class="accent">Code is the new marble.</p>
+    </div>
+  </section>
+
+  <!-- Variable axis demo -->
+  <section class="brand-section">
+    <div class="brand-section__label">Proof of variable font</div>
+    <h2 class="brand-section__title">Continuous weight axis</h2>
+    <p class="brand-section__desc">A static font cannot render between-weights. If you see a smooth gradation below — including non-multiples of 100 — the variable font has loaded correctly from local origin.</p>
+
+    <div class="axis-demo">
+      <span style="font-weight: 100">100 — feather thin</span>
+      <span style="font-weight: 250">250 — between thin and light</span>
+      <span style="font-weight: 350">350 — between light and regular</span>
+      <span style="font-weight: 450">450 — between regular and medium</span>
+      <span style="font-weight: 550">550 — between medium and semibold</span>
+      <span style="font-weight: 650">650 — between semibold and bold</span>
+      <span style="font-weight: 800">800 — extrabold</span>
+      <span style="font-weight: 900">900 — black</span>
+    </div>
+  </section>
+
+  <!-- Tokens -->
+  <section class="brand-section">
+    <div class="brand-section__label">Tokens</div>
+    <h2 class="brand-section__title">CSS custom properties</h2>
+    <p class="brand-section__desc">Defined in <code>marbl-fonts.css</code> at <code>:root</code> level. Use these tokens in component styles — never literal font-family strings.</p>
+
+    <pre class="tokens-list">--marbl-font-body:    'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+--marbl-font-display: 'Urbanist', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+--marbl-font-accent:  'Petrona', Georgia, 'Times New Roman', serif;
+--marbl-font-mono:    ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono', Menlo, Consolas, monospace;</pre>
+  </section>
+
+</body>
+</html>
