@@ -47,21 +47,16 @@
 
     var players = document.querySelectorAll('[data-waveform-player]:not([data-waveform-initialized])');
     players.forEach(function (player) {
-      // Capture the .mwp-waveform-area container BEFORE init — the library
-      // wraps the [data-waveform-player] element in a `.waveform-player` div,
-      // which moves player.parentElement away from .mwp-waveform-area and
-      // breaks any post-init parent-relative queries (notably the fallback hide).
-      var area = player.closest('.mwp-waveform-area');
       try {
         new WaveformPlayer(player);
+        // Mark as initialised. waveform-player.css :has() rule keys off this
+        // attribute to hide the native <audio> fallback automatically — no JS
+        // DOM-mutation needed. CSS-driven beats race-prone parentElement queries.
         player.setAttribute('data-waveform-initialized', 'true');
-        // Hide native audio fallback on successful init.
-        // Use the pre-captured `area` reference (closest .mwp-waveform-area)
-        // because player.parentElement is now the library wrapper.
-        var fallback = area && area.querySelector('audio.mwp-fallback');
-        if (fallback) fallback.hidden = true;
       } catch (e) {
-        // Init failed - native <audio> fallback stays visible
+        // Init failed — native <audio> fallback stays visible because the
+        // [data-waveform-initialized] attribute never gets set, so the CSS
+        // :has() hide rule doesn't activate. Robust fallback by design.
         if (typeof console !== 'undefined' && console.warn) {
           console.warn('[waveform-player] init failed, native audio fallback remains visible:', e);
         }

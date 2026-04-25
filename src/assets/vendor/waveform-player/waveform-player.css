@@ -40,6 +40,16 @@
   display: none;
 }
 
+/* Auto-hide the native fallback once the waveform-player has initialised
+ * on the same row. CSS :has() keys off the data-waveform-initialized
+ * attribute that init.js sets after `new WaveformPlayer(player)`. This is
+ * more robust than JS-toggling [hidden] because it never races with the
+ * library's DOM wrap or any post-init mutations. Browser support: Chrome
+ * 105+, Firefox 121+, Safari 15.4+ — within Marbl's evergreen target. */
+.mwp-inline:has([data-waveform-player][data-waveform-initialized]) .mwp-fallback {
+  display: none !important;
+}
+
 /* ===== Inline layout (pill on left, waveform fills remainder) ============== */
 
 .mwp-inline {
