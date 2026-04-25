@@ -1,0 +1,306 @@
+/**
+ * Marbl Design System v2.0.0
+ * Clean token set built from BRAND.md (canonical source of truth).
+ * For: component library, Marbl Codes rebuild, all new Marbl properties.
+ * NOT for: legacy live pages (use marbl.css v1) or client sites (own CSS).
+ *
+ * Source: Marbl/design-system/BRAND.md
+ * Created: 21 April 2026
+ */
+
+/* ==========================================================================
+   Tokens
+   ========================================================================== */
+
+:root {
+  /* ── Colours ── */
+  --marbl-charcoal: #171415;
+  --marbl-charcoal-deep: #0d0b0c;
+  --marbl-charcoal-light: #1d1a1b;
+  --marbl-charcoal-lighter: #232021;
+  --marbl-ember: #F35226;
+  --marbl-ember-dark: #BB2F09;
+  --marbl-crimson: #322A2A;
+  --marbl-sandstone: #A69B98;
+  --marbl-beige: #F3E2C8;
+  --marbl-beige-dark: #DBCBA9;
+  --marbl-black: #000000;
+  --marbl-white: #FFFFFF;
+
+  /* Text opacity scale (white on dark) */
+  --marbl-white-90: rgba(255, 255, 255, 0.9);
+  --marbl-white-70: rgba(255, 255, 255, 0.7);
+  --marbl-white-50: rgba(255, 255, 255, 0.5);
+  --marbl-white-40: rgba(255, 255, 255, 0.4);
+  --marbl-white-30: rgba(255, 255, 255, 0.3);
+  --marbl-white-25: rgba(255, 255, 255, 0.25);
+  --marbl-white-20: rgba(255, 255, 255, 0.2);
+  --marbl-white-15: rgba(255, 255, 255, 0.15);
+  --marbl-white-10: rgba(255, 255, 255, 0.1);
+  --marbl-white-08: rgba(255, 255, 255, 0.08);
+  --marbl-white-06: rgba(255, 255, 255, 0.06);
+  --marbl-white-04: rgba(255, 255, 255, 0.04);
+
+  /* Status */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* ── Typography ── */
+  --font-heading: 'Urbanist', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-accent: 'Petrona', Georgia, serif;
+
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+
+  /* Type scale: fixed for small, fluid clamp() for large */
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-lg: clamp(16px, 0.9rem + 0.3vw, 18px);
+  --text-xl: clamp(19px, 1rem + 0.5vw, 22px);
+  --text-2xl: clamp(24px, 1.2rem + 1vw, 32px);
+  --text-3xl: clamp(36px, 1.5rem + 2.5vw, 56px);
+  --text-4xl: clamp(48px, 2rem + 3.5vw, 80px);
+  --text-5xl: clamp(56px, 2.5rem + 5vw, 112px);
+
+  /* ── Spacing: one scale for everything ── */
+  /* Gaps, margins, padding, all use this. Core: 10/20/40. */
+  --gap-half: 5px;
+  --gap-xs: 10px;
+  --gap-sm: 20px;
+  --gap-md: 40px;
+  --gap-lg: 60px;
+  --gap-xl: 80px;
+  --gap-2xl: 100px;
+  --gap-3xl: 120px;
+  --gap-4xl: 140px;
+  --gap-5xl: 160px;
+
+  /* ── Border radius ── */
+  --radius: 10px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  /* ── Borders ── */
+  --border-subtle: 1px solid rgba(255, 255, 255, 0.04);
+  --border-standard: 1px solid rgba(255, 255, 255, 0.06);
+  --border-visible: 1px solid rgba(255, 255, 255, 0.08);
+  --border-interactive: 1px solid rgba(255, 255, 255, 0.15);
+  --border-ember: 1px solid rgba(243, 82, 38, 0.15);
+
+  /* ── Transitions ── */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+  --transition-slow: 0.3s ease;
+  --ease-marbl: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-fast: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Content widths (200px steps) ── */
+  --width-sm: 600px;
+  --width-md: 800px;
+  --width-lg: 1000px;
+  --width-xl: 1200px;
+  --width-2xl: 1400px;
+  --width-max: 1600px;
+  --width-ultra: 1800px;
+
+  /* ── Breakpoints (CSS custom properties can't be used in @media,
+       but documented here as canonical reference) ── */
+  /* --bp-mobile: 480px;   */
+  /* --bp-tablet: 768px;   */
+  /* --bp-desktop: 1024px; */
+  /* --bp-wide: 1440px;    */
+  /* --bp-ultra: 1800px;   */
+
+  /* ── Layout ── */
+  --section-pad-y: var(--gap-xl);
+  --section-pad-x: var(--gap-md);
+
+  /* ── Z-index ── */
+  --z-base: 0;
+  --z-above: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+  --z-tooltip: 500;
+}
+
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scrollbar-width: thin;
+  scrollbar-color: var(--marbl-ember) var(--marbl-charcoal);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-regular);
+  line-height: 1.6;
+  color: var(--marbl-white);
+  background-color: var(--marbl-charcoal);
+}
+
+/* ── Universal focus ring ── */
+:focus-visible {
+  outline: 2px solid var(--marbl-ember);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Links ── */
+a {
+  color: var(--marbl-ember);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--marbl-white);
+}
+
+/* ── Images ── */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Scrollbar (desktop only) ── */
+/* Track matches body charcoal (no visible track), solid ember thumb. Simple. */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--marbl-charcoal);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--marbl-ember);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--marbl-ember-dark);
+}
+
+/* Firefox scrollbar styling is declared in the primary html {} rule above (merged to avoid two separate html blocks) */
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Screen reader only ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Logo (canonical) ── */
+/* Outer anchor for the animated logo. MarblLogo.init() in marbl-core-v2.js
+   finds `[data-logo-animate]` elements and injects a `.marbl-logo-animated`
+   wrapper inside. This class sets the anchor's display + colour baseline.
+   Restored here 22 April 2026 after burger menu preview showed logo not
+   rendering (v2 migration left these behind in marbl.css v1). */
+.marbl-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-xs, 10px);
+  text-decoration: none;
+  color: var(--marbl-white);
+}
+
+.marbl-logo:hover {
+  color: var(--marbl-white);
+}
+
+/* Wrapper injected by marbl-core-v2.js MarblLogo.createLogo(). Inline styles
+   set explicit width + height in JS; this class provides the display mode
+   and positioning context as a fallback. */
+.marbl-logo-animated {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+/* Larger header variant (used by some marketing pages). */
+.marbl-logo-lg .marbl-logo-animated {
+  transform: scale(1.2);
+  transform-origin: left center;
+}
+
+/* ── Social icon button (canonical) ── */
+/* Used by site-footer, burger menu, and anywhere a row of bare social icons
+   appears. Bare SVG (no circle bg). White-50 at rest. Ember colour +
+   translateY(-2px) lift on hover. Previously lived in marbl.css v1 only —
+   restored here 22 April 2026 after footer regression (site-footer.css
+   expects this class to exist in v2). */
+.btn-icon-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--marbl-white-50);
+  background: transparent;
+  text-decoration: none;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.btn-icon-social:hover {
+  color: var(--marbl-ember);
+  transform: translateY(-2px);
+}
+
+.btn-icon-social:focus-visible {
+  outline: 2px solid var(--marbl-ember);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.btn-icon-social svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}

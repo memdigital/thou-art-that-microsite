@@ -1,0 +1,386 @@
+/**
+ * Marbl Codes — Fullscreen Menu (v2)
+ * 40/60 split: nav left, clock + contact + connect right
+ * Inspired by Fundamental Studio (fundamental.bg)
+ */
+
+/* ==========================================================================
+   Menu Overlay
+   ========================================================================== */
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal, 300);
+  pointer-events: none;
+  visibility: hidden;
+  overflow-x: hidden;
+}
+
+.menu-overlay.is-open {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.menu-overlay__panel {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 0 100% 0);
+}
+
+/* Panels match the header background (var(--marbl-charcoal)) so there's no
+   "menu is darker than header" weirdness when the overlay opens. */
+.menu-overlay__panel--back  { background: var(--marbl-charcoal, #171415); }
+.menu-overlay__panel--front { background: var(--marbl-charcoal, #171415); }
+
+/* ==========================================================================
+   Content — 40/60 Split
+   ========================================================================== */
+
+.menu-overlay__content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 40% 30% 30%;
+  height: 100vh;
+  height: 100dvh;
+  max-width: var(--content-max, 1600px);
+  margin: 0 auto;
+  padding: clamp(100px, 12vh, 140px) clamp(20px, 1.5625vw + 15px, 40px) clamp(20px, 1.5625vw + 15px, 40px);
+  opacity: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ==========================================================================
+   Left Column — 40% Navigation
+   ========================================================================== */
+
+.menu-overlay__left {
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: clamp(20px, 1.5625vw + 15px, 40px);
+}
+
+.menu-overlay__nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Group labels (About / Agents / Agency) - Brand Kit Label Style */
+.menu-overlay__nav-label {
+  display: block;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-xs, 11px);
+  font-weight: var(--font-semibold, 600);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--marbl-ember, #F35226);
+  margin: clamp(12px, 1vw + 6px, 20px) 0 clamp(6px, 0.5vw + 2px, 12px);
+}
+
+.menu-overlay__nav-label:first-child {
+  margin-top: 0;
+}
+
+/* Dividers are invisible spacing elements only - the nav-label's own top margin
+   provides the visual gap between groups. */
+.menu-overlay__nav-divider {
+  list-style: none;
+  height: clamp(8px, 0.6vw + 4px, 12px);
+}
+
+.menu-overlay__nav-item a {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-heading, 'Urbanist', sans-serif);
+  font-size: clamp(28px, 4vw, 64px);
+  font-weight: var(--font-bold, 700);
+  line-height: 1.15;
+  color: var(--marbl-white, #ffffff);
+  text-decoration: none;
+  padding: clamp(2px, 0.4vh, 6px) 0;
+  transition: transform 0.3s cubic-bezier(0.77, 0, 0.175, 1),
+              color var(--transition-slow, 0.3s ease);
+}
+
+.menu-overlay__nav-item a::before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0.7em;
+  margin-right: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 557 877' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M305.166 876.706H0L251.392 0H556.558L305.166 876.706Z' fill='%23f35227'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: width 0.4s cubic-bezier(0.77, 0, 0.175, 1),
+              margin-right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  flex-shrink: 0;
+}
+
+.menu-overlay__nav-item a:hover {
+  transform: translateX(10px);
+}
+
+.menu-overlay__nav-item a:hover::before {
+  width: 0.35em;
+  margin-right: var(--gap-xs, 10px);
+}
+
+.menu-overlay__nav-item .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+/* ==========================================================================
+   Right Column — 60% Clock / Contact / Connect
+   ========================================================================== */
+
+/* Centre column — clock */
+.menu-overlay__centre {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Right column — contact + connect + legal stacked */
+.menu-overlay__right {
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: calc(-1 * clamp(20px, 1.5625vw + 15px, 40px));
+  padding-right: clamp(20px, 1.5625vw + 15px, 40px);
+  overflow: hidden;
+}
+
+/* Shared section styles */
+.menu-overlay__section {
+  padding: clamp(20px, 1.5625vw + 15px, 40px) 0;
+}
+
+.menu-overlay__section + .menu-overlay__section {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.menu-overlay__section-label {
+  display: block;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-xs, 11px);
+  font-weight: var(--font-semibold, 600);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--marbl-ember, #f35227);
+  margin-bottom: clamp(10px, 0.78vw + 7.5px, 20px);
+}
+
+/* ==========================================================================
+   Clock
+   ========================================================================== */
+
+.menu-overlay__section--clock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.menu-clock {
+  position: relative;
+  width: clamp(200px, 20vw, 320px);
+  height: clamp(200px, 20vw, 320px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-clock__face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Tick marks styled via JS — base styles */
+.menu-clock__tick {
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  transition: stroke var(--transition-slow, 0.3s ease);
+}
+
+.menu-clock__tick--active {
+  stroke: var(--marbl-ember, #f35227);
+}
+
+.menu-clock__digital {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-heading, 'Urbanist', sans-serif);
+  font-size: clamp(32px, 3.5vw, 56px);
+  font-weight: var(--font-bold, 700);
+  color: var(--marbl-white, #ffffff);
+  letter-spacing: 4px;
+}
+
+/* ==========================================================================
+   Contact
+   ========================================================================== */
+
+.menu-overlay__section-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs, 10px);
+}
+
+.menu-overlay__section-links a {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-base, 15px);
+  color: var(--marbl-white, #ffffff);
+  text-decoration: none;
+  transition: color var(--transition-slow, 0.3s ease);
+}
+
+.menu-overlay__section-links a:hover {
+  color: var(--marbl-ember, #f35227);
+}
+
+/* Legal links — smaller, subdued */
+.menu-overlay__section--legal .menu-overlay__section-links a {
+  font-size: var(--text-xs, 11px);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.menu-overlay__section--legal .menu-overlay__section-links a:hover {
+  color: var(--marbl-ember, #f35227);
+}
+
+/* ==========================================================================
+   Connect — Social Icons
+   ========================================================================== */
+
+.menu-overlay__social {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 0.78vw + 7.5px, 20px);
+}
+
+.menu-overlay__social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xl, 20px);
+  color: var(--marbl-white, #ffffff);
+  text-decoration: none;
+  transition: color var(--transition-slow, 0.3s ease), transform var(--transition-slow, 0.3s ease);
+}
+
+.menu-overlay__social a:hover {
+  color: var(--marbl-ember, #f35227);
+  transform: translateY(-2px);
+}
+
+/* Header + menu-toggle styles live in site-header.css (canonical single source).
+   They used to be duplicated here - removed 20 April 2026 to stop cascade fights
+   that were forcing a border-bottom Richard had explicitly turned off. */
+
+/* ==========================================================================
+   Mobile
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* .site-header mobile padding lives in site-header.css (canonical owner) */
+
+  .menu-overlay__content {
+    display: flex;
+    flex-direction: column;
+    padding: 100px var(--gap-sm, 20px) var(--gap-sm, 20px);
+    gap: var(--gap-md, 40px);
+  }
+
+  .menu-overlay__left {
+    flex: none;
+  }
+
+  /* Hide clock on mobile */
+  .menu-overlay__centre {
+    display: none;
+  }
+
+  /* Blur header background when menu is open */
+  .site-header.menu-is-open {
+    background: rgba(19, 17, 18, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .menu-overlay__right {
+    flex: none;
+    margin-right: 0;
+    padding-right: 0;
+  }
+
+  .menu-overlay__nav-item a {
+    font-size: clamp(28px, 9vw, 48px);
+    padding: var(--gap-half, 5px) 0;
+  }
+}
+
+/* ==========================================================================
+   Focus states (keyboard navigation)
+   Universal :focus-visible from marbl.css provides the ember ring.
+   These ensure interactive elements inside the overlay are visible on tab.
+   ========================================================================== */
+
+.menu-overlay__nav-item a:focus-visible {
+  outline-offset: 4px;
+}
+
+.menu-overlay__social a:focus-visible,
+.menu-overlay__section-links a:focus-visible {
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Body scroll-lock when the overlay is open (modal)
+   Companion JS adds `.menu-is-open` to <body> on open, removes on close.
+   ========================================================================== */
+body.menu-is-open {
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Reduced Motion — covers every transition, animation, and transform used
+   by the overlay, its children, and the clock.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .menu-overlay,
+  .menu-overlay *,
+  .menu-overlay *::before,
+  .menu-overlay *::after {
+    animation-duration: 0.01s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01s !important;
+  }
+  .menu-overlay__panel { transition: none; }
+  .menu-overlay__nav-item .char { opacity: 1; transform: none; }
+  .menu-clock__tick,
+  .menu-clock__digital,
+  .menu-overlay__nav-item a,
+  .menu-overlay__section-links a,
+  .menu-overlay__social a {
+    transition: none;
+    transform: none;
+  }
+}

@@ -1,0 +1,142 @@
+/**
+ * Site Header - canonical, single source for header + menu-toggle styles.
+ * Depends on: core/marbl-v2.css (tokens, logo animation).
+ *
+ * IMPORTANT:
+ * - static-positioned by default (use .site-header--fixed from marbl.css for sticky)
+ * - NO border-bottom by default (use .site-header--bordered if you want one)
+ */
+
+.site-header {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--gap-sm, 20px) clamp(20px, 1.5625vw + 15px, 40px);
+  background: var(--marbl-charcoal, #171415);
+  border-bottom: none;
+  box-sizing: border-box;
+}
+
+/* Optional border-bottom modifier */
+.site-header--bordered {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Menu-open state: pin header above the menu overlay so logo + close (X)
+   stay visible and reachable. menu.js toggles this class on open/close. */
+.site-header.menu-is-open {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: calc(var(--z-modal, 300) + 10);
+  background: transparent;
+  border-bottom-color: transparent;
+}
+
+.site-header__left,
+.site-header__right {
+  display: flex;
+  align-items: center;
+}
+
+.site-header__left .marbl-logo {
+  display: inline-flex;
+  align-items: center;
+  min-width: 28px;
+  min-height: 28px;
+  color: var(--marbl-ember, #F35226);
+}
+
+/* ==========================================================================
+   Menu Toggle (burger)
+   Circular border with 3 decorative lines (18/13/18) that morph to X when open.
+   Full menu behaviour lives in menu.css + menu.js.
+   ========================================================================== */
+
+.menu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px; /* keeps the 44px circle visually the same, grows the tap target to 52px */
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 50%;
+}
+
+.menu-toggle:focus-visible {
+  outline: 2px solid var(--marbl-ember);
+  outline-offset: 2px;
+}
+
+.menu-toggle:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.menu-toggle__circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-half, 5px);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  transition: border-color var(--transition-base, 0.2s ease);
+}
+
+.menu-toggle:hover .menu-toggle__circle {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.menu-toggle__line {
+  display: block;
+  height: 1.5px;
+  background: var(--marbl-white, #ffffff);
+  border-radius: 1px;
+  transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1),
+              opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1),
+              width 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  transform-origin: center;
+}
+
+/* Decorative 18/13/18 line widths (middle line shorter, hover levels them) */
+.menu-toggle__line:nth-child(1) { width: 18px; }
+.menu-toggle__line:nth-child(2) { width: 13px; }
+.menu-toggle__line:nth-child(3) { width: 18px; }
+
+.menu-toggle:hover .menu-toggle__line:nth-child(2) { width: 18px; }
+
+/* X morph when menu is open (menu.js toggles .is-open on .menu-toggle) */
+.menu-toggle.is-open .menu-toggle__line:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.menu-toggle.is-open .menu-toggle__line:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+
+.menu-toggle.is-open .menu-toggle__line:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .site-header {
+    padding: var(--gap-xs, 10px) var(--gap-sm, 20px);
+  }
+}
+
+/* Reduced motion: no burger line animation */
+@media (prefers-reduced-motion: reduce) {
+  .menu-toggle__line {
+    transition: none;
+  }
+}

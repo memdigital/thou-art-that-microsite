@@ -1,0 +1,213 @@
+/**
+ * Site Footer
+ * Harvested from subscribe.marbl.codes 20 April 2026.
+ * Depends on: core/marbl-v2.css tokens + base .site-footer rules.
+ *
+ * IMPORTANT: static-positioned by default. Apply .site-footer--fixed
+ * modifier (defined in marbl.css) if you need fixed positioning.
+ */
+
+.site-footer {
+  position: static;
+  background: var(--marbl-charcoal, #171415);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  padding: var(--gap-sm, 20px) var(--gap-md, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-sm, 20px);
+  flex-wrap: wrap;
+}
+
+/* Left half */
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs, 10px);
+}
+
+.footer-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color var(--transition-fast, 0.15s ease);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.footer-avatar:hover {
+  border-color: var(--marbl-ember, #F35226);
+}
+
+.footer-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm, 20px);
+  flex-wrap: wrap;
+}
+
+.footer-links a,
+.footer-link-button {
+  color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
+  text-decoration: none;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-sm, 13px);
+  font-weight: var(--font-regular, 400);
+  line-height: 1;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color var(--transition-fast, 0.15s ease);
+}
+
+.footer-links a:hover,
+.footer-link-button:hover {
+  color: var(--marbl-white, #ffffff);
+}
+
+/* Thou Art That sits alongside the other footer links — same colour,
+   same weight, same hover. No ember highlight (footer is quiet chrome). */
+
+/* Right half */
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs, 10px);
+}
+
+/* .btn-icon-social is defined in core/marbl-v2.css - canonical across the site.
+   Don't re-declare here. */
+
+/* Impressum tooltip - hidden by default, reveals on hover or focus */
+.footer-impressum {
+  position: relative;
+}
+
+/* Reset browser <button> chrome - no border, no shading. Colour comes from
+   the .btn-icon-social class applied alongside this one (grey at rest, ember
+   on hover). Do NOT set color here — `color: inherit` was walking up to the
+   body and winning over .btn-icon-social, turning the icon white. */
+.footer-impressum__trigger {
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* Universal :focus-visible from marbl.css handles the ember ring.
+   Extra offset for this small icon button. */
+.footer-impressum__trigger:focus-visible {
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Focus-visible on footer links (matches hover states) */
+.footer-links a:focus-visible,
+.footer-link-button:focus-visible {
+  color: var(--marbl-ember, #F35226);
+}
+
+.footer-avatar:focus-visible {
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+/* Quiet impressum tooltip: blends with page chrome.
+   Same bg as main (--marbl-charcoal), smaller padding + font, lighter weight. */
+.footer-impressum__tooltip {
+  position: absolute;
+  bottom: calc(100% + var(--gap-xs, 10px));
+  right: 0;
+  min-width: 240px;
+  padding: var(--gap-xs, 10px) 14px;
+  background: var(--marbl-charcoal, #171415);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius, 10px);
+  font-size: var(--text-xs, 11px);
+  font-weight: var(--font-light, 300);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--transition-base, 0.2s ease), transform var(--transition-base, 0.2s ease);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.footer-impressum:hover .footer-impressum__tooltip,
+.footer-impressum:focus-within .footer-impressum__tooltip,
+.footer-impressum__trigger:focus + .footer-impressum__tooltip,
+.footer-impressum.is-pinned .footer-impressum__tooltip {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Mobile tooltip base transform aligns with desktop (translateY 4px) */
+
+/* Mobile */
+@media (max-width: 768px) {
+  .site-footer {
+    flex-direction: column;
+    gap: var(--gap-sm, 20px);
+    padding: var(--gap-sm, 20px);
+    text-align: center;
+  }
+
+  /* Avatar on its own line, then links stack vertically centred.
+     Every child aligns to the column cross-axis. */
+  .footer-left {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-sm, 20px);
+    width: 100%;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-xs, 10px);
+    width: 100%;
+  }
+
+  /* Thou Art That: white + bold on mobile only.
+     Higher specificity than .footer-links a to override its font: inherit. */
+  .footer-links .footer-link-featured {
+    color: var(--marbl-white, #ffffff) !important;
+    font-weight: var(--font-bold, 700) !important;
+  }
+
+  .footer-right {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .footer-impressum__tooltip {
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, 4px);
+  }
+
+  .footer-impressum:hover .footer-impressum__tooltip,
+  .footer-impressum:focus-within .footer-impressum__tooltip,
+  .footer-impressum.is-pinned .footer-impressum__tooltip {
+    transform: translate(-50%, 0);
+  }
+}

@@ -1,0 +1,278 @@
+/**
+ * Cookie Consent Banner
+ * Bottom-right banner injected by marbl-core.js. Styling aligned with
+ * Brand Kit + UI Items (Apr 2026): canonical card container, canonical
+ * solid-mini button hover, footer-style quiet links.
+ *
+ * !important on positioning / radius / padding fights the inline styles
+ * marbl-core.js sets when it injects the element.
+ */
+
+.cookie-consent {
+  position: fixed !important;
+  bottom: var(--gap-sm, 20px) !important;
+  right: var(--gap-sm, 20px) !important;
+  left: auto !important;
+  top: auto !important;
+  width: auto !important;
+  max-width: 420px !important;
+  padding: var(--gap-sm, 20px) !important;
+  background: var(--marbl-charcoal, #171415) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: var(--radius, 10px) !important;
+  box-shadow: none !important;
+  z-index: 200 !important;
+  text-align: left !important;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+  pointer-events: none;
+}
+
+.cookie-consent.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Inner content stack - 10px gaps between label, text, footer (brand-kit gap-xs).
+   align-items: stretch + text-align: left are defensive against any legacy
+   core rule that might try to centre the flex children horizontally (the
+   v1 `marbl.css` block that used to live here did exactly that, and its
+   ghost haunted the banner on 24 Apr 2026 until the dead block was
+   deleted). Keep these !important so the banner reads left-aligned. */
+.cookie-consent-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: var(--gap-xs, 10px) !important;
+  text-align: left !important;
+  margin: 0 !important;
+}
+
+.cookie-consent.is-hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  transition-duration: 0.2s;
+}
+
+/* Greeting label - on its own line, white uppercase (Label Style but in white
+   rather than ember for a warmer tone). */
+.cookie-consent-label {
+  display: block !important;
+  font-family: var(--font-body, 'Inter', sans-serif) !important;
+  font-size: var(--text-xs, 11px) !important;
+  font-weight: var(--font-semibold, 600) !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+  color: var(--marbl-ember, #F35226) !important; /* Label Style — ember per canonical UI Items labels */
+  margin: 0 !important;
+}
+
+.cookie-consent-text {
+  font-family: var(--font-body, 'Inter', sans-serif) !important;
+  font-size: var(--text-base, 15px) !important;
+  font-weight: var(--font-light, 300) !important;
+  line-height: 1.55 !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin: 0 !important;
+}
+
+/* "lovely bis-cu-its?" accent - Petrona italic, white, a couple of ems
+   larger than statement text */
+.cookie-consent-accent {
+  font-family: var(--font-accent, 'Petrona', serif);
+  font-style: italic;
+  font-weight: var(--font-medium, 500);
+  font-size: 1.3em;
+  line-height: 1;
+  color: var(--marbl-white, #ffffff);
+}
+
+/* Footer row: links left, button right, sits flush against the statement text. */
+.cookie-consent-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm, 20px);
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 0;
+}
+
+.cookie-consent-links {
+  font-size: var(--text-xs, 11px) !important;
+  font-weight: var(--font-light, 300) !important;
+  margin: 0 !important;
+  display: flex;
+  gap: var(--gap-sm, 20px);
+  flex-wrap: wrap;
+}
+
+.cookie-consent-links a,
+.cookie-consent-text a {
+  color: rgba(255, 255, 255, 0.6) !important; /* AA: 5.0:1 on charcoal, was 0.5 (4.07:1, failed AA) */
+  text-decoration: none;
+  transition: color var(--transition-fast, 0.15s ease);
+}
+
+.cookie-consent-links a:hover,
+.cookie-consent-text a:hover {
+  color: var(--marbl-white, #ffffff) !important;
+}
+
+/* Canonical Outline button from UI Items: white outline at rest, border +
+   text go ember on hover, circle-wrapped arrow icon rotates up-right to right. */
+.cookie-consent-btn {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 36px !important;
+  padding: 0 var(--gap-sm, 20px) !important;
+  font-family: var(--font-body, 'Inter', sans-serif) !important;
+  font-size: var(--text-xs, 12px) !important;
+  font-weight: var(--font-semibold, 600) !important;
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius, 10px) !important;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--transition-base, 0.2s ease), border-color var(--transition-base, 0.2s ease);
+}
+
+/* Cookie icon: bare SVG (no circle bg), angled up at rest, rotates + turns
+   ember on hover. */
+.cookie-consent-btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: var(--gap-xs, 10px);
+  color: #ffffff;
+  flex-shrink: 0;
+  transform: rotate(-15deg);
+  transition: color var(--transition-slow, 0.3s ease), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cookie-consent-btn__icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.cookie-consent-btn:hover {
+  color: var(--marbl-ember, #F35226);
+  border-color: var(--marbl-ember, #F35226);
+}
+
+.cookie-consent-btn:hover .cookie-consent-btn__icon {
+  color: var(--marbl-ember, #F35226);
+  transform: rotate(10deg);
+}
+
+.cookie-consent-btn:focus-visible {
+  outline: 2px solid var(--marbl-ember, #F35226);
+  outline-offset: 2px;
+}
+
+/* Reduced motion - no transitions */
+@media (prefers-reduced-motion: reduce) {
+  .cookie-consent,
+  .cookie-consent-btn,
+  .cookie-consent-btn__icon,
+  .cookie-consent-btn__icon svg {
+    transition: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Confetti burst: 16 ember-shade particles in mixed shapes arc up
+   from the bottom-right when Accept is clicked. Smooth cubic-bezier
+   physics - rise, peak, drift + tumble + fall.
+   ═══════════════════════════════════════════════════════════════ */
+/* Container is a 1px anchor that JS positions at the button's centre
+   before firing the burst. All crumbs start from this exact point and
+   explode outward - so the burst reads as coming from the button. */
+.cookie-crumbs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.crumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  margin-top: -3px;
+  background: var(--marbl-ember, #F35226);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* Radial spread: drift-x (-140 to +140) + upward arc (160-260px).
+   Colours across 5 ember shades. Shapes: circles, squares, thin ribbons. */
+.crumb--1  { width: 6px;  height: 6px;  border-radius: 50%; background: #FF7B4A; --drift-x: -120px; --arc-h: 180px; --spin: 420deg; }
+.crumb--2  { width: 4px;  height: 8px;  border-radius: 1px; background: #F35226; --drift-x: -90px;  --arc-h: 230px; --spin: -540deg; }
+.crumb--3  { width: 5px;  height: 5px;  border-radius: 1px; background: #BB2F09; --drift-x: -60px;  --arc-h: 250px; --spin: 360deg; }
+.crumb--4  { width: 3px;  height: 10px; border-radius: 1px; background: #FFA17A; --drift-x: -30px;  --arc-h: 210px; --spin: -300deg; }
+.crumb--5  { width: 7px;  height: 7px;  border-radius: 50%; background: #F35226; --drift-x: 10px;   --arc-h: 260px; --spin: 480deg; }
+.crumb--6  { width: 4px;  height: 4px;  border-radius: 50%; background: #BB2F09; --drift-x: 40px;   --arc-h: 200px; --spin: -420deg; }
+.crumb--7  { width: 3px;  height: 9px;  border-radius: 1px; background: #FF7B4A; --drift-x: 70px;   --arc-h: 220px; --spin: 540deg; }
+.crumb--8  { width: 6px;  height: 6px;  border-radius: 1px; background: #8F2206; --drift-x: 110px;  --arc-h: 190px; --spin: -360deg; }
+.crumb--9  { width: 3px;  height: 11px; border-radius: 1px; background: #F35226; --drift-x: -140px; --arc-h: 160px; --spin: 300deg; }
+.crumb--10 { width: 5px;  height: 5px;  border-radius: 50%; background: #FFA17A; --drift-x: -70px;  --arc-h: 270px; --spin: -480deg; }
+.crumb--11 { width: 4px;  height: 8px;  border-radius: 1px; background: #BB2F09; --drift-x: -15px;  --arc-h: 240px; --spin: 420deg; }
+.crumb--12 { width: 8px;  height: 4px;  border-radius: 1px; background: #FF7B4A; --drift-x: 30px;   --arc-h: 195px; --spin: -540deg; }
+.crumb--13 { width: 5px;  height: 5px;  border-radius: 50%; background: #F35226; --drift-x: 80px;   --arc-h: 280px; --spin: 360deg; }
+.crumb--14 { width: 3px;  height: 10px; border-radius: 1px; background: #8F2206; --drift-x: 130px;  --arc-h: 170px; --spin: -300deg; }
+.crumb--15 { width: 7px;  height: 3px;  border-radius: 1px; background: #FFA17A; --drift-x: 145px;  --arc-h: 215px; --spin: 480deg; }
+.crumb--16 { width: 4px;  height: 4px;  border-radius: 50%; background: #F35226; --drift-x: 0px;    --arc-h: 285px; --spin: -360deg; }
+
+.cookie-crumbs.is-bursting .crumb {
+  animation: confetti-burst 1.1s cubic-bezier(0.22, 0.75, 0.38, 1) forwards;
+}
+
+/* All crumbs fire together - no stagger = single puff burst, fewer
+   animation start events for the compositor to schedule. */
+
+/* Lean 3-keyframe arc - GPU-composited via translate3d. Browser
+   interpolates smoothly between origin, peak, fall. No per-keyframe
+   calc() churn. */
+@keyframes confetti-burst {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translate3d(calc(var(--drift-x, 0px) * 0.5), calc(var(--arc-h, 220px) * -1), 0) rotate(calc(var(--spin, 360deg) * 0.5));
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--drift-x, 0px), 60px, 0) rotate(var(--spin, 360deg));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cookie-crumbs { display: none; }
+}
+
+/* Mobile - stretch full-width with side gutters */
+@media (max-width: 600px) {
+  .cookie-consent {
+    right: var(--gap-sm, 20px) !important;
+    left: var(--gap-sm, 20px) !important;
+    max-width: none !important;
+  }
+}

@@ -1,0 +1,58 @@
+/**
+ * Waveform Player wrapper
+ * Harvested from marbl.codes/thou-art-that 20 April 2026.
+ * Depends on: ArrayPress WaveformPlayer v1.5.2 CSS + JS.
+ *
+ * The library renders its own title + play button + time code.
+ * This wrapper adds spacing, focus treatment, brand alignment,
+ * native <audio> fallback styling, and container-query responsive
+ * layout so the player self-responds to whatever column it is placed in.
+ */
+
+.marbl-waveform {
+  container-type: inline-size;
+  container-name: waveform-player;
+  margin: var(--gap-sm, 20px) 0;
+  min-height: 60px;
+}
+
+/* Marbl-brand focus ring on library's internal play button */
+.marbl-waveform [data-waveform-player] button:focus-visible {
+  outline: 2px solid var(--marbl-ember, #F35226);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+/* Native <audio> fallback - visible until JS hides it on successful init */
+.marbl-waveform .mwp-fallback {
+  width: 100%;
+  margin-top: var(--gap-xs, 10px);
+  border-radius: var(--radius, 10px);
+}
+
+/* Hide fallback when waveform player initialised successfully */
+.marbl-waveform .mwp-fallback[hidden] {
+  display: none;
+}
+
+/* Narrow container: stack the pill above the waveform so the player
+ * remains usable in a sidebar, aux panel, or mobile column. Triggered
+ * by the component's own container size (not the viewport), so the
+ * player responds to its column, not the page. Consumers do not need
+ * to add responsive CSS for narrow placements. */
+@container waveform-player (max-width: 400px) {
+  .marbl-waveform .mwp-inline {
+    flex-wrap: wrap;
+  }
+  .marbl-waveform .mwp-controls-pill,
+  .marbl-waveform .mwp-waveform-area {
+    width: 100%;
+  }
+  .marbl-waveform .mwp-controls-pill {
+    margin-bottom: var(--gap-xs, 10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* ArrayPress v1.5.2 has no CSS animations. Revisit on library upgrade. */
+}
