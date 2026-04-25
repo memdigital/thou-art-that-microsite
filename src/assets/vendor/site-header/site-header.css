@@ -62,7 +62,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px; /* keeps the 44px circle visually the same, grows the tap target to 52px */
+  padding: 0;
   -webkit-appearance: none;
   appearance: none;
   border-radius: 50%;
@@ -83,8 +83,8 @@
   align-items: center;
   justify-content: center;
   gap: var(--gap-half, 5px);
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.3);
   background: transparent;
@@ -106,12 +106,12 @@
   transform-origin: center;
 }
 
-/* Decorative 18/13/18 line widths (middle line shorter, hover levels them) */
-.menu-toggle__line:nth-child(1) { width: 18px; }
-.menu-toggle__line:nth-child(2) { width: 13px; }
-.menu-toggle__line:nth-child(3) { width: 18px; }
+/* Decorative 20/15/20 line widths (middle line shorter, hover levels them) */
+.menu-toggle__line:nth-child(1) { width: 20px; }
+.menu-toggle__line:nth-child(2) { width: 15px; }
+.menu-toggle__line:nth-child(3) { width: 20px; }
 
-.menu-toggle:hover .menu-toggle__line:nth-child(2) { width: 18px; }
+.menu-toggle:hover .menu-toggle__line:nth-child(2) { width: 20px; }
 
 /* X morph when menu is open (menu.js toggles .is-open on .menu-toggle) */
 .menu-toggle.is-open .menu-toggle__line:nth-child(1) {
