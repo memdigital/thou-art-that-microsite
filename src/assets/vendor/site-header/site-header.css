@@ -23,6 +23,22 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+/* Optional sticky-fixed modifier — pins header above scrolling content.
+ * Use sparingly. Documented in site-header.md but the implementation was
+ * missing until 25 April 2026 (caught when subscribe.marbl.codes' 100vh
+ * layout lost its footer after a hidden `.site-header { position: fixed }`
+ * hack in local menu.css was removed). Now properly canonical.
+ *
+ * NOTE: consumer pages using --fixed must top-pad downstream content by
+ * the header height (~90px) to avoid underlap. */
+.site-header--fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-fixed, 200);
+}
+
 /* Menu-open state: pin header above the menu overlay so logo + close (X)
    stay visible and reachable. menu.js toggles this class on open/close. */
 .site-header.menu-is-open {
