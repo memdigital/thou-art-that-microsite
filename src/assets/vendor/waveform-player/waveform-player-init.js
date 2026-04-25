@@ -47,11 +47,18 @@
 
     var players = document.querySelectorAll('[data-waveform-player]:not([data-waveform-initialized])');
     players.forEach(function (player) {
+      // Capture the .mwp-waveform-area container BEFORE init — the library
+      // wraps the [data-waveform-player] element in a `.waveform-player` div,
+      // which moves player.parentElement away from .mwp-waveform-area and
+      // breaks any post-init parent-relative queries (notably the fallback hide).
+      var area = player.closest('.mwp-waveform-area');
       try {
         new WaveformPlayer(player);
         player.setAttribute('data-waveform-initialized', 'true');
-        // Hide native audio fallback on successful init
-        var fallback = player.parentElement && player.parentElement.querySelector('audio.mwp-fallback');
+        // Hide native audio fallback on successful init.
+        // Use the pre-captured `area` reference (closest .mwp-waveform-area)
+        // because player.parentElement is now the library wrapper.
+        var fallback = area && area.querySelector('audio.mwp-fallback');
         if (fallback) fallback.hidden = true;
       } catch (e) {
         // Init failed - native <audio> fallback stays visible
