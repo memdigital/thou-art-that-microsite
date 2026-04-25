@@ -4,15 +4,16 @@
    Inherits marbl.css design tokens + menu.css for the burger overlay.
    =================================================================== */
 
+/* Use marbl.css tokens directly; only add microsite-specific layout tokens */
 :root {
-  --tat-bg: #0d0b0c;
-  --tat-surface: #161415;
-  --tat-border: rgba(255, 255, 255, 0.08);
-  --tat-border-soft: rgba(255, 255, 255, 0.05);
-  --tat-text: rgba(255, 255, 255, 0.88);
-  --tat-text-muted: rgba(255, 255, 255, 0.55);
-  --tat-text-dim: rgba(255, 255, 255, 0.4);
-  --tat-ember: #F35226;
+  --tat-bg: var(--marbl-charcoal, #171415);
+  --tat-surface: var(--marbl-charcoal-light, #1d1a1b);
+  --tat-border: var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+  --tat-border-soft: var(--marbl-white-05, rgba(255, 255, 255, 0.05));
+  --tat-text: var(--marbl-white-90, rgba(255, 255, 255, 0.9));
+  --tat-text-muted: var(--marbl-white-70, rgba(255, 255, 255, 0.7));
+  --tat-text-dim: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
+  --tat-ember: var(--marbl-ember, #F35226);
   --tat-ember-soft: rgba(243, 82, 38, 0.12);
 
   --tat-sidebar-width: 280px;
@@ -24,20 +25,15 @@
   --tat-font-accent: 'Petrona', Georgia, serif;
 }
 
-/* Body, overriding marbl core for the deeper charcoal */
-html, body {
-  background: var(--tat-bg);
-  color: var(--tat-text);
-  font-family: var(--tat-font-body);
-  font-size: 16px;
-  line-height: 1.7;
-  margin: 0;
-}
-
+/* Body background/colour comes from marbl-components.css; leave that alone.
+   Only set page-level layout constraints here. */
 .tat-body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: var(--tat-font-body);
+  font-size: 16px;
+  line-height: 1.7;
 }
 
 /* ===================================================================
@@ -45,19 +41,21 @@ html, body {
    Kept flush with viewport edges; spans full width.
    =================================================================== */
 
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 40;
+/* Non-sticky header (per Richard's preference for this microsite).
+   Uses BRAND.md spacing: 24px vertical (var(--space-6)), 40px horizontal (var(--space-10)). */
+.tat-body .site-header {
+  position: static;
+  top: auto;
+  left: auto;
+  right: auto;
+  z-index: auto;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--tat-header-height);
-  padding: 0 40px;
-  background: var(--tat-bg);
-  border-bottom: 1px solid var(--tat-border-soft);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: var(--space-6, 24px) var(--space-10, 40px);
+  background: var(--marbl-charcoal, #171415);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   box-sizing: border-box;
 }
 
@@ -84,6 +82,20 @@ html, body {
   width: 100%;
   min-height: calc(100vh - var(--tat-header-height));
   box-sizing: border-box;
+  position: relative;
+}
+
+/* Full-height divider line between sidebar and content.
+   Lives on the shell so it spans the grid row (tallest child), not just the sticky sidebar. */
+.tat-shell::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--tat-sidebar-width);
+  width: 1px;
+  background: var(--tat-border-soft);
+  pointer-events: none;
 }
 
 /* ===================================================================
@@ -91,13 +103,12 @@ html, body {
    =================================================================== */
 
 .tat-sidebar {
-  border-right: 1px solid var(--tat-border-soft);
-  padding: 32px 24px;
-  background: var(--tat-bg);
+  padding: 48px 24px 32px;
+  background: transparent;
   position: sticky;
-  top: var(--tat-header-height);
+  top: 0;
   align-self: start;
-  max-height: calc(100vh - var(--tat-header-height));
+  max-height: 100vh;
   overflow-y: auto;
   box-sizing: border-box;
 
@@ -178,7 +189,7 @@ html, body {
    =================================================================== */
 
 .tat-content {
-  padding: 56px 56px 96px;
+  padding: var(--gap-xl, 80px) var(--space-10, 40px) var(--gap-2xl, 100px);
   min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
@@ -219,32 +230,31 @@ html, body {
   margin-bottom: 4px;
 }
 
+/* Secondary-button pattern per BRAND.md */
 .tat-subnav__link {
   display: inline-flex;
   align-items: center;
-  padding: 6px 14px;
+  padding: 8px 16px;
   font-family: var(--tat-font-body);
   font-size: 13px;
   font-weight: 500;
   line-height: 1.2;
-  color: var(--tat-text-muted);
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   background: transparent;
-  border: 1px solid var(--tat-border);
-  border-radius: 12px;
-  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg, 12px);
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
 
 .tat-subnav__link:hover {
-  color: var(--tat-text);
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--marbl-ember, #F35226);
+  border-color: var(--marbl-ember, #F35226);
 }
 
 .tat-subnav__link[aria-current="page"] {
-  color: var(--tat-ember);
-  background: var(--tat-ember-soft);
-  border-color: var(--tat-ember);
+  color: var(--marbl-ember, #F35226);
+  border-color: var(--marbl-ember, #F35226);
   font-weight: 600;
 }
 
@@ -254,20 +264,10 @@ html, body {
 
 .tat-audio {
   max-width: var(--tat-content-max);
-  margin: 0 auto;
+  margin: 0 auto 32px;
   padding: 0;
   background: transparent;
   border: none;
-}
-
-.tat-audio__title {
-  font-family: var(--tat-font-body);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--tat-text-dim);
-  margin: 0 0 8px;
 }
 
 .tat-audio [data-waveform-player] {
@@ -536,53 +536,64 @@ html, body {
    SECTION-LANDING CARDS (links to sub-pages from a category page)
    =================================================================== */
 
+/* Section-index cards - Marbl panel pattern per BRAND.md */
 .tat-section-index {
   max-width: var(--tat-content-max);
-  margin: 48px auto 0;
-  padding-top: 32px;
-  border-top: 1px solid var(--tat-border-soft);
+  width: 100%;
+  margin: var(--gap-md, 40px) auto 0;
+  padding-top: var(--space-8, 32px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
+  gap: var(--space-3, 12px);
 }
 
 .tat-section-index__eyebrow {
-  font-size: 11px;
+  font-size: var(--text-xs, 11px);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--tat-text-dim);
-  margin-bottom: 4px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: var(--space-2, 8px);
 }
 
 .tat-section-index__item {
-  display: block;
-  padding: 18px 22px;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid var(--tat-border-soft);
-  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4, 16px);
+  padding: var(--space-5, 20px) var(--space-6, 24px);
+  background: var(--marbl-charcoal-lighter, #232021);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg, 12px);
   color: #fff;
   text-decoration: none;
-  transition: border-color 0.15s, background-color 0.15s;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .tat-section-index__item:hover {
-  border-color: var(--tat-ember);
-  background: rgba(243, 82, 38, 0.04);
+  border-color: var(--marbl-ember, #F35226);
+}
+
+.tat-section-index__item:hover .tat-section-index__item-arrow {
+  transform: translateX(4px);
 }
 
 .tat-section-index__item-title {
   font-family: var(--tat-font-head);
-  font-size: 17px;
-  font-weight: 700;
-  display: block;
-  margin-bottom: 2px;
+  font-size: var(--text-base, 15px);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  order: 1;
 }
 
 .tat-section-index__item-arrow {
-  float: right;
-  color: var(--tat-ember);
+  order: 2;
+  color: var(--marbl-ember, #F35226);
   font-weight: 700;
+  font-size: 16px;
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
 }
 
 /* ===================================================================
@@ -610,21 +621,21 @@ html, body {
 .tat-github-chip {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid var(--tat-border);
-  border-radius: 999px;
-  color: #fff;
+  gap: var(--space-2, 8px);
+  padding: 10px 18px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg, 12px);
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
-  font-size: 13px;
+  font-size: var(--text-sm, 13px);
   font-weight: 500;
-  transition: border-color 0.15s, background-color 0.15s;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
 
 .tat-github-chip:hover {
-  border-color: rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--marbl-ember, #F35226);
+  border-color: var(--marbl-ember, #F35226);
 }
 
 .tat-github-chip:focus-visible {
@@ -666,19 +677,17 @@ html, body {
 .tat-pager__link {
   display: flex;
   flex-direction: column;
-  padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--tat-border);
-  border-radius: 14px;
+  padding: var(--space-5, 20px) var(--space-6, 24px);
+  background: var(--marbl-charcoal-lighter, #232021);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg, 12px);
   color: #fff;
   text-decoration: none;
-  transition: border-color 0.15s, background-color 0.15s, transform 0.15s;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .tat-pager__link:hover {
-  border-color: var(--tat-ember);
-  background: rgba(243, 82, 38, 0.04);
-  transform: translateY(-1px);
+  border-color: var(--marbl-ember, #F35226);
 }
 
 .tat-pager__link:focus-visible {
@@ -801,5 +810,186 @@ html, body {
   .tat-meta {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+/* ===================================================================
+   SITE FOOTER - fill the missing impressum + avatar + button styles
+   that never existed in marbl.css, and anchor the footer properly.
+   =================================================================== */
+
+.tat-body .site-footer {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 40px;
+  border-top: 1px solid var(--tat-border-soft);
+  background: var(--tat-bg);
+  color: var(--tat-text-muted);
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.tat-body .footer-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tat-body .footer-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tat-body .footer-links a,
+.tat-body .footer-link-button {
+  color: var(--tat-text-muted);
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.tat-body .footer-links a:hover,
+.tat-body .footer-link-button:hover {
+  color: #fff;
+}
+
+.tat-body .footer-link-featured {
+  color: var(--tat-ember) !important;
+  font-weight: 600;
+}
+
+.tat-body .footer-link-featured:hover {
+  color: var(--tat-ember) !important;
+  text-decoration: underline;
+}
+
+/* Footer avatar (About trigger) - circular button */
+.tat-body .footer-avatar {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.tat-body .footer-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.tat-body .footer-avatar:focus-visible {
+  outline: 2px solid var(--tat-ember);
+  outline-offset: 2px;
+}
+
+/* Footer right (social + impressum) */
+.tat-body .footer-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* btn-icon-social - the small circular icon buttons.
+   Override marbl.css default ember colour to match the footer's muted tone. */
+.tat-body .footer-right .btn-icon-social {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--tat-text-muted);
+  background: transparent;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.tat-body .footer-right .btn-icon-social svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.tat-body .footer-right .btn-icon-social:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Impressum - hide tooltip by default, show on hover/focus */
+.tat-body .footer-impressum {
+  position: relative;
+  display: inline-flex;
+}
+
+.tat-body .footer-impressum__tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  width: 280px;
+  padding: 14px 16px;
+  background: var(--marbl-charcoal-light, #1d1a1b);
+  border: 1px solid var(--tat-border);
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--tat-text-muted);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
+  pointer-events: none;
+  z-index: 10;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.tat-body .footer-impressum:hover .footer-impressum__tooltip,
+.tat-body .footer-impressum:focus-within .footer-impressum__tooltip,
+.tat-body .footer-impressum__trigger:focus + .footer-impressum__tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.tat-body .footer-impressum__trigger {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .tat-body .site-footer {
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .tat-body .footer-left,
+  .tat-body .footer-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tat-body .footer-impressum__tooltip {
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, 4px);
+  }
+
+  .tat-body .footer-impressum:hover .footer-impressum__tooltip,
+  .tat-body .footer-impressum:focus-within .footer-impressum__tooltip {
+    transform: translate(-50%, 0);
   }
 }

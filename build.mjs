@@ -175,21 +175,21 @@ function renderPrevNext(currentSlug) {
   return prevHtml + '\n' + nextHtml;
 }
 
-// --- Audio block (outside article, no card) ---
+// --- Audio block (outside article, no card, no duplicate title) ---
+// The WaveformPlayer renders its own title from data-title, so we don't add our own caption.
 function renderAudio(slug) {
   const audio = pageAudio[slug || ''];
   if (!audio) return '';
   const src = BASE + 'assets/audio/' + audio.file;
   return (
-    '<figure class="tat-audio" role="region" aria-label="' + escapeHtml(audio.title) + '">\n' +
-    '  <figcaption class="tat-audio__title">' + escapeHtml(audio.title) + '</figcaption>\n' +
+    '<div class="tat-audio" role="region" aria-label="' + escapeHtml(audio.title) + '">\n' +
     '  <div data-waveform-player\n' +
     '       data-url="' + escapeHtml(src) + '"\n' +
     '       data-title="' + escapeHtml(audio.title) + '"\n' +
     '       data-waveform-style="line"\n' +
     '       data-waveform-color="rgba(255,255,255,0.25)"\n' +
     '       data-progress-color="#F35226"></div>\n' +
-    '</figure>'
+    '</div>'
   );
 }
 
@@ -317,6 +317,21 @@ function build() {
       );
     }
 
+    // Inject audio block AFTER the first </h1> so the player sits under the title.
+    const audioBlock = renderAudio(slug);
+    let finalBody = bodyHtml;
+    if (audioBlock) {
+      if (finalBody.includes('</h1>')) {
+        finalBody = finalBody.replace('</h1>', '</h1>\n' + audioBlock);
+      } else if (finalBody.includes('</header>')) {
+        // Landing-style page: hero uses <header class="tat-landing__hero">...</header>
+        finalBody = finalBody.replace('</header>', '</header>\n' + audioBlock);
+      } else {
+        // Fallback: prepend
+        finalBody = audioBlock + '\n' + finalBody;
+      }
+    }
+
     const html = applyTemplate(template, {
       slug: slug,
       title: title,
@@ -324,8 +339,8 @@ function build() {
       canonicalPath: slug ? slug + '/' : '',
       sidebar: renderSidebar(slug),
       subnav: renderSubnav(page),
-      audio: renderAudio(slug),
-      content: bodyHtml,
+      audio: '',
+      content: finalBody,
       sectionIndex: renderSectionIndex(page),
       prevNext: renderPrevNext(slug)
     });

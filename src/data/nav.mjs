@@ -77,9 +77,9 @@ export const allPages = nav.flatMap(function (p) {
   return pages;
 });
 
-// Audio files mapped to pages that embed them
+// Audio files mapped to pages that embed them.
+// Landing page does not get audio - the preamble mp3 is the preamble, not a generic intro.
 export const pageAudio = {
-  '': { file: '00-preamble.mp3', title: 'Preamble, narrated by Nura [AI]' },
   'preamble': { file: '00-preamble.mp3', title: 'Preamble, narrated by Nura [AI]' },
   'principles/do-no-harm': { file: '01-do-no-harm.mp3', title: 'Do No Harm, narrated by Nura [AI]' },
   'principles/never-be-a-yes-man': { file: '02-never-be-a-yes-man.mp3', title: 'Never Be a Yes-Man, narrated by Nura [AI]' },

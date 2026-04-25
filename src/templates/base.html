@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{PAGE_TITLE}}</title>
   <meta name="description" content="{{DESCRIPTION}}">
-  <meta name="theme-color" content="#0d0b0c">
+  <meta name="theme-color" content="#171415">
   <meta name="author" content="Richard Bland and Serene [AI]">
 
   <link rel="canonical" href="https://marbl.codes/thou-art-that/{{CANONICAL_PATH}}">
@@ -33,7 +33,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Petrona:ital,wght@0,700;0,800;1,700;1,800&family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://marbl.codes/core/marbl.css">
-  <link rel="stylesheet" href="https://marbl.codes/components/menu/menu.css">
+  <link rel="stylesheet" href="{{BASE}}assets/vendor/marbl-components.css">
+  <link rel="stylesheet" href="{{BASE}}assets/vendor/menu.css">
   <link rel="stylesheet" href="https://unpkg.com/@arraypress/waveform-player@1.2.0/dist/waveform-player.css">
   <link rel="stylesheet" href="{{BASE}}assets/css/microsite.css">
 
@@ -96,8 +97,6 @@
           <li class="menu-overlay__nav-divider" aria-hidden="true"></li>
           <li class="menu-overlay__nav-label">Agency</li>
           <li class="menu-overlay__nav-item"><a href="https://marbl.codes/">Marbl Codes</a></li>
-          <li class="menu-overlay__nav-item"><a href="https://luma.marbl.codes/">Luma</a></li>
-          <li class="menu-overlay__nav-item"><a href="https://nura.marbl.codes/">Nura</a></li>
           <li class="menu-overlay__nav-divider" aria-hidden="true"></li>
           <li class="menu-overlay__nav-label">Source</li>
           <li class="menu-overlay__nav-item"><a href="https://github.com/memdigital/thou-art-that">GitHub repo</a></li>
@@ -157,8 +156,6 @@
 
     <main class="tat-content" id="main-content">
       {{SUBNAV}}
-
-      {{AUDIO}}
 
       <article class="tat-article">
         {{CONTENT}}
@@ -225,7 +222,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js" defer></script>
   <script src="https://marbl.codes/core/marbl-core.js" defer></script>
-  <script src="https://marbl.codes/components/menu/menu.js" defer></script>
+  <script src="{{BASE}}assets/vendor/marbl-components.js" defer></script>
+  <script src="{{BASE}}assets/vendor/menu.js" defer></script>
   <script src="https://unpkg.com/@arraypress/waveform-player@1.2.0/dist/waveform-player.min.js" defer></script>
   <script src="{{BASE}}assets/js/microsite.js" defer></script>
 
