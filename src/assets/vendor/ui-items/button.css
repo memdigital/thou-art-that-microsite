@@ -1,0 +1,229 @@
+/* ===================================================================
+   Canonical Marbl buttons — ui-items §1-3
+   Extracted from ui-items/preview.html, 23 April 2026 (subscribe rollout)
+   Source of truth. Consumers: subscribe.marbl.codes, luma, atlas, etc.
+   =================================================================== */
+
+/* ═══════════════════════════════════════════════════════
+   BUTTONS — SHARED BASE
+   ═══════════════════════════════════════════════════════ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 28px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius, 10px);
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Icon circle */
+.btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background 0.3s ease;
+}
+.btn__icon svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── FILL UP (outline, fills from bottom) ── */
+.btn--fill-up {
+  background: transparent;
+  color: var(--marbl-ember, #F35226);
+  border: 1px solid var(--marbl-ember, #F35226);
+  z-index: 1;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.btn--fill-up::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: var(--marbl-ember, #F35226);
+  border-radius: var(--radius, 10px);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+.btn--fill-up .btn__icon { background: rgba(243,82,38,0.1); color: var(--marbl-ember, #F35226); }
+.btn--fill-up:hover::before { transform: scaleY(1); }
+.btn--fill-up:hover { color: #131112; border-color: var(--marbl-ember, #F35226); }
+.btn--fill-up:hover .btn__icon { background: rgba(0,0,0,0.15); color: #131112; }
+.btn--fill-up:hover .btn__icon svg { transform: rotate(45deg); }
+
+/* ── SOLID (filled ember, darkens on hover) ── */
+.btn--solid {
+  background: var(--marbl-ember, #F35226);
+  color: #131112;
+  border: 1px solid var(--marbl-ember, #F35226);
+  z-index: 1;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.btn--solid::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: var(--marbl-ember-dark, #BB2F09);
+  border-radius: var(--radius, 10px);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+.btn--solid .btn__icon { background: rgba(0,0,0,0.15); color: #131112; }
+.btn--solid:hover::before { transform: scaleY(1); }
+.btn--solid:hover { color: #fff; border-color: var(--marbl-ember-dark, #BB2F09); }
+.btn--solid:hover .btn__icon { background: var(--marbl-white-15, rgba(255,255,255,0.15)); color: #fff; }
+.btn--solid:hover .btn__icon svg { transform: rotate(45deg); }
+
+/* ── OUTLINE (white border, goes ember) ── */
+.btn--outline {
+  background: transparent;
+  color: rgba(255,255,255,0.85);
+  border: 1px solid var(--marbl-white-15, rgba(255,255,255,0.15));
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.btn--outline .btn__icon { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); }
+.btn--outline:hover { border-color: var(--marbl-ember, #F35226); color: var(--marbl-ember, #F35226); }
+.btn--outline:hover .btn__icon { background: rgba(243,82,38,0.1); color: var(--marbl-ember, #F35226); }
+.btn--outline:hover .btn__icon svg { transform: rotate(45deg); }
+
+/* ── GHOST (text + arrow, no bg/border) ── */
+.btn--ghost {
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  height: auto;
+  padding: 14px 0;
+  border-radius: 0;
+  transition: color 0.2s ease;
+}
+.btn--ghost .btn__icon { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); width: 32px; height: 32px; }
+.btn--ghost:hover { color: var(--marbl-ember, #F35226); }
+.btn--ghost:hover .btn__icon { background: rgba(243,82,38,0.1); color: var(--marbl-ember, #F35226); }
+.btn--ghost:hover .btn__icon svg { transform: rotate(45deg); }
+
+.btn--ghost-text {
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  height: auto;
+  padding: 14px 0;
+  border-radius: 0;
+  transition: color 0.2s ease;
+  gap: 0;
+}
+.btn--ghost-text:hover { color: var(--marbl-ember, #F35226); }
+
+/* ── Read More (right arrow, slides right on hover) ── */
+.btn--read-more {
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  height: auto;
+  padding: 14px 0;
+  border-radius: 0;
+  transition: color 0.2s ease;
+}
+.btn--read-more .btn__icon { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); width: 32px; height: 32px; }
+.btn--read-more:hover { color: var(--marbl-ember, #F35226); }
+.btn--read-more:hover .btn__icon { background: rgba(243,82,38,0.1); color: var(--marbl-ember, #F35226); }
+.btn--read-more:hover .btn__icon svg { transform: translateX(3px); }
+
+/* ── MINI (36px height) ── */
+.btn--mini {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 8px;
+  border-radius: 8px;
+}
+.btn--mini::before { border-radius: 8px !important; }
+.btn--mini .btn__icon { width: 22px; height: 22px; }
+.btn--mini .btn__icon svg { width: 11px; height: 11px; }
+
+/* ═══════════════════════════════════════════════════════
+   ICON BUTTONS (icon left or right with text — no circle bg)
+   ═══════════════════════════════════════════════════════ */
+.btn__icon--bare {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.btn__icon--bare svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ICON-ONLY BUTTONS
+   ═══════════════════════════════════════════════════════ */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius, 10px);
+  border: 1px solid var(--marbl-white-15, rgba(255,255,255,0.15));
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.btn-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.btn-icon:hover {
+  border-color: var(--marbl-ember, #F35226);
+  color: var(--marbl-ember, #F35226);
+}
+.btn-icon--circle { border-radius: 50%; }
+.btn-icon--filled {
+  background: var(--marbl-ember, #F35226);
+  border-color: var(--marbl-ember, #F35226);
+  color: #131112;
+  transition: background 0.15s ease, filter 0.15s ease;
+}
+.btn-icon--filled:hover {
+  background: var(--marbl-ember-dark, #BB2F09);
+  border-color: var(--marbl-ember-dark, #BB2F09);
+  color: #fff;
+  filter: none;
+}
+.btn-icon--mini { width: 36px; height: 36px; border-radius: 8px; }
+.btn-icon--mini svg { width: 16px; height: 16px; }
+.btn-icon--mini.btn-icon--circle { border-radius: 50%; }
