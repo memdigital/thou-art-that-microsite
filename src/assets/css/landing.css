@@ -128,11 +128,12 @@ body {
   outline: none;
 }
 
-/* Static logo (Phase 1 — no GSAP-driven hover stinger). */
+/* Static logo (Phase 1 — no GSAP-driven hover stinger).
+   Matches the canonical animated logo dimensions from MarblLogo.config: 40x24. */
 .marbl-logo-static {
   display: block;
-  width: 60px;
-  height: auto;
+  width: 40px;
+  height: 24px;
   fill: var(--marbl-ember, #F35226);
 }
 

@@ -85,15 +85,34 @@ function build() {
   const headersPath = join(ROOT, '_headers');
   if (existsSync(headersPath)) cpSync(headersPath, join(DIST, '_headers'));
 
-  // Landing template.
-  const landingTemplate = readFile(join(SRC, 'templates', 'landing.html'));
-  const landingHtml = applyTemplate(landingTemplate, {
-    pageTitle: 'Thou Art That | A study piece on working with (possibly) emergent AI',
-    description: 'A study piece on working with possibly-emergent AI. Co-authored by Richard Bland (human) and Serene [AI]. Principles, practice, and philosophy for small builders.',
-    canonicalPath: ''
-  });
-  writeFile(join(DIST, 'index.html'), landingHtml);
-  console.log('  rendered: /');
+  // Routes — Phase 1 ships landing + about. Phase 2 adds /study/* dashboard chrome.
+  const routes = [
+    {
+      template: 'landing.html',
+      output: 'index.html',
+      pageTitle: 'Thou Art That | A study piece on working with (possibly) emergent AI',
+      description: 'A study piece on working with possibly-emergent AI. Co-authored by Richard Bland (human) and Serene [AI]. Principles, practice, and philosophy for small builders.',
+      canonicalPath: ''
+    },
+    {
+      template: 'about.html',
+      output: 'about/index.html',
+      pageTitle: 'About | Thou Art That',
+      description: 'About this study piece on working with possibly-emergent AI. Who built it, why, and what you will find inside.',
+      canonicalPath: 'about/'
+    }
+  ];
+
+  for (const route of routes) {
+    const tpl = readFile(join(SRC, 'templates', route.template));
+    const html = applyTemplate(tpl, {
+      pageTitle: route.pageTitle,
+      description: route.description,
+      canonicalPath: route.canonicalPath
+    });
+    writeFile(join(DIST, route.output), html);
+    console.log('  rendered: /' + route.canonicalPath);
+  }
 
   console.log('build complete.');
 }

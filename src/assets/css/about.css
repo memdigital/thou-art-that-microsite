@@ -1,0 +1,109 @@
+/* ===================================================================
+   Thou Art That — About page
+   Article-style typography on top of canonical Marbl chrome.
+   Tokens come from marbl-v2.css. Buttons from ui-items/button.css.
+   =================================================================== */
+
+.tat-page-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: var(--gap-lg, 60px) var(--gap-md, 40px) var(--gap-xl, 80px);
+}
+
+.tat-article {
+  max-width: 680px;
+  width: 100%;
+  font-family: var(--marbl-font-body, 'Inter', sans-serif);
+  color: var(--marbl-white-90, rgba(255, 255, 255, 0.9));
+  line-height: 1.7;
+}
+
+.tat-article__eyebrow {
+  font-size: var(--text-xs, 11px);
+  font-weight: var(--font-semibold, 600);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--marbl-ember, #F35226);
+  line-height: 1;
+  margin: 0 0 var(--gap-sm, 20px);
+}
+
+.tat-article__title {
+  font-family: var(--marbl-font-display, 'Urbanist', sans-serif);
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: var(--font-extrabold, 800);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin: 0 0 var(--gap-md, 40px);
+  color: var(--marbl-white, #ffffff);
+}
+
+.tat-article__lede {
+  font-size: clamp(17px, 1.6vw, 19px);
+  line-height: 1.6;
+  color: var(--marbl-white-90, rgba(255, 255, 255, 0.9));
+  margin: 0 0 var(--gap-md, 40px);
+}
+
+.tat-article__lede em {
+  font-family: var(--marbl-font-accent, 'Petrona', Georgia, serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.05em;
+}
+
+.tat-article p {
+  font-size: 16px;
+  margin: 0 0 var(--space-5, 20px);
+  color: var(--marbl-white-70, rgba(255, 255, 255, 0.7));
+}
+
+.tat-article p strong {
+  color: var(--marbl-white, #ffffff);
+  font-weight: var(--font-semibold, 600);
+}
+
+.tat-article__section {
+  font-family: var(--marbl-font-display, 'Urbanist', sans-serif);
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: var(--font-bold, 700);
+  letter-spacing: -0.01em;
+  color: var(--marbl-white, #ffffff);
+  margin: var(--gap-md, 40px) 0 var(--space-4, 16px);
+  padding-top: var(--gap-sm, 20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tat-article ul {
+  margin: 0 0 var(--space-5, 20px);
+  padding-left: var(--gap-sm, 20px);
+}
+
+.tat-article ul li {
+  font-size: 16px;
+  margin-bottom: var(--space-3, 12px);
+  color: var(--marbl-white-70, rgba(255, 255, 255, 0.7));
+}
+
+.tat-article ul li strong {
+  color: var(--marbl-white, #ffffff);
+  font-weight: var(--font-semibold, 600);
+}
+
+.tat-article__note {
+  margin-top: var(--gap-md, 40px);
+  padding: var(--space-4, 16px) var(--space-5, 20px);
+  border-left: 2px solid var(--marbl-ember, #F35226);
+  background: rgba(243, 82, 38, 0.04);
+  border-radius: 0 var(--radius, 10px) var(--radius, 10px) 0;
+  font-size: 14px;
+  color: var(--marbl-white-70, rgba(255, 255, 255, 0.7));
+}
+
+.tat-article__cta-row {
+  margin-top: var(--gap-lg, 60px);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

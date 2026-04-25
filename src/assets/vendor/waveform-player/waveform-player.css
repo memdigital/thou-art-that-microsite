@@ -1,13 +1,19 @@
 /**
- * Waveform Player wrapper
+ * Waveform Player wrapper — Marbl pill-controls + line waveform.
  * Harvested from marbl.codes/thou-art-that 20 April 2026.
- * Depends on: ArrayPress WaveformPlayer v1.5.2 CSS + JS.
+ * Truly canonical from 25 April 2026: pill-controls CSS moved here
+ * from preview.html inline `<style>` block so consumers can drop the
+ * component into any page without copying preview-only styles.
  *
- * The library renders its own title + play button + time code.
- * This wrapper adds spacing, focus treatment, brand alignment,
- * native <audio> fallback styling, and container-query responsive
- * layout so the player self-responds to whatever column it is placed in.
+ * Depends on: ArrayPress WaveformPlayer v1.5.2 CSS + JS, vendored
+ * at marbl-codes/src/website/components/waveform-player/assets/arraypress/v1.5.2/.
+ *
+ * Markup: see waveform-player.md §1 (Structure). The wrapper is
+ *   .marbl-waveform.mwp-custom > .mwp-inline > .mwp-controls-pill +
+ *   .mwp-waveform-area > [data-waveform-player] + audio.mwp-fallback
  */
+
+/* ===== Wrapper ============================================================ */
 
 .marbl-waveform {
   container-type: inline-size;
@@ -16,30 +22,265 @@
   min-height: 60px;
 }
 
-/* Marbl-brand focus ring on library's internal play button */
+/* Marbl-brand focus ring on library's internal play button. */
 .marbl-waveform [data-waveform-player] button:focus-visible {
   outline: 2px solid var(--marbl-ember, #F35226);
   outline-offset: 2px;
   border-radius: 50%;
 }
 
-/* Native <audio> fallback - visible until JS hides it on successful init */
+/* Native <audio> fallback — visible until JS hides it on successful init. */
 .marbl-waveform .mwp-fallback {
   width: 100%;
   margin-top: var(--gap-xs, 10px);
   border-radius: var(--radius, 10px);
 }
 
-/* Hide fallback when waveform player initialised successfully */
 .marbl-waveform .mwp-fallback[hidden] {
   display: none;
 }
 
-/* Narrow container: stack the pill above the waveform so the player
- * remains usable in a sidebar, aux panel, or mobile column. Triggered
- * by the component's own container size (not the viewport), so the
- * player responds to its column, not the page. Consumers do not need
- * to add responsive CSS for narrow placements. */
+/* ===== Inline layout (pill on left, waveform fills remainder) ============== */
+
+.mwp-inline {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm, 20px);
+}
+
+.mwp-inline .mwp-waveform-area {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ===== Hide library native UI when .mwp-custom is set ===================== */
+
+/* Native play button — accessible but visually hidden so our custom pill
+ * controls can drive playback through it (proxy-click pattern). */
+.mwp-custom .waveform-btn {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  pointer-events: none !important;
+}
+
+.mwp-custom .waveform-info {
+  display: none !important;
+}
+
+/* Prevent text selection + outline rings on canvas interaction. */
+.mwp-custom .mwp-waveform-area,
+.mwp-custom [data-waveform-player] {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.mwp-custom [data-waveform-player] canvas,
+.mwp-custom [data-waveform-player] canvas:focus,
+.mwp-custom [data-waveform-player] canvas:active,
+.mwp-custom .waveform-container,
+.mwp-custom .waveform-track {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Transparent waveform background, no glow (canvas glow patched in init.js). */
+.mwp-custom .waveform-player-inner,
+.mwp-custom .waveform-body,
+.mwp-custom .waveform-track,
+.mwp-custom [data-waveform-player] {
+  background: transparent !important;
+}
+
+.mwp-custom .waveform-track canvas {
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+/* ===== Pill controls (canonical Marbl) ===================================== */
+
+.mwp-controls-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius, 10px);
+  padding: var(--gap-half, 5px);
+  background: transparent;
+  flex-shrink: 0;
+  width: 93px;
+  transition: width 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.mwp-controls-pill:hover,
+.mwp-controls-pill:focus-within,
+.mwp-controls-pill.is-expanded {
+  width: 134px;
+}
+
+/* Volume + secondary divider fade in when the pill expands. */
+.mwp-pill-expandable {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.mwp-controls-pill:hover .mwp-pill-expandable,
+.mwp-controls-pill:focus-within .mwp-pill-expandable,
+.mwp-controls-pill.is-expanded .mwp-pill-expandable {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Pill icon buttons (play, volume) — UI Items style: ember on hover, no bg. */
+.mwp-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.mwp-btn:focus-visible {
+  outline: 2px solid var(--marbl-ember, #F35226);
+  outline-offset: 2px;
+}
+
+.mwp-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: rgba(255, 255, 255, 0.5);
+  transition: fill var(--transition-fast, 0.15s ease);
+}
+
+.mwp-btn:hover svg {
+  fill: var(--marbl-ember, #F35226);
+}
+
+/* Play icon optical-centre nudge. */
+.mwp-btn--play .icon-play {
+  margin-left: 2px;
+}
+
+/* Time display. */
+.mwp-time {
+  padding: 0 var(--gap-xs, 10px);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-xs, 11px);
+  font-weight: var(--font-semibold, 600);
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.5px;
+  font-variant-numeric: tabular-nums;
+  height: 40px;
+  line-height: 40px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* Dividers between pill segments. */
+.mwp-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+/* ===== Volume slider (pops out to the right of the pill) =================== */
+
+.mwp-volume-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.mwp-volume-slider {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + var(--gap-xs, 10px));
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: center left;
+  background: var(--marbl-charcoal, #171415);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius, 10px);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--transition-base, 0.2s ease),
+    transform 0.2s cubic-bezier(0.32, 0.72, 0, 1),
+    visibility var(--transition-base, 0.2s ease);
+  z-index: 10;
+}
+
+.mwp-volume-slider.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) scaleX(1);
+}
+
+.mwp-volume-slider input[type="range"] {
+  width: 80px;
+  height: 4px;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  outline: none;
+}
+
+.mwp-volume-slider input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--marbl-ember, #F35226);
+  cursor: pointer;
+  border: none;
+}
+
+.mwp-volume-slider input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--marbl-ember, #F35226);
+  cursor: pointer;
+  border: none;
+}
+
+/* ===== Screen-reader live region (consumers can place anywhere) ============ */
+
+.mwp-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===== Container-query responsive ========================================== */
+
+/* Below 400px container width, pill stacks above the waveform. The
+ * component responds to its parent's column width, not the viewport,
+ * so consumers don't need responsive CSS for narrow placements. */
 @container waveform-player (max-width: 400px) {
   .marbl-waveform .mwp-inline {
     flex-wrap: wrap;
@@ -53,6 +294,14 @@
   }
 }
 
+/* ===== Reduced motion ====================================================== */
+
 @media (prefers-reduced-motion: reduce) {
-  /* ArrayPress v1.5.2 has no CSS animations. Revisit on library upgrade. */
+  .mwp-controls-pill,
+  .mwp-pill-expandable,
+  .mwp-volume-slider,
+  .mwp-btn svg {
+    transition: none !important;
+  }
+  /* ArrayPress v1.5.2 has no CSS animations of its own. Revisit on library upgrade. */
 }
