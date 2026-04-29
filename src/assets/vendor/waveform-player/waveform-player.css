@@ -120,7 +120,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--marbl-white-15, rgba(255, 255, 255, 0.15));
   border-radius: var(--radius, 10px);
   padding: var(--gap-half, 5px);
   background: transparent;
@@ -172,7 +172,7 @@
 .mwp-btn svg {
   width: 14px;
   height: 14px;
-  fill: rgba(255, 255, 255, 0.5);
+  fill: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
   transition: fill var(--transition-fast, 0.15s ease);
 }
 
@@ -191,7 +191,7 @@
   font-family: var(--font-body, 'Inter', sans-serif);
   font-size: var(--text-xs, 11px);
   font-weight: var(--font-semibold, 600);
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
   letter-spacing: 0.5px;
   font-variant-numeric: tabular-nums;
   height: 40px;
@@ -204,7 +204,7 @@
 .mwp-divider {
   width: 1px;
   height: 20px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--marbl-white-08, rgba(255, 255, 255, 0.08));
   flex-shrink: 0;
 }
 
@@ -222,7 +222,7 @@
   transform: translateY(-50%) scaleX(0);
   transform-origin: center left;
   background: var(--marbl-charcoal, #171415);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--marbl-white-15, rgba(255, 255, 255, 0.15));
   border-radius: var(--radius, 10px);
   height: 48px;
   display: flex;
@@ -247,7 +247,7 @@
   width: 80px;
   height: 4px;
   appearance: none;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--marbl-white-15, rgba(255, 255, 255, 0.15));
   border-radius: 2px;
   outline: none;
 }

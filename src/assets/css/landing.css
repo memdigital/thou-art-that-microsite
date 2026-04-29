@@ -1,11 +1,16 @@
 /* ===================================================================
-   Thou Art That — Landing
+   Thou Art That — Landing — LOCKED
    TAT-specific hero rhythm only. Tokens, scrollbar, cursor, button,
    header, footer, menu, cookie banner, waveform-player chrome all
    come from the Marbl design system (marbl-v2.css + canonical
    component CSS) loaded above this file.
 
    Per PLAN.md (locked 24 April 2026, Phase 1).
+   Re-locked 29 April 2026 after canonical chrome re-vendor sweep
+   (menu/site-header/site-footer/marbl-v2/button/cookie-consent/
+   waveform-player CSS resync vs marbl-codes canonical) and burger
+   left-column nav trim to "The piece" + "Source" only. Do not modify
+   landing.html or landing.css without explicit Richard sign-off.
    =================================================================== */
 
 /* Skip link */
@@ -34,6 +39,14 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* When the burger menu opens, .site-header gets .menu-is-open and goes
+   position:fixed (canonical pin behaviour, see site-header.md §4). That
+   removes ~90px of flow space and the centred hero jumps up. Hold the
+   space here while the menu is open. */
+body:has(.site-header.menu-is-open) {
+  padding-top: 90px;
 }
 
 .tat-landing-main {

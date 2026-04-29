@@ -168,7 +168,7 @@
 }
 
 .menu-overlay__section + .menu-overlay__section {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--marbl-white-08, rgba(255, 255, 255, 0.08));
 }
 
 .menu-overlay__section-label {
@@ -253,10 +253,29 @@
   color: var(--marbl-ember, #f35227);
 }
 
+/* Agency links — inline horizontal row (matches social-icons spacing).
+   Bigger type + 50% white at rest (mirrors footer .btn-icon-social
+   colour) so they read as quietly clickable, not shouting. Hover →
+   ember matches the rest of the menu. */
+.menu-overlay__section--agency .menu-overlay__section-links {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: clamp(10px, 0.78vw + 7.5px, 20px);
+}
+
+.menu-overlay__section--agency .menu-overlay__section-links a {
+  font-size: var(--text-xl, 20px);
+  color: var(--marbl-white, #ffffff);
+}
+
+.menu-overlay__section--agency .menu-overlay__section-links a:hover {
+  color: var(--marbl-ember, #f35227);
+}
+
 /* Legal links — smaller, subdued */
 .menu-overlay__section--legal .menu-overlay__section-links a {
   font-size: var(--text-xs, 11px);
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--marbl-white-40, rgba(255, 255, 255, 0.4));
 }
 
 .menu-overlay__section--legal .menu-overlay__section-links a:hover {
@@ -280,10 +299,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 36px;
+  height: 36px;
   font-size: var(--text-xl, 20px);
-  color: var(--marbl-white, #ffffff);
+  color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
   text-decoration: none;
   transition: color var(--transition-slow, 0.3s ease), transform var(--transition-slow, 0.3s ease);
+}
+
+.menu-overlay__social a svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  display: block;
 }
 
 .menu-overlay__social a:hover {
@@ -353,11 +381,29 @@
 }
 
 /* ==========================================================================
-   Body scroll-lock when the overlay is open (modal)
-   Companion JS adds `.menu-is-open` to <body> on open, removes on close.
+   Body scroll-lock + content-shift compensation when the overlay is open.
+
+   menu.js adds `.menu-is-open` to .site-header (NOT to <body>) on open.
+   So we cannot select body.menu-is-open — that selector never matches.
+   Instead, use :has() to react to the descendant header state.
+
+   Why padding-top: when the menu opens, .site-header gets .menu-is-open
+   and goes position:fixed (canonical pin behaviour, see site-header.css).
+   That removes ~90px of flow space and the page content jumps up — the
+   classic "skip" you see in amateur burger implementations. Holding the
+   body padding while open keeps content in place. Built into the canonical
+   menu so consumer sites don't have to know about it.
+
+   :has() support: Chrome 105+, Safari 15.4+, Firefox 121+ (well-supported
+   for our audience). Older browsers degrade gracefully — they still see
+   the jump, but no other breakage.
+
+   (Reconciled 28 Apr 2026 — earlier version selected body.menu-is-open
+   directly, which never matched because menu.js doesn't class the body.)
    ========================================================================== */
-body.menu-is-open {
+body:has(.site-header.menu-is-open) {
   overflow: hidden;
+  padding-top: 90px;
 }
 
 /* ==========================================================================

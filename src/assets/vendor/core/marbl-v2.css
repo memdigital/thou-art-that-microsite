@@ -152,6 +152,7 @@ html {
   text-rendering: optimizeLegibility;
   scrollbar-width: thin;
   scrollbar-color: var(--marbl-ember) var(--marbl-charcoal);
+  scrollbar-gutter: stable;
 }
 
 body {

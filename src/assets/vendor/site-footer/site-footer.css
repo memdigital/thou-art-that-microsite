@@ -10,7 +10,7 @@
 .site-footer {
   position: static;
   background: var(--marbl-charcoal, #171415);
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-top: 1px solid var(--marbl-white-04, rgba(255, 255, 255, 0.04));
   padding: var(--gap-sm, 20px) var(--gap-md, 40px);
   display: flex;
   align-items: center;
@@ -26,12 +26,22 @@
   gap: var(--gap-xs, 10px);
 }
 
+/* .footer-avatar: footer-positioning concerns only.
+   Avatar primitive (size, radius, border, hover) is canonical in
+   ui-items/avatar.css — consumers must load that and apply
+   `.avatar avatar--40` on the same element. Reconciled 28 Apr 2026
+   (was duplicating 36px width/border rules; now matches canonical 40px
+   from .avatar--40). The fallback rules below kick in if avatar.css
+   isn't loaded — they match avatar.css exactly so no visual drift. */
 .footer-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full, 9999px);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--marbl-white-15, rgba(255, 255, 255, 0.15));
   background: transparent;
   padding: 0;
   cursor: pointer;
@@ -138,12 +148,12 @@
   min-width: 240px;
   padding: var(--gap-xs, 10px) 14px;
   background: var(--marbl-charcoal, #171415);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--marbl-white-08, rgba(255, 255, 255, 0.08));
   border-radius: var(--radius, 10px);
   font-size: var(--text-xs, 11px);
   font-weight: var(--font-light, 300);
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
   opacity: 0;
   transform: translateY(4px);
   transition: opacity var(--transition-base, 0.2s ease), transform var(--transition-base, 0.2s ease);

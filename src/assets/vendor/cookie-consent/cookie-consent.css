@@ -18,7 +18,7 @@
   max-width: 420px !important;
   padding: var(--gap-sm, 20px) !important;
   background: var(--marbl-charcoal, #171415) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid var(--marbl-white-08, rgba(255, 255, 255, 0.08)) !important;
   border-radius: var(--radius, 10px) !important;
   box-shadow: none !important;
   z-index: 200 !important;
@@ -75,7 +75,7 @@
   font-size: var(--text-base, 15px) !important;
   font-weight: var(--font-light, 300) !important;
   line-height: 1.55 !important;
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: var(--marbl-white-70, rgba(255, 255, 255, 0.7)) !important;
   margin: 0 !important;
 }
 
@@ -135,7 +135,7 @@
   font-weight: var(--font-semibold, 600) !important;
   color: rgba(255, 255, 255, 0.85);
   background: transparent !important;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--marbl-white-15, rgba(255, 255, 255, 0.15));
   border-radius: var(--radius, 10px) !important;
   cursor: pointer;
   text-decoration: none;
