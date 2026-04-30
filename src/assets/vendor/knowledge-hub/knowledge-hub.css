@@ -335,19 +335,34 @@ html { scroll-behavior: smooth; }
 .kh-nav__item.is-hidden { display: none; }
 .kh-nav__group.is-hidden { display: none; }
 
-/* Home button: lives ABOVE the "Search" heading (sits at the top of the
-   sidebar panel as the primary "back to hub root" affordance). Locked
-   29 Apr 2026 -- was previously below the nav.
-   The button itself is the canonical .btn-icon .btn-icon--mini from
-   ui-items/button.css. The .kh-sidebar__home only handles spacing.
-   Mobile (≤768px): swaps from icon button to a plain text link so the
-   drawer panel reads as a list of nav items. Locked 30 Apr 2026. */
-.kh-sidebar__home {
+/* Sidebar top row: home icon button + search input on a single row.
+   Pulls the Contents nav up the sidebar - the Search heading was
+   removed because the input's placeholder + aria-label carry the
+   meaning, and the heading was just adding vertical noise.
+   Locked 30 Apr 2026. */
+.kh-sidebar__top {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs, 10px);
   margin-bottom: var(--gap-sm, 20px);
+}
+
+.kh-sidebar__top .kh-sidebar__home {
+  flex: 0 0 auto;
+  margin: 0;
   text-decoration: none;
 }
 
-/* Default (desktop): show the icon, hide the label. */
+.kh-sidebar__top .kh-sidebar__search-field {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Mobile home swap (TAT vendor extension - to be ported to canonical):
+   below 768px the home button becomes a plain text "Home" link instead
+   of an icon button. Markup carries both <svg class="kh-sidebar__home-icon">
+   and <span class="kh-sidebar__home-label">Home</span>; CSS swaps which
+   is shown by viewport. */
 .kh-sidebar__home-icon { display: block; }
 .kh-sidebar__home-label { display: none; }
 
@@ -698,9 +713,17 @@ html { scroll-behavior: smooth; }
 
   .kh-sidebar__toggle { display: flex; }
 
-  /* Mobile: drop the icon-button shell entirely, render as a plain text
-     link that matches kh-nav__link spacing/colour so the drawer reads
-     as a unified list. */
+  /* Stack home + search vertically on mobile (the desktop flex row would
+     squeeze too tight in narrow viewports). */
+  .kh-sidebar__top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--gap-xs, 10px);
+  }
+
+  /* Mobile: drop the icon-button shell entirely on home, render as plain
+     text link that matches kh-nav__link spacing/colour. */
+  .kh-sidebar__top .kh-sidebar__home,
   .kh-sidebar__home {
     display: block;
     width: auto;

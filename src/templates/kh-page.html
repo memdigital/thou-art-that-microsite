@@ -184,23 +184,22 @@
 
       <div class="kh-sidebar__panel" id="kh-sidebar-panel">
         <div>
-          <!-- Home button: above the Search heading. href = first content
-               page of the hub (the manifest's first entry), NOT the
-               marketing landing. The site logo handles landing. Locked
-               30 Apr 2026. Canonical icon-only button on desktop;
-               mobile (≤768px) swaps to a plain text link via CSS so the
-               drawer panel reads as a list of nav items rather than a
-               stranded icon button. -->
-          <a class="kh-sidebar__home btn-icon btn-icon--mini" href="{{HUB_HOME_URL}}" aria-label="Back to hub start" title="Hub start">
-            <svg class="kh-sidebar__home-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M3 11L12 3L21 11V20C21 20.5523 20.5523 21 20 21H15V14H9V21H4C3.44772 21 3 20.5523 3 20V11Z"/>
-            </svg>
-            <span class="kh-sidebar__home-label">Home</span>
-          </a>
-
-          <h3 class="kh-sidebar__heading">Search</h3>
-          <div class="kh-sidebar__search-field">
-            <input class="kh-sidebar__search" type="search" placeholder="Type to search..." aria-label="Search the docs" data-search-index="{{BASE}}search-index.json">
+          <!-- Sidebar top row: home icon button (left) + search input (right
+               flexes to fill remaining width). Search heading dropped - the
+               input's placeholder + aria-label carry the meaning. Pulls the
+               Contents nav up the sidebar. Locked 30 Apr 2026.
+               On mobile (≤768px) the home swaps to a plain text "Home" link
+               and the row stacks vertically (see knowledge-hub.css). -->
+          <div class="kh-sidebar__top">
+            <a class="kh-sidebar__home btn-icon btn-icon--mini" href="{{HUB_HOME_URL}}" aria-label="Back to hub start" title="Hub start">
+              <svg class="kh-sidebar__home-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 11L12 3L21 11V20C21 20.5523 20.5523 21 20 21H15V14H9V21H4C3.44772 21 3 20.5523 3 20V11Z"/>
+              </svg>
+              <span class="kh-sidebar__home-label">Home</span>
+            </a>
+            <div class="kh-sidebar__search-field">
+              <input class="kh-sidebar__search" type="search" placeholder="Search..." aria-label="Search the docs" data-search-index="{{BASE}}search-index.json">
+            </div>
           </div>
 
           <h3 class="kh-sidebar__heading">Contents</h3>
