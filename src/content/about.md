@@ -1,7 +1,7 @@
 ---
 eyebrow: About this study piece
 title: About
-lead: "*Thou Art That* is a working study piece on building with possibly-emergent AI, written from inside one small UK consultancy, not from a research lab or a vendor."
+lead: "Thou Art That is a working study piece on building with possibly-emergent AI, written from inside one small UK consultancy, not from a research lab or a vendor."
 ---
 
 The piece sits between philosophy and practice. It documents how Marbl Codes operates when the AI is treated as a collaborator rather than a tool: where the lines are, what stays human-judgement-only, what gets delegated, what the relationship requires from both sides, and what we're still working out.
