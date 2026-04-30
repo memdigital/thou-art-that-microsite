@@ -356,6 +356,15 @@ html { scroll-behavior: smooth; }
 .kh-sidebar__top .kh-sidebar__search-field {
   flex: 1 1 auto;
   min-width: 0;
+  margin: 0;                  /* override the standalone search-field's bottom margin */
+}
+
+.kh-sidebar__top .kh-sidebar__search {
+  height: 40px;               /* match btn-icon--mini (home button is 40x40) */
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  line-height: 38px;          /* 40 - 1 (border-bottom) - 1 (visual) */
 }
 
 /* Mobile home swap (TAT vendor extension - to be ported to canonical):
