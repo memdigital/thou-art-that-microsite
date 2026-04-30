@@ -81,7 +81,9 @@
 
   /* ── Spacing: one scale for everything ── */
   /* Gaps, margins, padding, all use this. Core: 10/20/40. */
+  --gap-3xs: 4px;   /* Tightest hierarchical step — list/TOC item v-padding — locked 30 Apr 2026 */
   --gap-half: 5px;
+  --gap-tight: 6px; /* Typographic micro-rhythm (list-item bottom, label rest) — locked 30 Apr 2026 */
   --gap-2xs: 8px;   /* Tight gap for compact controls (mini buttons) — locked 30 Apr 2026 */
   --gap-xs: 10px;
   --gap-sm: 20px;

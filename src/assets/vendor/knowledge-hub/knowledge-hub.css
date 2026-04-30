@@ -287,7 +287,7 @@ html { scroll-behavior: smooth; }
   padding-left: var(--gap-sm, 20px);
 }
 
-.kh-nav__item { padding: 4px 0; list-style: none; }
+.kh-nav__item { padding: var(--gap-3xs) 0; list-style: none; }
 .kh-nav__item--nested { padding-left: var(--gap-sm, 20px); }
 
 .kh-nav__link {
@@ -466,7 +466,7 @@ html { scroll-behavior: smooth; }
   padding-left: var(--gap-sm, 20px);
 }
 
-.kh-article__body li { margin: 0 0 6px 0; }
+.kh-article__body li { margin: 0 0 var(--gap-tight) 0; }
 
 /* Markdown horizontal rule — `---` in source. Visually collapsed to
    zero footprint: the surrounding h2 (80px top margin) creates the
@@ -558,7 +558,7 @@ html { scroll-behavior: smooth; }
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--marbl-white-40, rgba(255, 255, 255, 0.4));
-  margin-bottom: 6px;
+  margin-bottom: var(--gap-tight);
 }
 
 .kh-pagination__title {
@@ -609,7 +609,7 @@ html { scroll-behavior: smooth; }
 }
 
 .kh-toc__list { list-style: none; padding: 0; margin: 0; }
-.kh-toc__item { padding: 4px 0; }
+.kh-toc__item { padding: var(--gap-3xs) 0; }
 .kh-toc__item--nested { padding-left: var(--gap-xs, 10px); }
 
 .kh-toc__link {
