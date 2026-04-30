@@ -16,6 +16,7 @@
   /* ── Colours ── */
   --marbl-charcoal: #171415;
   --marbl-charcoal-deep: #0d0b0c;
+  --marbl-charcoal-darkest: #131112;  /* Dark text on ember CTA — locked 30 Apr 2026 */
   --marbl-charcoal-light: #1d1a1b;
   --marbl-charcoal-lighter: #232021;
   --marbl-ember: #F35226;
@@ -29,6 +30,7 @@
 
   /* Text opacity scale (white on dark) */
   --marbl-white-90: rgba(255, 255, 255, 0.9);
+  --marbl-white-85: rgba(255, 255, 255, 0.85);  /* Outline button text — locked 30 Apr 2026 */
   --marbl-white-70: rgba(255, 255, 255, 0.7);
   --marbl-white-50: rgba(255, 255, 255, 0.5);
   --marbl-white-40: rgba(255, 255, 255, 0.4);
@@ -40,6 +42,12 @@
   --marbl-white-08: rgba(255, 255, 255, 0.08);
   --marbl-white-06: rgba(255, 255, 255, 0.06);
   --marbl-white-04: rgba(255, 255, 255, 0.04);
+
+  /* Ember opacity scale (ember tinted overlays / hover backgrounds) */
+  --marbl-ember-10: rgba(243, 82, 38, 0.1);
+
+  /* Black opacity scale (dark overlays on light surfaces) */
+  --marbl-black-15: rgba(0, 0, 0, 0.15);
 
   /* Status */
   --color-success: #22c55e;
@@ -73,6 +81,7 @@
   /* ── Spacing: one scale for everything ── */
   /* Gaps, margins, padding, all use this. Core: 10/20/40. */
   --gap-half: 5px;
+  --gap-2xs: 8px;   /* Tight gap for compact controls (mini buttons) — locked 30 Apr 2026 */
   --gap-xs: 10px;
   --gap-sm: 20px;
   --gap-md: 40px;
@@ -84,9 +93,25 @@
   --gap-5xl: 160px;
 
   /* ── Border radius ── */
-  --radius: 10px;
+  --radius-2xs: 2px;       /* Tightest — small UI utility rails (slider tracks) */
+  --radius-xs: 4px;        /* Small focus ring radius */
+  --radius-sm: 8px;        /* Compact controls (mini buttons) */
+  --radius: 10px;          /* Default */
   --radius-lg: 20px;
+  --radius-circle: 50%;    /* Round shapes — locked 30 Apr 2026 */
   --radius-full: 9999px;
+
+  /* ── Icon sizing ── */
+  /* Glyph + container dimensions for icons (separate from gap/spacing).
+     Locked 30 Apr 2026 to remove canonical literals. */
+  --icon-xs: 11px;
+  --icon-sm: 14px;
+  --icon-md: 16px;
+  --icon-lg: 20px;
+  --icon-xl: 22px;
+  --icon-2xl: 28px;
+  --icon-3xl: 32px;
+  --icon-4xl: 48px;
 
   /* ── Borders ── */
   --border-subtle: 1px solid rgba(255, 255, 255, 0.04);

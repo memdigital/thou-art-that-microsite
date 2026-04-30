@@ -1,0 +1,52 @@
+/* ===================================================================
+   Thou Art That — KH content overlay
+   TAT-specific tweaks on top of canonical knowledge-hub.css.
+   Tokens come from marbl-v2.css. Don't redeclare KH internals.
+   =================================================================== */
+
+/* Audio first-child margin now lives in canonical knowledge-hub.css
+   (promoted from TAT-local 30 Apr 2026). */
+
+/* Source markdown sometimes carries a leading blockquote with the audio
+   reference (e.g., do-no-harm.md). When build.mjs strips that block we
+   may end up with an opening empty <blockquote>; hide just-in-case. */
+.kh-article__body > blockquote:empty {
+  display: none;
+}
+
+/* Skip-link visibility (canonical Marbl pattern, mirrors landing.css). */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--marbl-ember, #F35226);
+  color: var(--marbl-charcoal, #131112);
+  padding: var(--gap-xs, 12px) var(--gap-sm, 20px);
+  text-decoration: none;
+  border-radius: 0 0 var(--radius, 10px) 0;
+  font-family: var(--marbl-font-body, 'Inter', sans-serif);
+  font-weight: var(--font-semibold, 600);
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 0;
+  outline: 2px solid var(--marbl-white, #fff);
+  outline-offset: 2px;
+}
+
+/* When the burger menu opens, .site-header gets .menu-is-open and goes
+   position:fixed (canonical pin behaviour, see site-header.md §4). That
+   removes ~90px of flow space and the centred shell jumps up. Hold the
+   space here while the menu is open. Mirrors landing.css. */
+body:has(.site-header.menu-is-open) {
+  padding-top: 90px;
+}
+
+/* View transitions are NOT applied at the kh-content layer.
+   Only the landing + origin-story pages opt in (landing.css + an
+   inline opt-in injected by build.mjs into origin-story specifically),
+   so navigation between study pages stays instant per Richard's call
+   29 Apr 2026. */
+
+/* Audio fallback delayed-reveal now lives in canonical
+   waveform-player.css (promoted from TAT-local 29 Apr 2026). */

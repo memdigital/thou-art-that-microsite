@@ -37,8 +37,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  /* Visible avatar size is 40 (--gap-md) and content-box keeps the
+     1px border outside the 40px content so the rendered avatar is a
+     true 40x40. Locked 30 Apr 2026 (previously border-box squeezed
+     visible content to 38x38). Tokenised to --gap-md. */
+  box-sizing: content-box;
+  width: var(--gap-md, 40px);
+  height: var(--gap-md, 40px);
   border-radius: var(--radius-full, 9999px);
   overflow: hidden;
   border: 1px solid var(--marbl-white-15, rgba(255, 255, 255, 0.15));
@@ -125,7 +130,7 @@
    Extra offset for this small icon button. */
 .footer-impressum__trigger:focus-visible {
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: var(--radius-xs, 4px);
 }
 
 /* Focus-visible on footer links (matches hover states) */
@@ -136,7 +141,7 @@
 
 .footer-avatar:focus-visible {
   outline-offset: 2px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle, 50%);
 }
 
 /* Quiet impressum tooltip: blends with page chrome.

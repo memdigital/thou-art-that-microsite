@@ -26,18 +26,32 @@
 .marbl-waveform [data-waveform-player] button:focus-visible {
   outline: 2px solid var(--marbl-ember, #F35226);
   outline-offset: 2px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle, 50%);
 }
 
-/* Native <audio> fallback — visible until JS hides it on successful init. */
+/* Native <audio> fallback — held invisible for 1.5s after page paint so
+ * browser snapshots (e.g. View Transitions API) don't catch it before
+ * waveform-player init fires. After 1.5s, if init succeeded the :has()
+ * rule below keeps it hidden permanently; if init failed the fallback
+ * reveals via the `mwp-fallback-reveal` keyframe so users without JS
+ * still get a working player. Robust graceful degradation.
+ *
+ * Pattern earned 29 Apr 2026 on TAT microsite when View Transitions
+ * caught the native player flashing before init. */
 .marbl-waveform .mwp-fallback {
   width: 100%;
   margin-top: var(--gap-xs, 10px);
   border-radius: var(--radius, 10px);
+  opacity: 0;
+  animation: mwp-fallback-reveal 0s ease 1.5s forwards;
 }
 
 .marbl-waveform .mwp-fallback[hidden] {
   display: none;
+}
+
+@keyframes mwp-fallback-reveal {
+  to { opacity: 1; }
 }
 
 /* Auto-hide the native fallback once the waveform-player has initialised
@@ -47,6 +61,7 @@
  * library's DOM wrap or any post-init mutations. Browser support: Chrome
  * 105+, Firefox 121+, Safari 15.4+ — within Marbl's evergreen target. */
 .mwp-inline:has([data-waveform-player][data-waveform-initialized]) .mwp-fallback {
+  animation: none;
   display: none !important;
 }
 
@@ -151,9 +166,9 @@
 
 /* Pill icon buttons (play, volume) — UI Items style: ember on hover, no bg. */
 .mwp-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: var(--gap-md, 40px);
+  height: var(--gap-md, 40px);
+  border-radius: var(--radius-circle, 50%);
   border: none;
   background: transparent;
   display: flex;
@@ -244,28 +259,28 @@
 }
 
 .mwp-volume-slider input[type="range"] {
-  width: 80px;
-  height: 4px;
+  width: var(--gap-xl, 80px);
+  height: var(--radius-xs, 4px);
   appearance: none;
   background: var(--marbl-white-15, rgba(255, 255, 255, 0.15));
-  border-radius: 2px;
+  border-radius: var(--radius-2xs, 2px);
   outline: none;
 }
 
 .mwp-volume-slider input[type="range"]::-webkit-slider-thumb {
   appearance: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
+  width: var(--icon-sm, 14px);
+  height: var(--icon-sm, 14px);
+  border-radius: var(--radius-circle, 50%);
   background: var(--marbl-ember, #F35226);
   cursor: pointer;
   border: none;
 }
 
 .mwp-volume-slider input[type="range"]::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
+  width: var(--icon-sm, 14px);
+  height: var(--icon-sm, 14px);
+  border-radius: var(--radius-circle, 50%);
   background: var(--marbl-ember, #F35226);
   cursor: pointer;
   border: none;

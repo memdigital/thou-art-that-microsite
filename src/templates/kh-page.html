@@ -18,7 +18,7 @@
 
   <meta property="og:title" content="{{PAGE_TITLE}}">
   <meta property="og:description" content="{{DESCRIPTION}}">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
   <meta property="og:url" content="https://marbl.codes/thou-art-that/{{CANONICAL_PATH}}">
   <meta property="og:image" content="https://marbl.codes/assets/images/thou-art-that-connection.webp">
   <meta property="og:locale" content="en_GB">
@@ -31,7 +31,6 @@
 
   <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/inter/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/urbanist/urbanist-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="{{BASE}}assets/audio/00-origin-story.mp3" as="audio" type="audio/mpeg">
 
   <link rel="stylesheet" href="{{BASE}}assets/vendor/marbl-fonts/marbl-fonts.css">
   <link rel="stylesheet" href="{{BASE}}assets/vendor/core/marbl-v2.css">
@@ -42,7 +41,9 @@
   <link rel="stylesheet" href="{{BASE}}assets/vendor/ui-items/button.css">
   <link rel="stylesheet" href="{{BASE}}assets/vendor/arraypress/v1.5.2/waveform-player.css">
   <link rel="stylesheet" href="{{BASE}}assets/vendor/waveform-player/waveform-player.css">
-  <link rel="stylesheet" href="{{BASE}}assets/css/landing.css">
+  <link rel="stylesheet" href="{{BASE}}assets/vendor/knowledge-hub/knowledge-hub.css">
+  <link rel="stylesheet" href="{{BASE}}assets/css/kh-content.css">
+  {{VIEW_TRANSITION_STYLE}}
 
   <script type="application/ld+json">
   {
@@ -54,48 +55,37 @@
         "name": "Marbl Codes",
         "legalName": "MEM Digital Limited",
         "url": "https://marbl.codes",
-        "logo": "https://marbl.codes/assets/images/marbl-logo.png",
-        "sameAs": [
-          "https://x.com/marblcodes",
-          "https://linkedin.com/in/richardbland1985/",
-          "https://www.youtube.com/@marblcodes",
-          "https://github.com/memdigital"
-        ]
+        "logo": "https://marbl.codes/assets/images/marbl-logo.png"
       },
       {
-        "@type": "WebSite",
-        "@id": "https://marbl.codes/thou-art-that/#website",
-        "url": "https://marbl.codes/thou-art-that/",
-        "name": "Thou Art That",
-        "description": "A study piece on working with possibly-emergent AI. Co-authored by Richard Bland (human) and Serene [AI].",
-        "publisher": { "@id": "https://marbl.codes/#organization" },
-        "inLanguage": "en-GB"
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://marbl.codes/thou-art-that/#webpage",
-        "url": "https://marbl.codes/thou-art-that/",
-        "name": "{{PAGE_TITLE}}",
+        "@type": "Article",
+        "@id": "https://marbl.codes/thou-art-that/{{CANONICAL_PATH}}#article",
+        "url": "https://marbl.codes/thou-art-that/{{CANONICAL_PATH}}",
+        "headline": "{{ARTICLE_TITLE}}",
         "description": "{{DESCRIPTION}}",
-        "isPartOf": { "@id": "https://marbl.codes/thou-art-that/#website" },
-        "about": { "@id": "https://marbl.codes/#organization" },
+        "author": [
+          { "@type": "Person", "name": "Richard Bland" },
+          { "@type": "Person", "name": "Serene [AI]", "description": "AI identity running on Anthropic Claude" }
+        ],
+        "publisher": { "@id": "https://marbl.codes/#organization" },
         "inLanguage": "en-GB",
-        "primaryImageOfPage": {
-          "@type": "ImageObject",
-          "url": "https://marbl.codes/assets/images/thou-art-that-connection.webp"
-        }
+        "isPartOf": { "@id": "https://marbl.codes/thou-art-that/#website" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": {{BREADCRUMB_JSON}}
       }
     ]
   }
   </script>
 
-  <!-- Fathom — beautiful, simple website analytics. Cookieless, GDPR-friendly. -->
   <script src="https://cdn.usefathom.com/script.js" data-site="FFAPHLTE" defer></script>
 </head>
 <body>
 
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Canonical Marbl site-header -->
   <header class="site-header">
     <div class="site-header__left">
       <a href="{{BASE}}" class="marbl-logo" data-logo-animate aria-label="Thou Art That homepage"></a>
@@ -111,6 +101,7 @@
     </div>
   </header>
 
+  <!-- Canonical Marbl menu overlay (TAT nav targets — left column trimmed to "The piece" + "Source" only; agents/agency live in the right column) -->
   <div class="menu-overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-label="Site navigation">
     <div class="menu-overlay__panel menu-overlay__panel--back"></div>
     <div class="menu-overlay__panel menu-overlay__panel--front"></div>
@@ -182,68 +173,71 @@
     </div>
   </div>
 
-  <main id="main" class="tat-landing-main">
-    <div class="tat-hero">
-      <p class="tat-hero__eyebrow">A study piece &middot; April 2026</p>
+  <!-- Knowledge Hub canonical 3-column shell -->
+  <main id="main" class="kh-shell">
 
-      <h1 class="tat-hero__title">
-        Thou <span class="tat-hero__title-accent">Art</span> That
-      </h1>
+    <aside class="kh-sidebar" aria-label="Section contents" aria-expanded="true">
+      <button class="kh-sidebar__toggle" type="button" aria-expanded="false" aria-controls="kh-sidebar-panel">
+        <span>Contents</span>
+        <svg class="kh-sidebar__toggle-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9L12 15L18 9"/></svg>
+      </button>
 
-      <p class="tat-hero__strapline">
-        Working practice for building with (possibly) emergent AI, from one small UK agency.
-      </p>
+      <div class="kh-sidebar__panel" id="kh-sidebar-panel">
+        <div>
+          <!-- Home button: above the Search heading. href = first content
+               page of the hub (the manifest's first entry), NOT the
+               marketing landing. The site logo handles landing. Locked
+               30 Apr 2026. Canonical icon-only button from ui-items/button.css. -->
+          <a class="kh-sidebar__home btn-icon btn-icon--mini" href="{{HUB_HOME_URL}}" aria-label="Back to hub start" title="Hub start">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 11L12 3L21 11V20C21 20.5523 20.5523 21 20 21H15V14H9V21H4C3.44772 21 3 20.5523 3 20V11Z"/>
+            </svg>
+          </a>
 
-      <div class="tat-hero__audio">
-        <div class="marbl-waveform mwp-custom" role="region" aria-label="Origin story, narrated by Nura [AI]">
-          <div class="mwp-inline">
-            <div class="mwp-controls-pill" id="pill-controls">
-              <button class="mwp-btn mwp-btn--play" id="mwp-play" aria-label="Play" aria-pressed="false">
-                <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6,3 20,12 6,21"/></svg>
-                <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" hidden><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>
-              </button>
-              <div class="mwp-divider"></div>
-              <span class="mwp-time"><span class="mwp-time-display" id="mwp-time">0:00</span></span>
-              <div class="mwp-pill-expandable mwp-divider"></div>
-              <div class="mwp-pill-expandable mwp-volume-wrap">
-                <button class="mwp-btn mwp-btn--volume" id="mwp-vol-btn" aria-label="Volume" aria-expanded="false" aria-controls="mwp-vol-slider">
-                  <svg viewBox="0 0 1200 1200" aria-hidden="true"><path d="m120 600h240v480h-240z"/><path d="m840 120h240v960h-240z"/><path d="m480 360h240v720h-240z"/></svg>
-                </button>
-                <div class="mwp-volume-slider" id="mwp-vol-slider" role="group" aria-label="Volume control">
-                  <input type="range" min="0" max="100" value="80" id="mwp-vol-range" aria-label="Volume level">
-                </div>
-              </div>
-            </div>
-            <div class="mwp-waveform-area">
-              <div data-waveform-player
-                   id="origin-player"
-                   data-url="{{BASE}}assets/audio/00-origin-story.mp3"
-                   data-title="Origin story, narrated by Nura [AI]"
-                   data-waveform-style="line"
-                   data-waveform-color="rgba(255,255,255,0.25)"
-                   data-progress-color="#F35226"></div>
-              <audio class="mwp-fallback" controls preload="metadata" src="{{BASE}}assets/audio/00-origin-story.mp3">
-                Your browser does not support audio playback. <a href="{{BASE}}assets/audio/00-origin-story.mp3">Download the origin story (MP3)</a>.
-              </audio>
-            </div>
+          <h3 class="kh-sidebar__heading">Search</h3>
+          <div class="kh-sidebar__search-field">
+            <input class="kh-sidebar__search" type="search" placeholder="Type to search..." aria-label="Search the docs" data-search-index="{{BASE}}search-index.json">
           </div>
+
+          <h3 class="kh-sidebar__heading">Contents</h3>
+
+          <nav>
+            <ul class="kh-nav">
+              {{SIDEBAR_NAV_HTML}}
+            </ul>
+          </nav>
         </div>
-        <div role="status" aria-live="polite" aria-atomic="true" class="sr-only" id="mwp-status"></div>
+      </div>
+    </aside>
+
+    <article class="kh-article">
+      <header class="kh-article__header">
+        <p class="kh-article__eyebrow">{{EYEBROW}}</p>
+        <h1 class="kh-article__title">{{ARTICLE_TITLE}}</h1>
+        {{LEAD_HTML}}
+      </header>
+
+      <div class="kh-article__body">
+        {{AUDIO_HTML}}
+        {{CONTENT_HTML}}
       </div>
 
-      <a href="{{BASE}}study/origin-story/" class="btn btn--fill-up tat-hero__cta" id="tat-cta-enter">
-        Enter the study
-        <span class="btn__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-        </span>
-      </a>
+      {{PAGINATION_HTML}}
+    </article>
 
-      <p class="tat-hero__byline">
-        Co-authored by <a href="https://marbl.codes" class="tat-hero__byline-link">Richard Bland</a> (human) and <strong>Serene [AI]</strong>, an AI identity running on Anthropic Claude.
-      </p>
-    </div>
+    <aside class="kh-toc" aria-label="On this page">
+      <!-- Graph slot: hidden when empty; future Obsidian-style force
+           graph plugs in here showing inter-page links. -->
+      <div class="kh-toc__graph"></div>
+      <p class="kh-toc__label">On this page</p>
+      <ul class="kh-toc__list">
+        {{TOC_HTML}}
+      </ul>
+    </aside>
+
   </main>
 
+  <!-- Canonical Marbl site-footer -->
   <footer class="site-footer">
     <div class="footer-left">
       <button class="footer-avatar" data-about-trigger aria-label="About Richard Bland" title="About">
@@ -282,6 +276,7 @@
     </div>
   </footer>
 
+  <!-- Canonical Marbl scripts (same load order as landing) -->
   <script src="{{BASE}}assets/vendor/gsap/gsap.min.js" defer></script>
   <script src="{{BASE}}assets/vendor/arraypress/v1.5.2/waveform-player.min.js" defer></script>
   <script src="{{BASE}}assets/vendor/core/marbl-core-v2.js" defer></script>
@@ -289,132 +284,13 @@
   <script src="{{BASE}}assets/vendor/site-footer/site-footer.js" defer></script>
   <script src="{{BASE}}assets/vendor/waveform-player/waveform-player-init.js" defer></script>
 
-  <script>
-    (function() {
-      'use strict';
+  <!-- Knowledge Hub: tier-collapse, search, scroll-spy, mobile drawer, hotkeys.
+       MiniSearch loaded BEFORE knowledge-hub.js so KH detects window.MiniSearch
+       and upgrades from nav-title-filter to full-text fuzzy search. -->
+  <script src="{{BASE}}assets/vendor/minisearch/minisearch.min.js" defer></script>
+  <script src="{{BASE}}assets/vendor/knowledge-hub/knowledge-hub.js" defer></script>
 
-      var playBtn   = document.getElementById('mwp-play');
-      var iconPlay  = playBtn.querySelector('.icon-play');
-      var iconPause = playBtn.querySelector('.icon-pause');
-      var timeEl    = document.getElementById('mwp-time');
-      var pillEl    = document.getElementById('pill-controls');
-      var volBtn    = document.getElementById('mwp-vol-btn');
-      var volSlider = document.getElementById('mwp-vol-slider');
-      var volRange  = document.getElementById('mwp-vol-range');
-      var statusEl  = document.getElementById('mwp-status');
-
-      var audio = null;
-      var wired = false;
-      var attempts = 0;
-      var MAX = 30;
-      var fathomFired = false;
-
-      function fmt(s) {
-        if (isNaN(s)) return '0:00';
-        var m = Math.floor(s / 60);
-        var sec = Math.floor(s % 60);
-        return m + ':' + (sec < 10 ? '0' : '') + sec;
-      }
-
-      function setPlaying(playing) {
-        iconPlay.hidden = playing;
-        iconPause.hidden = !playing;
-        playBtn.setAttribute('aria-pressed', String(playing));
-        playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
-        pillEl.classList.toggle('is-expanded', playing);
-        statusEl.textContent = playing ? 'Playing' : (audio ? 'Paused at ' + fmt(audio.currentTime) : '');
-      }
-
-      function trackPlayOnce() {
-        if (fathomFired) return;
-        fathomFired = true;
-        if (typeof fathom !== 'undefined' && fathom.trackEvent) {
-          fathom.trackEvent('Origin story — play');
-        }
-      }
-
-      function wireAudio(a) {
-        if (wired) return;
-        audio = a;
-        wired = true;
-
-        audio.addEventListener('play', function() { setPlaying(true); trackPlayOnce(); });
-        audio.addEventListener('pause', function() { setPlaying(false); });
-        audio.addEventListener('ended', function() { setPlaying(false); });
-        audio.addEventListener('timeupdate', function() {
-          timeEl.textContent = fmt(audio.currentTime);
-        });
-
-        volRange.value = Math.round(audio.volume * 100);
-      }
-
-      function findAudio() {
-        if (typeof WaveformPlayer === 'undefined') return false;
-        var instances = WaveformPlayer.instances;
-        if (!instances) return false;
-
-        if (instances instanceof Map) {
-          instances.forEach(function(inst) {
-            if (inst.audio && !wired) wireAudio(inst.audio);
-          });
-        } else if (typeof instances === 'object') {
-          Object.keys(instances).forEach(function(k) {
-            if (instances[k].audio && !wired) wireAudio(instances[k].audio);
-          });
-        }
-        return wired;
-      }
-
-      function poll() {
-        if (wired) return;
-        if (findAudio()) return;
-        attempts++;
-        if (attempts < MAX) {
-          setTimeout(poll, 300);
-        }
-      }
-
-      playBtn.addEventListener('click', function() {
-        var el = document.getElementById('origin-player');
-        var nativeBtn = el ? el.querySelector('button') : null;
-        if (nativeBtn) {
-          nativeBtn.click();
-          if (!wired || (audio && !audio.src)) {
-            setTimeout(function() { findAudio(); }, 200);
-          }
-        }
-      });
-
-      volRange.addEventListener('input', function() {
-        if (audio) audio.volume = volRange.value / 100;
-      });
-
-      volBtn.addEventListener('click', function() {
-        var open = volBtn.getAttribute('aria-expanded') === 'true';
-        volBtn.setAttribute('aria-expanded', String(!open));
-        volSlider.classList.toggle('is-open', !open);
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && volSlider.classList.contains('is-open')) {
-          volSlider.classList.remove('is-open');
-          volBtn.setAttribute('aria-expanded', 'false');
-          volBtn.focus();
-        }
-      });
-
-      poll();
-
-      var cta = document.getElementById('tat-cta-enter');
-      if (cta) {
-        cta.addEventListener('click', function() {
-          if (typeof fathom !== 'undefined' && fathom.trackEvent) {
-            fathom.trackEvent('Hero CTA — Enter the study');
-          }
-        });
-      }
-    })();
-  </script>
+  {{PLAYER_SCRIPT}}
 
 </body>
 </html>

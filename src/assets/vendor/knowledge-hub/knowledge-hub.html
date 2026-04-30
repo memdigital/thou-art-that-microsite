@@ -1,0 +1,102 @@
+<!-- Knowledge Hub — canonical 3-col docs layout.
+     Sidebar tree-nav (collapsible, search) + article (line-length-capped) + TOC.
+     Pair with canonical site-header / menu / site-footer / cookie-consent.
+
+     Required CSS:  knowledge-hub.css
+     Required JS:   knowledge-hub.js  (tier-collapse, search, scroll-spy, mobile drawer)
+
+     Optional inside .kh-article__body:
+       - <img class="kh-article__featured" ...>           — top-of-article image
+       - <div class="marbl-waveform mwp-custom">...</div> — audio (waveform-player)
+       - <div class="kh-video"><iframe ...></iframe></div> — 16:9 video embed -->
+<main id="main" class="kh-shell">
+
+  <!-- LEFT: collapsible tree nav with search -->
+  <aside class="kh-sidebar" aria-label="Section contents" aria-expanded="true">
+    <!-- aria-expanded on .kh-sidebar is managed by knowledge-hub.js: it's
+         "true" on desktop and "false" on mobile (drawer collapsed by default).
+         JS resets on load + resize so this markup default is just a fallback. -->
+
+
+    <button class="kh-sidebar__toggle" type="button" aria-expanded="false" aria-controls="kh-sidebar-panel">
+      <span>Contents</span>
+      <svg class="kh-sidebar__toggle-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9L12 15L18 9"/></svg>
+    </button>
+
+    <div class="kh-sidebar__panel" id="kh-sidebar-panel">
+      <div>
+        <!-- Home button: above the "Search" heading. Canonical icon-only
+             button from ui-items/button.css. Position locked 29 Apr 2026.
+             href = the FIRST CONTENT page of the hub (e.g. study/index,
+             docs/intro, getting-started/), not the marketing landing.
+             The site logo (top-left in site-header) handles "back to
+             marketing landing". Convention locked 30 Apr 2026. -->
+        <a class="kh-sidebar__home btn-icon btn-icon--mini" href="/" aria-label="Back to hub start" title="Hub start">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 11L12 3L21 11V20C21 20.5523 20.5523 21 20 21H15V14H9V21H4C3.44772 21 3 20.5523 3 20V11Z"/>
+          </svg>
+        </a>
+
+        <h3 class="kh-sidebar__heading">Search</h3>
+        <div class="kh-sidebar__search-field">
+          <input class="kh-sidebar__search" type="search" placeholder="Type to search..." aria-label="Search the docs" data-search-index="/search-index.json">
+        </div>
+
+        <h3 class="kh-sidebar__heading">Contents</h3>
+
+        <nav>
+          <ul class="kh-nav">
+            <li class="kh-nav__group" aria-expanded="false">
+              <button class="kh-nav__group-label" type="button">
+                <svg class="kh-nav__group-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9L12 15L18 9"/></svg>
+                <span>{{GROUP_LABEL}}</span>
+              </button>
+              <div class="kh-nav__children"><ul class="kh-nav__children-inner">
+                <li class="kh-nav__item"><a class="kh-nav__link" href="{{URL}}" aria-current="page">{{PAGE_TITLE}}</a></li>
+                <!-- Nest another <li class="kh-nav__group"> here for tier 2/3. -->
+              </ul></div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CENTRE: article -->
+  <article class="kh-article">
+    <header class="kh-article__header">
+      <p class="kh-article__eyebrow">{{EYEBROW}}</p>
+      <h1 class="kh-article__title">{{PAGE_TITLE}}</h1>
+      <p class="kh-article__lead">{{LEAD_PARAGRAPH}}</p>
+    </header>
+
+    <div class="kh-article__body">
+      <h2 id="{{SECTION_SLUG}}">{{SECTION_TITLE}}</h2>
+      <p>{{BODY_CONTENT}}</p>
+    </div>
+
+    <nav class="kh-pagination" aria-label="Page navigation">
+      <a href="{{PREV_URL}}" class="kh-pagination__link kh-pagination__link--prev">
+        <span class="kh-pagination__label">Previous</span>
+        <span class="kh-pagination__title">{{PREV_TITLE}}</span>
+      </a>
+      <a href="{{NEXT_URL}}" class="kh-pagination__link kh-pagination__link--next">
+        <span class="kh-pagination__label">Next</span>
+        <span class="kh-pagination__title">{{NEXT_TITLE}}</span>
+      </a>
+    </nav>
+  </article>
+
+  <!-- RIGHT: on-this-page TOC -->
+  <aside class="kh-toc" aria-label="On this page">
+    <!-- Optional knowledge graph slot — empty by default, hidden via :empty.
+         Consumers may inject an Obsidian-style force graph here showing
+         page relationships. Sits above the "On this page" divider. -->
+    <div class="kh-toc__graph"></div>
+    <p class="kh-toc__label">On this page</p>
+    <ul class="kh-toc__list">
+      <li class="kh-toc__item"><a class="kh-toc__link" href="#{{SECTION_SLUG}}" aria-current="true">{{SECTION_TITLE}}</a></li>
+    </ul>
+  </aside>
+
+</main>

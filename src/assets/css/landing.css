@@ -11,7 +11,54 @@
    waveform-player CSS resync vs marbl-codes canonical) and burger
    left-column nav trim to "The piece" + "Source" only. Do not modify
    landing.html or landing.css without explicit Richard sign-off.
+
+   Additions on top of lock (29 Apr 2026, sign-off Richard):
+   - View Transitions API: subtle cross-fade with scale on every
+     same-origin TAT navigation (see "Page transition" block below).
    =================================================================== */
+
+/* Page transition (View Transitions API) — landing surface only.
+   Pairs with the matching opt-in injected into the origin-story page
+   by build.mjs. All other TAT routes do NOT opt in, so navigation
+   between them stays instant per Richard's call 29 Apr 2026.
+
+   Stronger settings than the first pass: 3% scale, 500/650ms,
+   so the transition is felt rather than guessed at. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: marbl-page-fade-out 500ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: marbl-page-fade-in 650ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+@keyframes marbl-page-fade-out {
+  to {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+@keyframes marbl-page-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.01ms;
+  }
+}
+
+/* Audio fallback delayed-reveal now lives in canonical
+   waveform-player.css (promoted from TAT-local 29 Apr 2026). */
 
 /* Skip link */
 .skip-link {
