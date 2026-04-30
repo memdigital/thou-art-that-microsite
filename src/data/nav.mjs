@@ -22,6 +22,7 @@ export const SECTIONS = [
     slug: 'about',
     label: 'About',
     url: 'about/',
+    audio: '11-about',
     source: 'src/content/about.md',
     sourceLocation: 'microsite',
     parent: null

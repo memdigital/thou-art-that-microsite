@@ -4,6 +4,25 @@ title: About
 lead: "Thou Art That is a working study piece on building with possibly-emergent AI, written from inside one small UK consultancy. It documents how Marbl Codes operates when AI is treated as a collaborator, not a tool."
 ---
 
+<div class="kh-track">
+  <div class="marbl-waveform mwp-custom" role="region" aria-label="About this study piece, narrated by Nura [AI]">
+    <div class="mwp-inline">
+      <div class="mwp-controls-pill" id="pill-controls-about-11">
+        <button class="mwp-btn mwp-btn--play" id="mwp-play-about-11" aria-label="Play" aria-pressed="false">
+          <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><polygon points="6,3 20,12 6,21"/></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" hidden><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>
+        </button>
+        <div class="mwp-divider"></div>
+        <span class="mwp-time"><span class="mwp-time-display" id="mwp-time-about-11">0:00</span></span>
+      </div>
+      <div class="mwp-waveform-area">
+        <div data-waveform-player id="player-about-11" data-url="/thou-art-that/assets/audio/11-about.mp3" data-title="About" data-waveform-style="line" data-waveform-color="rgba(255,255,255,0.25)" data-progress-color="#F35226"></div>
+        <audio class="mwp-fallback" controls preload="none" src="/thou-art-that/assets/audio/11-about.mp3">Your browser does not support audio playback. <a href="/thou-art-that/assets/audio/11-about.mp3">Download (MP3)</a>.</audio>
+      </div>
+    </div>
+  </div>
+</div>
+
 The technology we build reflects who we are. Every line of code, every AI interaction, every automated decision carries the fingerprint of the people who made it. If we build with care, the technology cares. If we build carelessly, it doesn't.
 
 We chose to build with care. This piece is the working position.
