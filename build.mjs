@@ -143,6 +143,11 @@ const SOURCE_TO_URL = (() => {
     if (item.sourceLocation === 'microsite') continue;
     m.set(item.source, BASE + item.url);
   }
+  // Aliases: canonical content-src files reference logical paths that aren't
+  // themselves manifest sources but DO have a canonical TAT home. Map them
+  // here so the rewriter resolves them internally instead of falling through
+  // to the GitHub fallback.
+  m.set('audio/README.md', BASE + 'study/tracks/');
   return m;
 })();
 
