@@ -140,6 +140,15 @@ export const SECTIONS = [
     url: 'study/further-reading/',
     source: 'FURTHER-READING.md',
     parent: null
+  },
+  {
+    type: 'leaf',
+    slug: 'tracks',
+    label: 'All tracks',
+    url: 'study/tracks/',
+    source: 'src/content/tracks.md',
+    sourceLocation: 'microsite',
+    parent: null
   }
 ];
 

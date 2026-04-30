@@ -125,6 +125,80 @@ function decodeEntities(s) {
 
 
 /* ====================================================================
+   Markdown link rewriter — turn raw .md links from canonical content
+   into TAT URLs (when the target is in our manifest) or GitHub URLs
+   (for files we don't expose on TAT, e.g. NOTICE.md / LICENSE.md).
+   Locked 30 Apr 2026.
+   ==================================================================== */
+
+const GITHUB_REPO_BASE = 'https://github.com/memdigital/thou-art-that/blob/master/';
+
+const SOURCE_TO_URL = (() => {
+  const m = new Map();
+  for (const item of flatten()) {
+    if (!item.source) continue;
+    // Only canonical-content-src entries get TAT routes; microsite-local
+    // (about, principles-landing, tracks) live elsewhere on the manifest
+    // and shouldn't match content-src relative links.
+    if (item.sourceLocation === 'microsite') continue;
+    m.set(item.source, BASE + item.url);
+  }
+  return m;
+})();
+
+function resolveRelativePath(currentDir, href) {
+  let path = href;
+  let dir = currentDir;
+  if (path.startsWith('./')) path = path.slice(2);
+  while (path.startsWith('../')) {
+    if (dir.includes('/')) dir = dir.substring(0, dir.lastIndexOf('/'));
+    else dir = '';
+    path = path.slice(3);
+  }
+  return dir ? dir + '/' + path : path;
+}
+
+function rewriteMarkdownLinks(html, currentSourcePath) {
+  const currentDir = currentSourcePath.includes('/')
+    ? currentSourcePath.substring(0, currentSourcePath.lastIndexOf('/'))
+    : '';
+
+  return html.replace(/<a([^>]*?)href="([^"]+)"([^>]*?)>/g, (match, before, href, after) => {
+    // Skip absolute URLs, anchors, and mail/tel.
+    if (/^(https?:|mailto:|tel:|#|\/)/.test(href)) return match;
+    // Only act on .md links and folder-trailing-slash links.
+    const isMd = /\.md(#[^"]*)?$/.test(href);
+    const isFolder = href.endsWith('/');
+    if (!isMd && !isFolder) return match;
+
+    // Split fragment if present (preserve #section).
+    let fragment = '';
+    let cleanHref = href;
+    const hashIdx = cleanHref.indexOf('#');
+    if (hashIdx >= 0) {
+      fragment = cleanHref.slice(hashIdx);
+      cleanHref = cleanHref.slice(0, hashIdx);
+    }
+
+    const resolved = resolveRelativePath(currentDir, cleanHref);
+
+    // Try direct manifest match.
+    let url = SOURCE_TO_URL.get(resolved);
+    // Try with README.md appended (folder-style link to a category).
+    if (!url) {
+      const withReadme = resolved.endsWith('/') ? resolved + 'README.md' : resolved + '/README.md';
+      url = SOURCE_TO_URL.get(withReadme);
+    }
+
+    if (url) return '<a' + before + 'href="' + url + fragment + '"' + after + '>';
+
+    // Not in manifest — fall back to GitHub for the canonical study repo.
+    return '<a' + before + 'href="' + GITHUB_REPO_BASE + resolved + fragment + '"' + after + ' target="_blank" rel="noopener noreferrer">';
+  });
+}
+
+
+/* ====================================================================
    Markdown rendering
    ==================================================================== */
 
@@ -162,6 +236,19 @@ function renderMarkdownSource(relativePath, sourceLocation = 'content-src') {
   stripped = stripped.replace(/^(>\s*\n)+/m, '');
 
   let html = marked.parse(stripped);
+
+  // Strip <hr> tags entirely — surrounding h2 80px section margin handles
+  // the visual break already, and bare horizontal rules read as random
+  // noise mid-article. Source semantics lost on purpose (Richard 30 Apr 2026).
+  html = html.replace(/<hr\s*\/?>(\s*\n)?/gi, '');
+
+  // Rewrite .md / folder links in content. Canonical content-src files
+  // link to each other via relative .md paths (e.g. ./01-principles/
+  // do-no-harm.md). Map those to TAT routes where possible; otherwise
+  // fall back to GitHub for files we don't expose (NOTICE, LICENSE, etc).
+  if (sourceLocation !== 'microsite') {
+    html = rewriteMarkdownLinks(html, relativePath);
+  }
 
   // Inject ids onto h2/h3 + harvest headings for the right TOC.
   // Decode entities (&#39; etc) to plain chars before storing so emit-time

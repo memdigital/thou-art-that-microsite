@@ -1,0 +1,74 @@
+/* ============================================================================
+   Avatar — canonical UI primitive, spec at ui-items.md §20.
+   Was previously inline in ui-items/preview.html only — promoted to a
+   loadable file 2026-04-28 so every consumer site can use the canonical
+   classes instead of hardcoding width/height/border per-page.
+
+   To consume: <link rel="stylesheet" href="https://marbl.codes/components/ui-items/avatar.css">
+
+   Sizes: --40 / --60 / --80 / --100 (px, square).
+   Border: 1px solid var(--marbl-white-15) (canonical interactive border).
+   Hover: border becomes ember (avatar reads as interactive when wrapped
+   in <a>).
+   ============================================================================ */
+
+.avatar {
+  /* content-box so the named size (40 / 60 / 80 / 100) refers to the
+     visible avatar (the inner content area), not the bordered outer.
+     Without this, global `* { box-sizing: border-box }` + 1px border
+     squeezes a "40px" avatar to 38x38 visible. Locked 30 Apr 2026. */
+  box-sizing: content-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid var(--marbl-white-15, rgba(255, 255, 255, 0.15));
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease;
+  background: var(--marbl-charcoal-lighter, #232021);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Sizes — the number is the visible diameter. Tokenised to the
+   canonical spacing scale (--gap-md/lg/xl/2xl). */
+.avatar--40 { width: var(--gap-md, 40px); height: var(--gap-md, 40px); font-size: var(--text-sm, 13px); }
+.avatar--60 { width: var(--gap-lg, 60px); height: var(--gap-lg, 60px); font-size: var(--icon-md, 16px); }
+.avatar--80 { width: var(--gap-xl, 80px); height: var(--gap-xl, 80px); font-size: var(--icon-xl, 22px); }
+.avatar--100 { width: var(--gap-2xl, 100px); height: var(--gap-2xl, 100px); font-size: var(--icon-2xl, 28px); }
+
+/* Initials fallback (no image) */
+.avatar--initials {
+  background: var(--marbl-charcoal-lighter, #232021);
+  color: var(--marbl-white-65, rgba(255, 255, 255, 0.65));
+  font-family: var(--font-heading, 'Urbanist', sans-serif);
+  font-weight: var(--font-semibold, 600);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* When the avatar is interactive (wrapped in <a>), border goes ember on hover */
+a > .avatar:hover,
+a:hover > .avatar,
+.avatar.is-interactive:hover {
+  border-color: var(--marbl-ember, #F35226);
+}
+
+/* Stack — author/team strip with overlap effect */
+.avatar-stack {
+  display: inline-flex;
+  flex-direction: row-reverse;
+}
+.avatar-stack .avatar {
+  margin-left: calc(var(--gap-2xs, 8px) * -1);
+  border: 2px solid var(--marbl-charcoal, #171415);
+}
+.avatar-stack .avatar:last-child {
+  margin-left: 0;
+}
