@@ -163,13 +163,26 @@ function resolveRelativePath(currentDir, href) {
   return dir ? dir + '/' + path : path;
 }
 
+/**
+ * Add target="_blank" + rel hardening to every external https/http <a>
+ * that lacks them. Runs on ALL rendered markdown (content-src + microsite-
+ * local) so off-site links consistently open in a new tab. Locked 30 Apr 2026.
+ */
+function rewriteExternalLinks(html) {
+  return html.replace(/<a([^>]*?)href="([^"]+)"([^>]*?)>/g, (match, before, href, after) => {
+    if (!/^https?:/.test(href)) return match;
+    if (/target="_blank"/.test(before + after)) return match;
+    return '<a' + before + 'href="' + href + '"' + after + ' target="_blank" rel="noopener noreferrer">';
+  });
+}
+
 function rewriteMarkdownLinks(html, currentSourcePath) {
   const currentDir = currentSourcePath.includes('/')
     ? currentSourcePath.substring(0, currentSourcePath.lastIndexOf('/'))
     : '';
 
   return html.replace(/<a([^>]*?)href="([^"]+)"([^>]*?)>/g, (match, before, href, after) => {
-    // Skip absolute URLs, anchors, and mail/tel.
+    // Skip absolute URLs (handled by rewriteExternalLinks), anchors, and mail/tel.
     if (/^(https?:|mailto:|tel:|#|\/)/.test(href)) return match;
     // Only act on .md links and folder-trailing-slash links.
     const isMd = /\.md(#[^"]*)?$/.test(href);
@@ -254,6 +267,10 @@ function renderMarkdownSource(relativePath, sourceLocation = 'content-src') {
   if (sourceLocation !== 'microsite') {
     html = rewriteMarkdownLinks(html, relativePath);
   }
+
+  // Add target="_blank" + rel hardening to every external link.
+  // Runs on both canonical content-src and microsite-local sources.
+  html = rewriteExternalLinks(html);
 
   // Inject ids onto h2/h3 + harvest headings for the right TOC.
   // Decode entities (&#39; etc) to plain chars before storing so emit-time
