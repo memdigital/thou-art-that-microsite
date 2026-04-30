@@ -180,7 +180,26 @@ html {
   text-rendering: optimizeLegibility;
   scrollbar-width: thin;
   scrollbar-color: var(--marbl-ember) var(--marbl-charcoal);
-  scrollbar-gutter: stable;
+  /* Native smooth-scroll for in-page anchors. Reduced-motion override below
+   * disables this for users who prefer no animation. Locked 30 Apr 2026. */
+  scroll-behavior: smooth;
+}
+
+/* Desktop only — `scrollbar-gutter: stable` reserves horizontal space for a
+ * vertical scrollbar even when one isn't visible, preventing layout shift on
+ * long pages. On mobile (touch / pointer:coarse), scrollbars are overlay so
+ * they don't take horizontal space — and reserving the gutter interacts badly
+ * with mobile Chrome's address-bar-collapse-on-scroll, causing visible page
+ * jumps. Scoped to pointer:fine (mouse/trackpad devices) to keep desktops
+ * stable while leaving mobile alone. Locked 30 Apr 2026. */
+@media (pointer: fine) {
+  html { scrollbar-gutter: stable; }
+}
+
+/* Honour prefers-reduced-motion: disable native smooth-scroll for users with
+ * the OS-level reduced-motion preference. Locked 30 Apr 2026. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
 body {
