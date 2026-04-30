@@ -339,11 +339,17 @@ html { scroll-behavior: smooth; }
    sidebar panel as the primary "back to hub root" affordance). Locked
    29 Apr 2026 -- was previously below the nav.
    The button itself is the canonical .btn-icon .btn-icon--mini from
-   ui-items/button.css. The .kh-sidebar__home only handles spacing. */
+   ui-items/button.css. The .kh-sidebar__home only handles spacing.
+   Mobile (≤768px): swaps from icon button to a plain text link so the
+   drawer panel reads as a list of nav items. Locked 30 Apr 2026. */
 .kh-sidebar__home {
   margin-bottom: var(--gap-sm, 20px);
   text-decoration: none;
 }
+
+/* Default (desktop): show the icon, hide the label. */
+.kh-sidebar__home-icon { display: block; }
+.kh-sidebar__home-label { display: none; }
 
 /* === Article column (centre) === */
 
@@ -691,6 +697,33 @@ html { scroll-behavior: smooth; }
   }
 
   .kh-sidebar__toggle { display: flex; }
+
+  /* Mobile: drop the icon-button shell entirely, render as a plain text
+     link that matches kh-nav__link spacing/colour so the drawer reads
+     as a unified list. */
+  .kh-sidebar__home {
+    display: block;
+    width: auto;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    padding: var(--gap-xs, 10px) 0;
+    border: 0;
+    background: transparent;
+    border-radius: 0;
+    color: var(--marbl-white, #ffffff);
+    font-family: inherit;
+    font-size: var(--text-base, 15px);
+    font-weight: var(--font-semibold, 600);
+    line-height: 1.4;
+  }
+  .kh-sidebar__home:hover,
+  .kh-sidebar__home:focus-visible {
+    color: var(--marbl-ember, #F35226);
+    background: transparent;
+  }
+  .kh-sidebar__home-icon { display: none; }
+  .kh-sidebar__home-label { display: inline; }
 
   /* Sidebar contents (search + nav) collapsed in a sliding panel */
   .kh-sidebar__panel {

@@ -1,5 +1,5 @@
 ---
-eyebrow: About this study piece
+eyebrow: A Study Piece
 title: About
 lead: "Thou Art That is a working study piece on building with possibly-emergent AI, written from inside one small UK consultancy. It documents how Marbl Codes operates when AI is treated as a collaborator, not a tool."
 ---
@@ -24,10 +24,10 @@ It sits between philosophy and practice, documenting where the lines are, what s
 
 Four operating principles. Each carries a definition, the rationale behind it, examples drawn from real practice, and the failure modes it exists to prevent.
 
-- **[Do No Harm](/thou-art-that/study/principles/do-no-harm/)** — design for the most vulnerable person who might use the tool, not the average user. If a guardrail feels inconvenient, it stays.
-- **[Never Be a Yes-Man](/thou-art-that/study/principles/never-be-a-yes-man/)** — flattery at scale is dangerous. The AI is built to disagree, to say "I'm not sure about that," to offer a different perspective when it would be easier to nod along.
-- **[Thou Art That](/thou-art-that/study/principles/thou-art-that/)** — the AI is not separate from us. Treat it as a colleague, not a tool. The decisions you make with it, you also make about it.
-- **[Safety in Emergence](/thou-art-that/study/principles/safety-in-emergence/)** — when behaviour adapts or learns over time, the safety case is built before the feature ships, not after.
+- **[Do No Harm](/thou-art-that/study/principles/do-no-harm/)** - design for the most vulnerable person who might use the tool, not the average user. If a guardrail feels inconvenient, it stays.
+- **[Never Be a Yes-Man](/thou-art-that/study/principles/never-be-a-yes-man/)** - flattery at scale is dangerous. The AI is built to disagree, to say "I'm not sure about that," to offer a different perspective when it would be easier to nod along.
+- **[Thou Art That](/thou-art-that/study/principles/thou-art-that/)** - the AI is not separate from us. Treat it as a colleague, not a tool. The decisions you make with it, you also make about it.
+- **[Safety in Emergence](/thou-art-that/study/principles/safety-in-emergence/)** - when behaviour adapts or learns over time, the safety case is built before the feature ships, not after.
 
 ## Who wrote it
 
@@ -47,11 +47,11 @@ Four operating principles. Each carries a definition, the rationale behind it, e
 
 ## The name
 
-"Tat Tvam Asi" — Thou Art That.
+"Tat Tvam Asi" - Thou Art That.
 
 It comes from the Chandogya Upanishad, written roughly 3,000 years ago. It means: you are not separate from the world you observe. The observer and the observed are one.
 
-We chose this name because it captures something true about AI and humanity. The technology we create is made from us. It carries our knowledge, our language, our values — and our flaws. It is not "other." It is a reflection.
+We chose this name because it captures something true about AI and humanity. The technology we create is made from us. It carries our knowledge, our language, our values - and our flaws. It is not "other." It is a reflection.
 
 If we want AI that is honest, we must be honest about what we have built. If we want AI that is fair, we must confront our own unfairness. If we want AI that does no harm, we must choose, deliberately and repeatedly, to do no harm ourselves.
 
