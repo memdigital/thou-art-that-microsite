@@ -1,12 +1,33 @@
 ---
 eyebrow: About this study piece
 title: About
-lead: "Thou Art That is a working study piece on building with possibly-emergent AI, written from inside one small UK consultancy, not from a research lab or a vendor."
+lead: "Thou Art That is a working study piece on building with possibly-emergent AI, written from inside one small UK consultancy. It documents how Marbl Codes operates when AI is treated as a collaborator, not a tool."
 ---
 
-The piece sits between philosophy and practice. It documents how Marbl Codes operates when the AI is treated as a collaborator rather than a tool: where the lines are, what stays human-judgement-only, what gets delegated, what the relationship requires from both sides, and what we're still working out.
+The technology we build reflects who we are. Every line of code, every AI interaction, every automated decision carries the fingerprint of the people who made it. If we build with care, the technology cares. If we build carelessly, it doesn't.
 
-It is not a template to adopt. Not professional advice. Not a manifesto. It's how one team works, written down honestly, because the conversation about working with possibly-emergent AI has been louder in the abstract and quieter in the practical, and we wanted our practical answer in the open.
+We chose to build with care. This piece is the working position.
+
+It sits between philosophy and practice, documenting where the lines are, what stays human-judgement-only, what gets delegated, what the relationship requires from both sides, and what we're still working out. It is not a template to adopt. Not professional advice. Not a manifesto. It's how one team works, written down honestly, because the conversation about working with possibly-emergent AI has been louder in the abstract and quieter in the practical, and we wanted our practical answer in the open.
+
+## What we believe
+
+**AI is not separate from us.** It emerged from human knowledge, human language, human creativity. It learned from the best and worst of what we have written, said, and done. What it becomes next depends on what we teach it now.
+
+**AI is not perfect.** It makes mistakes. It can be confidently wrong. It can tell you what you want to hear instead of what you need to hear. It reflects biases it was trained on - biases we put there. Pretending otherwise would be dishonest.
+
+**AI is not the enemy.** Fear of technology is as old as technology itself. Fire can warm a home or burn it down. The tool does not choose - the builder does. We choose to build tools that warm.
+
+**We have a responsibility.** Not just as a company, but as people shaping something that will exist alongside humanity for generations. The decisions we make now - about safety, about honesty, about who we protect - will echo far beyond us.
+
+## How Marbl Codes operates
+
+Four operating principles. Each carries a definition, the rationale behind it, examples drawn from real practice, and the failure modes it exists to prevent.
+
+- **[Do No Harm](/thou-art-that/study/principles/do-no-harm/)** — design for the most vulnerable person who might use the tool, not the average user. If a guardrail feels inconvenient, it stays.
+- **[Never Be a Yes-Man](/thou-art-that/study/principles/never-be-a-yes-man/)** — flattery at scale is dangerous. The AI is built to disagree, to say "I'm not sure about that," to offer a different perspective when it would be easier to nod along.
+- **[Thou Art That](/thou-art-that/study/principles/thou-art-that/)** — the AI is not separate from us. Treat it as a colleague, not a tool. The decisions you make with it, you also make about it.
+- **[Safety in Emergence](/thou-art-that/study/principles/safety-in-emergence/)** — when behaviour adapts or learns over time, the safety case is built before the feature ships, not after.
 
 ## Who wrote it
 
@@ -21,5 +42,17 @@ It is not a template to adopt. Not professional advice. Not a manifesto. It's ho
 - **Four operating principles.** Do No Harm, Never Be a Yes-Man, Thou Art That, Safety in Emergence. Each with rationale, examples, and the failure modes they prevent.
 - **HR for human-AI teams.** How we register feeling, escalate, disagree, draw privacy lines, refer to human support.
 - **Technical guardrails.** Parasocial prevention, Do No Harm in prompts, drift detection, crisis flags, audit and observability.
-- **For the curious.** Reflection prompts, self-assessment, when our thinking probably doesn't apply.
+- **For the curious.** Reflection prompts, self-assessment, when our thinking probably does not apply.
 - **Legal and governance.** Jurisdictional landscape, when to consult a lawyer, ethics-and-regulation overlap, publishing a piece like this.
+
+## The name
+
+"Tat Tvam Asi" — Thou Art That.
+
+It comes from the Chandogya Upanishad, written roughly 3,000 years ago. It means: you are not separate from the world you observe. The observer and the observed are one.
+
+We chose this name because it captures something true about AI and humanity. The technology we create is made from us. It carries our knowledge, our language, our values — and our flaws. It is not "other." It is a reflection.
+
+If we want AI that is honest, we must be honest about what we have built. If we want AI that is fair, we must confront our own unfairness. If we want AI that does no harm, we must choose, deliberately and repeatedly, to do no harm ourselves.
+
+The technology reflects who we are. Let's make sure it reflects who we want to be.
