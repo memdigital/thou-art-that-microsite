@@ -1,0 +1,222 @@
+/**
+ * Marbl repo-widget canonical CSS.
+ * Spec: ./repo-widget.md
+ *
+ * Two variants:
+ *   .repo-widget--filled       solid card, body-content placement
+ *   .repo-widget--transparent  no background, sidebar/aux placement
+ *
+ * All values from marbl-v2.css tokens. No invented px values.
+ */
+
+.repo-widget {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs, 10px);
+  padding: var(--gap-sm, 20px);
+  border-radius: var(--radius, 10px);
+  background: var(--marbl-charcoal-light, #1d1a1b);
+  border: 1px solid var(--marbl-white-08, rgba(255, 255, 255, 0.08));
+  font-family: var(--marbl-font-body, 'Inter', sans-serif);
+  color: var(--marbl-white-85, rgba(255, 255, 255, 0.85));
+}
+
+/* Transparent variant - sidebar use */
+.repo-widget--transparent {
+  background: transparent;
+  border: 1px solid var(--marbl-white-10, rgba(255, 255, 255, 0.1));
+  padding: var(--gap-xs, 10px) var(--gap-sm, 20px);
+}
+
+/* Hide filled-only chrome inside transparent variant */
+.repo-widget--transparent .repo-widget__description--filled-only,
+.repo-widget--transparent .repo-widget__stat--filled-only,
+.repo-widget--transparent .repo-widget__cta--filled-only {
+  display: none;
+}
+
+/* ===== Header ============================================================= */
+
+.repo-widget__header {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs, 10px);
+  min-width: 0;
+}
+
+.repo-widget__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: var(--marbl-white-70, rgba(255, 255, 255, 0.7));
+}
+
+.repo-widget__name {
+  margin: 0;
+  font-size: var(--text-sm, 13px);
+  font-weight: 500;
+  letter-spacing: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.repo-widget__name a {
+  color: var(--marbl-white, #ffffff);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.repo-widget__name a:hover,
+.repo-widget__name a:focus-visible {
+  color: var(--marbl-ember, #F35226);
+  border-bottom-color: var(--marbl-ember, #F35226);
+}
+
+.repo-widget__name a:focus-visible {
+  outline: 2px solid var(--marbl-ember, #F35226);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm, 5px);
+}
+
+/* ===== Description ======================================================== */
+
+.repo-widget__description {
+  margin: 0;
+  font-size: var(--text-sm, 13px);
+  line-height: 1.5;
+  color: var(--marbl-white-70, rgba(255, 255, 255, 0.7));
+}
+
+/* ===== Meta row =========================================================== */
+
+.repo-widget__meta {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-xs, 10px) var(--gap-sm, 20px);
+  font-size: var(--text-xs, 11px);
+  color: var(--marbl-white-65, rgba(255, 255, 255, 0.65));
+}
+
+.repo-widget__stat {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-3xs, 5px);
+  white-space: nowrap;
+}
+
+.repo-widget__stat a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-3xs, 5px);
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.repo-widget__stat a:hover,
+.repo-widget__stat a:focus-visible {
+  color: var(--marbl-white, #ffffff);
+  border-bottom-color: var(--marbl-white-30, rgba(255, 255, 255, 0.3));
+}
+
+.repo-widget__stat a:focus-visible {
+  outline: 2px solid var(--marbl-ember, #F35226);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm, 5px);
+}
+
+.repo-widget__stat-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  fill: currentColor;
+  opacity: 0.85;
+}
+
+.repo-widget__stat-value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  color: var(--marbl-white-85, rgba(255, 255, 255, 0.85));
+}
+
+.repo-widget__stat-label {
+  color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
+}
+
+/* ===== Actions ============================================================ */
+
+.repo-widget__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-xs, 10px);
+  margin-top: var(--gap-3xs, 5px);
+}
+
+.repo-widget__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-3xs, 5px);
+  padding: var(--gap-3xs, 5px) var(--gap-xs, 10px);
+  border-radius: var(--radius, 10px);
+  font-size: var(--text-xs, 11px);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.repo-widget__cta--primary {
+  background: var(--marbl-ember, #F35226);
+  color: var(--marbl-charcoal-darkest, #131112);
+  border: 1px solid var(--marbl-ember, #F35226);
+}
+
+.repo-widget__cta--primary:hover,
+.repo-widget__cta--primary:focus-visible {
+  background: var(--marbl-ember-dark, #BB2F09);
+  border-color: var(--marbl-ember-dark, #BB2F09);
+  color: var(--marbl-white, #ffffff);
+}
+
+.repo-widget__cta--primary svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.repo-widget__cta--secondary {
+  background: transparent;
+  color: var(--marbl-white-85, rgba(255, 255, 255, 0.85));
+  border: 1px solid var(--marbl-white-15, rgba(255, 255, 255, 0.15));
+}
+
+.repo-widget__cta--secondary:hover,
+.repo-widget__cta--secondary:focus-visible {
+  border-color: var(--marbl-white-40, rgba(255, 255, 255, 0.4));
+  color: var(--marbl-white, #ffffff);
+}
+
+.repo-widget__cta:focus-visible {
+  outline: 2px solid var(--marbl-ember, #F35226);
+  outline-offset: 2px;
+}
+
+/* ===== Reduced motion ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .repo-widget__cta,
+  .repo-widget__name a,
+  .repo-widget__stat a {
+    transition: none;
+  }
+}

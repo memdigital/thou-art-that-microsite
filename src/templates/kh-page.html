@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="{{BASE}}assets/vendor/arraypress/v1.5.2/waveform-player.css">
   <link rel="stylesheet" href="{{BASE}}assets/vendor/waveform-player/waveform-player.css">
   <link rel="stylesheet" href="{{BASE}}assets/vendor/knowledge-hub/knowledge-hub.css">
+  <link rel="stylesheet" href="{{BASE}}assets/vendor/repo-widget/repo-widget.css">
   <link rel="stylesheet" href="{{BASE}}assets/css/kh-content.css">
   {{VIEW_TRANSITION_STYLE}}
 
@@ -236,6 +237,11 @@
       <ul class="kh-toc__list">
         {{TOC_HTML}}
       </ul>
+
+      <!-- Source repo widget (transparent variant) - canonical Marbl component. -->
+      <div class="kh-toc__source">
+        {{REPO_WIDGET_HTML}}
+      </div>
     </aside>
 
   </main>

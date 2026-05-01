@@ -571,6 +571,132 @@ function renderRobots() {
   return lines.join('\n');
 }
 
+/* ====================================================================
+   Repo widget — canonical Marbl component, build-time data fetch.
+   ==================================================================== */
+
+function formatCount(n) {
+  if (n == null) return '';
+  if (n < 1000) return String(n);
+  return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+}
+
+function timeAgo(iso) {
+  if (!iso) return '';
+  const then = new Date(iso).getTime();
+  const now = Date.now();
+  const diffSec = Math.floor((now - then) / 1000);
+  if (diffSec < 60) return 'just now';
+  const diffMin = Math.floor(diffSec / 60);
+  if (diffMin < 60) return diffMin + ' minute' + (diffMin === 1 ? '' : 's') + ' ago';
+  const diffHr = Math.floor(diffMin / 60);
+  if (diffHr < 24) return diffHr + ' hour' + (diffHr === 1 ? '' : 's') + ' ago';
+  const diffDay = Math.floor(diffHr / 24);
+  if (diffDay < 30) return diffDay + ' day' + (diffDay === 1 ? '' : 's') + ' ago';
+  const diffMonth = Math.floor(diffDay / 30);
+  if (diffMonth < 12) return diffMonth + ' month' + (diffMonth === 1 ? '' : 's') + ' ago';
+  const diffYear = Math.floor(diffMonth / 12);
+  return diffYear + ' year' + (diffYear === 1 ? '' : 's') + ' ago';
+}
+
+const SPDX_TO_NAME = {
+  'CC-BY-4.0': 'CC BY 4.0',
+  'MIT': 'MIT',
+  'Apache-2.0': 'Apache 2.0',
+  'GPL-3.0': 'GPL 3.0',
+  'BSD-3-Clause': 'BSD 3-Clause'
+};
+const SPDX_TO_URL = {
+  'CC-BY-4.0': 'https://creativecommons.org/licenses/by/4.0/',
+  'MIT': 'https://opensource.org/licenses/MIT',
+  'Apache-2.0': 'https://www.apache.org/licenses/LICENSE-2.0',
+  'GPL-3.0': 'https://www.gnu.org/licenses/gpl-3.0.html',
+  'BSD-3-Clause': 'https://opensource.org/licenses/BSD-3-Clause'
+};
+
+async function fetchRepoStats(owner, repo) {
+  const headers = {
+    'User-Agent': 'tat-microsite-build/1.0',
+    'Accept': 'application/vnd.github+json'
+  };
+  // Optional GH token from env to lift the 60/hr anonymous rate limit.
+  if (process.env.GITHUB_TOKEN) headers.Authorization = 'Bearer ' + process.env.GITHUB_TOKEN;
+
+  // Fallback values if API fails (CITATION.cff-derived).
+  const fallback = {
+    stars: '0',
+    forks: '0',
+    description: '',
+    licenseSpdx: 'CC-BY-4.0',
+    license: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+    updatedIso: new Date().toISOString().slice(0, 10),
+    updated: 'recently',
+    version: 'v0.1.0',
+    discussionsCount: 0
+  };
+
+  try {
+    const repoRes = await fetch('https://api.github.com/repos/' + owner + '/' + repo, { headers });
+    if (!repoRes.ok) {
+      console.warn('  repo-widget: GH API ' + repoRes.status + ' for ' + owner + '/' + repo + ' - using fallback');
+      return fallback;
+    }
+    const data = await repoRes.json();
+    const spdx = data.license && data.license.spdx_id;
+    const stats = {
+      stars: formatCount(data.stargazers_count),
+      forks: formatCount(data.forks_count),
+      description: data.description || '',
+      licenseSpdx: spdx || fallback.licenseSpdx,
+      license: SPDX_TO_NAME[spdx] || spdx || fallback.license,
+      licenseUrl: SPDX_TO_URL[spdx] || fallback.licenseUrl,
+      updatedIso: (data.pushed_at || '').slice(0, 10) || fallback.updatedIso,
+      updated: timeAgo(data.pushed_at) || fallback.updated,
+      version: fallback.version,
+      discussionsCount: 0
+    };
+
+    // Latest release for version (optional - 404s if no releases yet).
+    try {
+      const relRes = await fetch('https://api.github.com/repos/' + owner + '/' + repo + '/releases/latest', { headers });
+      if (relRes.ok) {
+        const rel = await relRes.json();
+        if (rel.tag_name) stats.version = rel.tag_name;
+      }
+    } catch (_) { /* keep fallback */ }
+
+    return stats;
+  } catch (e) {
+    console.warn('  repo-widget: fetch failed - using fallback (' + e.message + ')');
+    return fallback;
+  }
+}
+
+function renderRepoWidget(owner, repo, stats, variant) {
+  const partialPath = join(SRC, 'assets', 'vendor', 'repo-widget', 'repo-widget.html');
+  const tpl = readFile(partialPath);
+  const repoUrl = 'https://github.com/' + owner + '/' + repo;
+  const fields = {
+    REPO_VARIANT: variant,
+    REPO_OWNER: escapeHtml(owner),
+    REPO_NAME: escapeHtml(repo),
+    REPO_URL: repoUrl,
+    REPO_DISCUSSIONS_URL: repoUrl + '/discussions',
+    REPO_DESCRIPTION: escapeHtml(stats.description),
+    REPO_STARS: escapeHtml(stats.stars),
+    REPO_FORKS: escapeHtml(stats.forks),
+    REPO_VERSION: escapeHtml(stats.version),
+    REPO_LICENSE: escapeHtml(stats.license),
+    REPO_LICENSE_URL: stats.licenseUrl,
+    REPO_UPDATED: escapeHtml(stats.updated),
+    REPO_UPDATED_ISO: stats.updatedIso,
+    REPO_DISCUSSIONS_SUFFIX: stats.discussionsCount > 0 ? ' (' + stats.discussionsCount + ')' : ''
+  };
+  return applyTemplate(tpl, fields);
+}
+
+
 function renderLlmsTxt(items) {
   const lines = [
     '# Thou Art That',
@@ -620,11 +746,17 @@ function renderLlmsFullTxt(items) {
    Main build
    ==================================================================== */
 
-function build() {
+async function build() {
   console.log('Thou Art That microsite — Phase 3 build (Knowledge Hub)');
 
   if (existsSync(DIST)) rmSync(DIST, { recursive: true, force: true });
   ensureDir(DIST);
+
+  // Repo widget data: one fetch, reused across every KH page.
+  console.log('  fetching repo stats from GitHub API...');
+  const repoStats = await fetchRepoStats('memdigital', 'thou-art-that');
+  const repoWidgetTransparentHtml = renderRepoWidget('memdigital', 'thou-art-that', repoStats, 'transparent');
+  console.log('  repo: ' + repoStats.stars + ' stars, ' + repoStats.version + ', ' + repoStats.license + ', updated ' + repoStats.updated);
 
   // Static assets (CSS, vendored deps, JS).
   if (existsSync(join(SRC, 'assets'))) {
@@ -733,6 +865,7 @@ function build() {
       CONTENT_HTML: rawBodyHtml,
       PAGINATION_HTML: paginationHtml,
       TOC_HTML: tocHtml,
+      REPO_WIDGET_HTML: repoWidgetTransparentHtml,
       BREADCRUMB_JSON: renderBreadcrumbJson(breadcrumbs),
       VIEW_TRANSITION_STYLE: viewTransitionStyle,
       HUB_HOME_URL: hubHomeUrl
@@ -776,4 +909,7 @@ function build() {
   console.log('build complete.');
 }
 
-build();
+build().catch(err => {
+  console.error('build failed:', err);
+  process.exit(1);
+});
