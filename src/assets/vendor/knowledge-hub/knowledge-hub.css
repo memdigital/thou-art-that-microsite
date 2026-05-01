@@ -367,14 +367,6 @@ html { scroll-behavior: smooth; }
   line-height: 38px;          /* 40 - 1 (border-bottom) - 1 (visual) */
 }
 
-/* Mobile home swap (TAT vendor extension - to be ported to canonical):
-   below 768px the home button becomes a plain text "Home" link instead
-   of an icon button. Markup carries both <svg class="kh-sidebar__home-icon">
-   and <span class="kh-sidebar__home-label">Home</span>; CSS swaps which
-   is shown by viewport. */
-.kh-sidebar__home-icon { display: block; }
-.kh-sidebar__home-label { display: none; }
-
 /* === Article column (centre) === */
 
 .kh-article {
@@ -587,7 +579,9 @@ html { scroll-behavior: smooth; }
   font-weight: var(--font-semibold, 600);
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--marbl-white-40, rgba(255, 255, 255, 0.4));
+  /* white-65 hits WCAG AA contrast ratio against --marbl-charcoal.
+     white-40 was 3.5:1 (failed Lighthouse a11y). Locked 1 May 2026. */
+  color: var(--marbl-white-65, rgba(255, 255, 255, 0.65));
   margin-bottom: var(--gap-tight);
 }
 
@@ -721,41 +715,6 @@ html { scroll-behavior: smooth; }
   }
 
   .kh-sidebar__toggle { display: flex; }
-
-  /* Stack home + search vertically on mobile (the desktop flex row would
-     squeeze too tight in narrow viewports). */
-  .kh-sidebar__top {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--gap-xs, 10px);
-  }
-
-  /* Mobile: drop the icon-button shell entirely on home, render as plain
-     text link that matches kh-nav__link spacing/colour. */
-  .kh-sidebar__top .kh-sidebar__home,
-  .kh-sidebar__home {
-    display: block;
-    width: auto;
-    height: auto;
-    min-width: 0;
-    min-height: 0;
-    padding: var(--gap-xs, 10px) 0;
-    border: 0;
-    background: transparent;
-    border-radius: 0;
-    color: var(--marbl-white, #ffffff);
-    font-family: inherit;
-    font-size: var(--text-base, 15px);
-    font-weight: var(--font-semibold, 600);
-    line-height: 1.4;
-  }
-  .kh-sidebar__home:hover,
-  .kh-sidebar__home:focus-visible {
-    color: var(--marbl-ember, #F35226);
-    background: transparent;
-  }
-  .kh-sidebar__home-icon { display: none; }
-  .kh-sidebar__home-label { display: inline; }
 
   /* Sidebar contents (search + nav) collapsed in a sliding panel */
   .kh-sidebar__panel {
