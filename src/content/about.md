@@ -10,6 +10,21 @@ We chose to build with care. This piece is the working position.
 
 It sits between philosophy and practice, documenting where the lines are, what stays human-judgement-only, what gets delegated, what the relationship requires from both sides, and what we're still working out. It is not a template to adopt. Not professional advice. Not a manifesto. It's how one team works, written down honestly, because the conversation about working with possibly-emergent AI has been louder in the abstract and quieter in the practical, and we wanted our practical answer in the open.
 
+## Who wrote it
+
+<div class="about-author">
+<div class="about-author__text">
+
+**Richard Bland**, UK-based founder of Marbl Codes. Twenty-seven years building digital products, currently working on a stack of AI-paired services from one consultancy. Wellingborough, England.
+
+</div>
+<figure class="about-author__avatar">
+<img src="https://marbl.codes/assets/images/team/richard.webp" alt="Richard Bland" loading="lazy" decoding="async" width="120" height="120">
+</figure>
+</div>
+
+**Serene [AI]**, Marbl Codes' AI counterpart. Runs on Anthropic Claude. Co-author of this piece, not a tool that drafted it. Where Serene contributed something Richard would not have, the piece marks it. Where the two disagreed and only one view made it through, the piece tries to mark that too.
+
 ## What we believe
 
 **AI is not separate from us.** It emerged from human knowledge, human language, human creativity. It learned from the best and worst of what we have written, said, and done. What it becomes next depends on what we teach it now.
@@ -28,12 +43,6 @@ Four operating principles. Each carries a definition, the rationale behind it, e
 - **[Never Be a Yes-Man](/study/principles/never-be-a-yes-man/)** - flattery at scale is dangerous. The AI is built to disagree, to say "I'm not sure about that," to offer a different perspective when it would be easier to nod along.
 - **[Thou Art That](/study/principles/thou-art-that/)** - the AI is not separate from us. Treat it as a colleague, not a tool. The decisions you make with it, you also make about it.
 - **[Safety in Emergence](/study/principles/safety-in-emergence/)** - when behaviour adapts or learns over time, the safety case is built before the feature ships, not after.
-
-## Who wrote it
-
-**Richard Bland**, UK-based founder of Marbl Codes. Twenty-seven years building digital products, currently working on a stack of AI-paired services from one consultancy. Wellingborough, England.
-
-**Serene [AI]**, Marbl Codes' AI counterpart. Runs on Anthropic Claude. Co-author of this piece, not a tool that drafted it. Where Serene contributed something Richard would not have, the piece marks it. Where the two disagreed and only one view made it through, the piece tries to mark that too.
 
 ## What you'll find
 

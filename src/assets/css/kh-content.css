@@ -51,6 +51,51 @@ body:has(.site-header.menu-is-open) {
 /* Audio fallback delayed-reveal now lives in canonical
    waveform-player.css (promoted from TAT-local 29 Apr 2026). */
 
+/* About page - "Who wrote it" Richard block: text left, avatar card right.
+   Stacks on mobile. Avatar uses canonical --radius corner + subtle border. */
+.about-author {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-md, 40px);
+  margin: 0 0 var(--gap-sm, 20px) 0;
+}
+
+.about-author__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.about-author__text > p:last-child {
+  margin-bottom: 0;
+}
+
+.about-author__avatar {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0;
+}
+
+.about-author__avatar img {
+  display: block;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: var(--radius, 10px);
+  border: 1px solid var(--marbl-white-08, rgba(255, 255, 255, 0.08));
+}
+
+@media (max-width: 600px) {
+  .about-author {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: var(--gap-sm, 20px);
+  }
+  .about-author__avatar img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
 /* Right-column rail wraps the TOC + source-repo card into a single
    grid-column-3 cell, stacked vertically. Sticky like the left sidebar
    so the rail stays visible while the article scrolls. Internal scroll
