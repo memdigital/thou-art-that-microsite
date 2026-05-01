@@ -6,6 +6,10 @@
  *   .repo-widget--filled       solid card, body-content placement
  *   .repo-widget--transparent  no background, sidebar/aux placement
  *
+ * The action buttons inside the widget use the canonical ui-items button
+ * classes (.btn .btn--fill-up.btn--mini, .btn.btn--outline.btn--mini) -
+ * NOT bespoke styles. Consumers must vendor ui-items/button.css alongside.
+ *
  * All values from marbl-v2.css tokens. No invented px values.
  */
 
@@ -17,7 +21,7 @@
   border-radius: var(--radius, 10px);
   background: var(--marbl-charcoal-light, #1d1a1b);
   border: 1px solid var(--marbl-white-08, rgba(255, 255, 255, 0.08));
-  font-family: var(--marbl-font-body, 'Inter', sans-serif);
+  font-family: var(--font-body, var(--marbl-font-body, 'Inter', sans-serif));
   color: var(--marbl-white-85, rgba(255, 255, 255, 0.85));
 }
 
@@ -29,9 +33,7 @@
 }
 
 /* Hide filled-only chrome inside transparent variant */
-.repo-widget--transparent .repo-widget__description--filled-only,
-.repo-widget--transparent .repo-widget__stat--filled-only,
-.repo-widget--transparent .repo-widget__cta--filled-only {
+.repo-widget--transparent .repo-widget__description--filled-only {
   display: none;
 }
 
@@ -45,8 +47,8 @@
 }
 
 .repo-widget__icon {
-  width: 20px;
-  height: 20px;
+  width: var(--icon-lg, 20px);
+  height: var(--icon-lg, 20px);
   flex-shrink: 0;
   fill: var(--marbl-white-70, rgba(255, 255, 255, 0.7));
 }
@@ -133,8 +135,8 @@
 }
 
 .repo-widget__stat-icon {
-  width: 12px;
-  height: 12px;
+  width: var(--icon-xs, 12px);
+  height: var(--icon-xs, 12px);
   flex-shrink: 0;
   fill: currentColor;
   opacity: 0.85;
@@ -150,7 +152,11 @@
   color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
 }
 
-/* ===== Actions ============================================================ */
+/* ===== Actions ============================================================
+   Buttons are the canonical .btn / .btn--fill-up / .btn--outline / .btn--mini
+   pattern from ui-items/button.css. The footer is a flex container only;
+   button styling lives in the canonical button.css and must be vendored
+   alongside this component. */
 
 .repo-widget__actions {
   display: flex;
@@ -159,62 +165,9 @@
   margin-top: var(--gap-3xs, 5px);
 }
 
-.repo-widget__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--gap-3xs, 5px);
-  padding: var(--gap-3xs, 5px) var(--gap-xs, 10px);
-  border-radius: var(--radius, 10px);
-  font-size: var(--text-xs, 11px);
-  font-weight: 500;
-  text-decoration: none;
-  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
-}
-
-.repo-widget__cta--primary {
-  background: var(--marbl-ember, #F35226);
-  color: var(--marbl-charcoal-darkest, #131112);
-  border: 1px solid var(--marbl-ember, #F35226);
-}
-
-.repo-widget__cta--primary:hover,
-.repo-widget__cta--primary:focus-visible {
-  background: var(--marbl-ember-dark, #BB2F09);
-  border-color: var(--marbl-ember-dark, #BB2F09);
-  color: var(--marbl-white, #ffffff);
-}
-
-.repo-widget__cta--primary svg {
-  width: 12px;
-  height: 12px;
-  stroke: currentColor;
-  stroke-width: 2;
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.repo-widget__cta--secondary {
-  background: transparent;
-  color: var(--marbl-white-85, rgba(255, 255, 255, 0.85));
-  border: 1px solid var(--marbl-white-15, rgba(255, 255, 255, 0.15));
-}
-
-.repo-widget__cta--secondary:hover,
-.repo-widget__cta--secondary:focus-visible {
-  border-color: var(--marbl-white-40, rgba(255, 255, 255, 0.4));
-  color: var(--marbl-white, #ffffff);
-}
-
-.repo-widget__cta:focus-visible {
-  outline: 2px solid var(--marbl-ember, #F35226);
-  outline-offset: 2px;
-}
-
 /* ===== Reduced motion ===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  .repo-widget__cta,
   .repo-widget__name a,
   .repo-widget__stat a {
     transition: none;

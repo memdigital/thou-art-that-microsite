@@ -3,7 +3,9 @@
 A small canonical card showing meaningful state for a Marbl-owned (or Marbl-affiliated) GitHub repository - stars, forks, version, licence, last-updated, and links into the repo + discussions. Two visual variants: solid card for body content, transparent for sidebar use.
 
 **Live preview:** `./preview.html`
-**Status:** v1.1.0 - static (build-time data fetch). Live mode (client-side fetch with localStorage cache) deferred to v2.
+**Status:** v1.2.0 - static (build-time data fetch). Live mode (client-side fetch with localStorage cache) deferred to v2.
+
+**Depends on:** `ui-items/button.css` (canonical buttons used for the action footer). Vendor it alongside this component.
 
 **SEO baseline:** see [`../_seo-aeo-geo-baseline.md`](../_seo-aeo-geo-baseline.md). Microdata for `SoftwareSourceCode` + `InteractionCounter` is built into the partial.
 
@@ -64,11 +66,11 @@ See `./repo-widget.html` for the full canonical partial.
 
 ### `repo-widget--filled` (default)
 
-Solid card on a slightly raised background. Use in body content, dedicated "Source" sections, or anywhere with breathing room. Shows the full set: header, description, all six stats, primary + secondary CTA.
+Solid card on a slightly raised background. Use in body content, dedicated "Source" sections, or anywhere with breathing room. Shows the full set: header, description, four stats (stars / forks / version / last-updated), primary + secondary CTA.
 
 ### `repo-widget--transparent`
 
-No background, lighter border, tighter padding. Use in sidebars (KH "On this page" column, footer columns, narrow rails). Hides the elements marked `--filled-only`: description, forks stat, last-updated stat, secondary "Join discussion" CTA. Shows: header, stars, version, licence, primary CTA only.
+No background, lighter border, tighter padding. Use in sidebars (KH "On this page" column, footer columns, narrow rails). Hides the description (`--filled-only`). Shows: header, all four stats, both CTAs.
 
 ---
 
@@ -83,13 +85,11 @@ No background, lighter border, tighter padding. Use in sidebars (KH "On this pag
 | `{{REPO_DISCUSSIONS_URL}}` | yes | `{{REPO_URL}}/discussions` | for secondary CTA |
 | `{{REPO_DESCRIPTION}}` | filled only | "A study piece on..." | omit on transparent |
 | `{{REPO_STARS}}` | yes | `42` or `1.2k` | format integers >= 1000 as `1.2k` |
-| `{{REPO_FORKS}}` | filled only | `3` | |
+| `{{REPO_FORKS}}` | yes | `3` | |
 | `{{REPO_VERSION}}` | yes | `v0.1.0` | from CITATION.cff or latest GH release |
-| `{{REPO_LICENSE}}` | yes | `CC BY 4.0` | from CITATION.cff or repo licence |
-| `{{REPO_LICENSE_URL}}` | yes | `https://creativecommons.org/licenses/by/4.0/` | machine-readable |
-| `{{REPO_UPDATED}}` | filled only | `2 days ago` | relative time string |
-| `{{REPO_UPDATED_ISO}}` | filled only | `2026-04-30` | ISO 8601 for `<time datetime>` |
-| `{{REPO_DISCUSSIONS_SUFFIX}}` | filled only | ` (3)` or empty | `(N)` if N > 0 |
+| `{{REPO_UPDATED}}` | yes | `2 days ago` | relative time string |
+| `{{REPO_UPDATED_ISO}}` | yes | `2026-04-30` | ISO 8601 for `<time datetime>` |
+| `{{REPO_DISCUSSIONS_SUFFIX}}` | yes | ` (3)` or empty | `(N)` if N > 0 |
 
 Empty placeholders (omit a stat) should resolve to `""` in the build, so the markup stays valid HTML even if a value is missing.
 
@@ -123,7 +123,6 @@ async function fetchRepoStats(owner, repo, githubToken) {
     stars: formatCount(repoData.stargazers_count),
     forks: repoData.forks_count,
     description: repoData.description || '',
-    license: repoData.license?.spdx_id || '',
     updatedAt: repoData.pushed_at,
     updatedRelative: timeAgo(repoData.pushed_at),
     version
@@ -145,7 +144,6 @@ If the API call fails (rate limit, network error), fall back to placeholder valu
 The widget carries `SoftwareSourceCode` itemscope on the root, with these itemprops:
 
 - `codeRepository` (URL) - via `<meta>`
-- `license` (URL) - via `<meta>`
 - `name` - inside the `<h3>`
 - `url` - on the title `<a>`
 - `description` - on the `<p>` (filled only)
@@ -201,5 +199,6 @@ All values from `marbl-v2.css`. No invented px values, no local aliases.
 
 ## 9. Changelog
 
+- **v1.2.0** - 1 May 2026 - **brand discipline pass**: action buttons now use canonical `.btn .btn--fill-up.btn--mini` (primary) + `.btn .btn--outline.btn--mini` (secondary) from `ui-items/button.css` instead of bespoke `.repo-widget__cta*` classes. Licence stat dropped per Richard. Forks + last-updated promoted to always-visible (was filled-only). Both CTAs now show on the transparent variant. Repo widget became the standard reference for "Marbl-only? load `/marbl-design-system` skill, read `brand-kit.md` + `ui-items.md`, then build."
 - **v1.1.0** - 1 May 2026 - stars stat now links to repo root (where the GitHub Star button lives) so logged-in users can star with one extra click; aria-label and title updated accordingly. Tracking event renamed to `Repo widget - star intent click`.
 - **v1.0.0** - 1 May 2026 - initial canonical. Filled + transparent variants, six stats, two CTAs, microdata, build-time data fetching.

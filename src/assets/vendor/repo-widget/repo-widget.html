@@ -1,8 +1,9 @@
-<!-- Marbl repo-widget canonical partial. Spec: ./repo-widget.md -->
+<!-- Marbl repo-widget canonical partial. Spec: ./repo-widget.md
+     Depends on canonical ui-items/button.css for the .btn / .btn--mini /
+     .btn--fill-up / .btn--outline classes used by the action buttons. -->
 <article class="repo-widget repo-widget--{{REPO_VARIANT}}"
          itemscope itemtype="https://schema.org/SoftwareSourceCode">
   <meta itemprop="codeRepository" content="{{REPO_URL}}">
-  <meta itemprop="license" content="{{REPO_LICENSE_URL}}">
 
   <header class="repo-widget__header">
     <svg class="repo-widget__icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -36,7 +37,7 @@
         <span class="repo-widget__stat-label">stars</span>
       </a>
     </li>
-    <li class="repo-widget__stat repo-widget__stat--forks repo-widget__stat--filled-only">
+    <li class="repo-widget__stat repo-widget__stat--forks">
       <a href="{{REPO_URL}}/network/members"
          target="_blank" rel="noopener noreferrer"
          data-fathom-event="Repo widget - forks click">
@@ -53,13 +54,7 @@
       </svg>
       <span class="repo-widget__stat-value" itemprop="softwareVersion">{{REPO_VERSION}}</span>
     </li>
-    <li class="repo-widget__stat repo-widget__stat--license">
-      <svg class="repo-widget__stat-icon" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 2L4 5v6c0 5 3.4 9.5 8 11 4.6-1.5 8-6 8-11V5l-8-3z"/>
-      </svg>
-      <span class="repo-widget__stat-value">{{REPO_LICENSE}}</span>
-    </li>
-    <li class="repo-widget__stat repo-widget__stat--updated repo-widget__stat--filled-only">
+    <li class="repo-widget__stat repo-widget__stat--updated">
       <svg class="repo-widget__stat-icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm1-8h4v2h-6V7h2v5z"/>
       </svg>
@@ -68,18 +63,23 @@
   </ul>
 
   <footer class="repo-widget__actions">
-    <a class="repo-widget__cta repo-widget__cta--primary"
+    <a class="btn btn--fill-up btn--mini"
        href="{{REPO_URL}}"
        target="_blank" rel="noopener noreferrer"
        data-fathom-event="Repo widget - View on GitHub">
       View on GitHub
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      <span class="btn__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </span>
     </a>
-    <a class="repo-widget__cta repo-widget__cta--secondary repo-widget__cta--filled-only"
+    <a class="btn btn--outline btn--mini"
        href="{{REPO_DISCUSSIONS_URL}}"
        target="_blank" rel="noopener noreferrer"
        data-fathom-event="Repo widget - Join discussion">
       Join the discussion{{REPO_DISCUSSIONS_SUFFIX}}
+      <span class="btn__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </span>
     </a>
   </footer>
 </article>

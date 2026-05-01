@@ -599,21 +599,6 @@ function timeAgo(iso) {
   return diffYear + ' year' + (diffYear === 1 ? '' : 's') + ' ago';
 }
 
-const SPDX_TO_NAME = {
-  'CC-BY-4.0': 'CC BY 4.0',
-  'MIT': 'MIT',
-  'Apache-2.0': 'Apache 2.0',
-  'GPL-3.0': 'GPL 3.0',
-  'BSD-3-Clause': 'BSD 3-Clause'
-};
-const SPDX_TO_URL = {
-  'CC-BY-4.0': 'https://creativecommons.org/licenses/by/4.0/',
-  'MIT': 'https://opensource.org/licenses/MIT',
-  'Apache-2.0': 'https://www.apache.org/licenses/LICENSE-2.0',
-  'GPL-3.0': 'https://www.gnu.org/licenses/gpl-3.0.html',
-  'BSD-3-Clause': 'https://opensource.org/licenses/BSD-3-Clause'
-};
-
 async function fetchRepoStats(owner, repo) {
   const headers = {
     'User-Agent': 'tat-microsite-build/1.0',
@@ -622,14 +607,10 @@ async function fetchRepoStats(owner, repo) {
   // Optional GH token from env to lift the 60/hr anonymous rate limit.
   if (process.env.GITHUB_TOKEN) headers.Authorization = 'Bearer ' + process.env.GITHUB_TOKEN;
 
-  // Fallback values if API fails (CITATION.cff-derived).
   const fallback = {
     stars: '0',
     forks: '0',
     description: '',
-    licenseSpdx: 'CC-BY-4.0',
-    license: 'CC BY 4.0',
-    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
     updatedIso: new Date().toISOString().slice(0, 10),
     updated: 'recently',
     version: 'v0.1.0',
@@ -643,21 +624,16 @@ async function fetchRepoStats(owner, repo) {
       return fallback;
     }
     const data = await repoRes.json();
-    const spdx = data.license && data.license.spdx_id;
     const stats = {
       stars: formatCount(data.stargazers_count),
       forks: formatCount(data.forks_count),
       description: data.description || '',
-      licenseSpdx: spdx || fallback.licenseSpdx,
-      license: SPDX_TO_NAME[spdx] || spdx || fallback.license,
-      licenseUrl: SPDX_TO_URL[spdx] || fallback.licenseUrl,
       updatedIso: (data.pushed_at || '').slice(0, 10) || fallback.updatedIso,
       updated: timeAgo(data.pushed_at) || fallback.updated,
       version: fallback.version,
       discussionsCount: 0
     };
 
-    // Latest release for version (optional - 404s if no releases yet).
     try {
       const relRes = await fetch('https://api.github.com/repos/' + owner + '/' + repo + '/releases/latest', { headers });
       if (relRes.ok) {
@@ -687,8 +663,6 @@ function renderRepoWidget(owner, repo, stats, variant) {
     REPO_STARS: escapeHtml(stats.stars),
     REPO_FORKS: escapeHtml(stats.forks),
     REPO_VERSION: escapeHtml(stats.version),
-    REPO_LICENSE: escapeHtml(stats.license),
-    REPO_LICENSE_URL: stats.licenseUrl,
     REPO_UPDATED: escapeHtml(stats.updated),
     REPO_UPDATED_ISO: stats.updatedIso,
     REPO_DISCUSSIONS_SUFFIX: stats.discussionsCount > 0 ? ' (' + stats.discussionsCount + ')' : ''
@@ -756,7 +730,7 @@ async function build() {
   console.log('  fetching repo stats from GitHub API...');
   const repoStats = await fetchRepoStats('memdigital', 'thou-art-that');
   const repoWidgetTransparentHtml = renderRepoWidget('memdigital', 'thou-art-that', repoStats, 'transparent');
-  console.log('  repo: ' + repoStats.stars + ' stars, ' + repoStats.version + ', ' + repoStats.license + ', updated ' + repoStats.updated);
+  console.log('  repo: ' + repoStats.stars + ' stars, ' + repoStats.forks + ' forks, ' + repoStats.version + ', updated ' + repoStats.updated);
 
   // Static assets (CSS, vendored deps, JS).
   if (existsSync(join(SRC, 'assets'))) {
