@@ -162,6 +162,17 @@
 .btn--mini .btn__icon { width: var(--icon-xl, 22px); height: var(--icon-xl, 22px); }
 .btn--mini .btn__icon svg { width: var(--icon-xs, 11px); height: var(--icon-xs, 11px); }
 
+/* Modifier: opt out of the 45deg hover rotate.
+   The default .btn__icon svg rotates on hover - reads as "open in new
+   tab / external link" affordance. For non-action icons (chat bubble,
+   info, status) the rotate is wrong. Apply this modifier to keep the
+   icon static while the rest of the .btn hover treatment still fires.
+   Locked 1 May 2026. */
+.btn__icon--no-rotate svg,
+.btn__icon--no-rotate:hover svg,
+*:hover > .btn__icon--no-rotate svg,
+.btn:hover .btn__icon--no-rotate svg { transform: none !important; }
+
 /* ═══════════════════════════════════════════════════════
    ICON BUTTONS (icon left or right with text — no circle bg)
    ═══════════════════════════════════════════════════════ */

@@ -98,7 +98,7 @@
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--gap-xs, 10px) var(--gap-sm, 20px);
+  gap: var(--gap-2xs, 8px);
   font-size: var(--text-xs, 11px);
   color: var(--marbl-white-65, rgba(255, 255, 255, 0.65));
 }
@@ -158,8 +158,10 @@
    button styling lives in the canonical button.css and must be vendored
    alongside this component. */
 
-/* DEFAULT (filled, full-width contexts): buttons inline at their natural
-   content widths, wrapping if the row gets too tight. */
+/* DEFAULT button layout: inline at content-natural widths, wrap if tight.
+   Visual variant (--filled / --transparent) is INDEPENDENT of layout -
+   either visual variant uses the default inline layout unless the
+   --stack-actions modifier is added (see below). */
 .repo-widget__actions {
   display: flex;
   flex-wrap: wrap;
@@ -167,28 +169,28 @@
   margin-top: var(--gap-3xs, 5px);
 }
 
-/* TRANSPARENT (sidebar): buttons stacked vertically, full-width.
-   Sidebars are narrow, stacked reads as a deliberate pair. */
-.repo-widget--transparent .repo-widget__actions {
+/* MODIFIER --stack-actions: opt-in vertical stack with full-width buttons.
+   For narrow contexts (sidebars, rails). Composable with either visual
+   variant. Apply alongside --transparent for the typical sidebar use. */
+.repo-widget--stack-actions .repo-widget__actions {
   flex-direction: column;
   align-items: stretch;
 }
-.repo-widget--transparent .repo-widget__actions .btn {
+.repo-widget--stack-actions .repo-widget__actions .btn {
   width: 100%;
   justify-content: center;
 }
 
-/* MOBILE (any variant): buttons sit inline side-by-side, 50/50 equal
-   width. Overrides the transparent stacking above on small viewports. */
+/* MOBILE (any variant, any modifier): buttons collapse to inline 50/50
+   equal-width. Overrides --stack-actions on small viewports because
+   stacking on a phone wastes vertical space. */
 @media (max-width: 768px) {
-  .repo-widget .repo-widget__actions,
-  .repo-widget--transparent .repo-widget__actions {
+  .repo-widget .repo-widget__actions {
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: stretch;
   }
-  .repo-widget .repo-widget__actions .btn,
-  .repo-widget--transparent .repo-widget__actions .btn {
+  .repo-widget .repo-widget__actions .btn {
     flex: 1 1 0;
     width: auto;
     min-width: 0;

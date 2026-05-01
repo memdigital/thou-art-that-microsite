@@ -226,11 +226,12 @@
         {{CONTENT_HTML}}
       </div>
 
-      <!-- Mobile-only repo card: same widget as the right-rail desktop one,
-           rendered inside the article column above pagination so mobile
-           readers still see the source CTA. Hidden on desktop via CSS. -->
+      <!-- Mobile-only repo card: rendered inside the article column above
+           pagination so mobile readers still see the source CTA. Hidden on
+           desktop via CSS. Uses the inline-buttons render (no stack-actions
+           modifier - the article column is full-width on mobile). -->
       <aside class="kh-source kh-source--mobile" aria-label="Source repository">
-        {{REPO_WIDGET_HTML}}
+        {{REPO_WIDGET_MOBILE_HTML}}
       </aside>
 
       {{PAGINATION_HTML}}
@@ -251,7 +252,7 @@
       </aside>
 
       <aside class="kh-source" aria-label="Source repository">
-        {{REPO_WIDGET_HTML}}
+        {{REPO_WIDGET_SIDEBAR_HTML}}
       </aside>
     </div>
 

@@ -3,7 +3,7 @@
 A small canonical card showing meaningful state for a Marbl-owned (or Marbl-affiliated) GitHub repository - stars, forks, version, licence, last-updated, and links into the repo + discussions. Two visual variants: solid card for body content, transparent for sidebar use.
 
 **Live preview:** `./preview.html`
-**Status:** v1.5.1 - static (build-time data fetch). Live mode (client-side fetch with localStorage cache) deferred to v2.
+**Status:** v1.6.0 - static (build-time data fetch). Live mode (client-side fetch with localStorage cache) deferred to v2.
 
 **Depends on:** `ui-items/button.css` (canonical buttons used for the action footer). Vendor it alongside this component.
 
@@ -199,6 +199,7 @@ All values from `marbl-v2.css`. No invented px values, no local aliases.
 
 ## 9. Changelog
 
+- **v1.6.0** - 1 May 2026 - decouple visual variant from action layout. `--filled` / `--transparent` now control visual ONLY (background + padding + which stats show). New `--stack-actions` modifier opt-in for vertical full-width buttons (sidebars). Discussion CTA swapped from arrow → chat-bubble icon + new `.btn__icon--no-rotate` modifier on canonical `button.css` so the icon stays still on hover (rotation reads as "external link", wrong for "open chat"). Stat-row gap tightened to `--gap-2xs` (8px). Critical-path FOUC reset scoped to `:not(.btn)` so canonical button colours aren't overridden (was the cause of TAT showing white text on the ember primary button while library preview showed correct ember).
 - **v1.5.1** - 1 May 2026 - kill FOUC: inline a tiny critical-path `<style>` block at the top of the partial that resets `<a>`/`<ul>`/`<li>`/`<p>` defaults before the external `repo-widget.css` loads. Was flashing blue underlined links on first paint when many vendored stylesheets compete for browser bandwidth. CSP-compliant via `style-src 'unsafe-inline'`.
 - **v1.5.0** - 1 May 2026 - action button layout split by variant + viewport: filled (full-width contexts) keeps buttons inline at natural widths; transparent (sidebars) stacks them vertically full-width on desktop; both variants drop to inline 50/50 equal-width on mobile (≤768px viewport). Container-query approach from v1.2/v1.4 retired in favour of viewport + variant rules so behaviour is predictable per context.
 - **v1.4.0** - 1 May 2026 - narrow-context (≤320px container width) action buttons now stay inline side-by-side with 50/50 equal width and centred labels (was stacked + full-width). Reads as a tighter, deliberate pair on sidebar/mobile.

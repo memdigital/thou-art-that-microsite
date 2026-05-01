@@ -649,12 +649,14 @@ async function fetchRepoStats(owner, repo) {
   }
 }
 
-function renderRepoWidget(owner, repo, stats, variant) {
+function renderRepoWidget(owner, repo, stats, variant, opts) {
   const partialPath = join(SRC, 'assets', 'vendor', 'repo-widget', 'repo-widget.html');
   const tpl = readFile(partialPath);
   const repoUrl = 'https://github.com/' + owner + '/' + repo;
+  const stackActions = !!(opts && opts.stackActions);
   const fields = {
     REPO_VARIANT: variant,
+    REPO_EXTRA_CLASSES: stackActions ? ' repo-widget--stack-actions' : '',
     REPO_OWNER: escapeHtml(owner),
     REPO_NAME: escapeHtml(repo),
     REPO_URL: repoUrl,
@@ -729,7 +731,10 @@ async function build() {
   // Repo widget data: one fetch, reused across every KH page.
   console.log('  fetching repo stats from GitHub API...');
   const repoStats = await fetchRepoStats('memdigital', 'thou-art-that');
-  const repoWidgetTransparentHtml = renderRepoWidget('memdigital', 'thou-art-that', repoStats, 'transparent');
+  // Two renders: desktop rail = transparent + stack-actions (narrow column).
+  // Mobile in-article = transparent only (full-width container, inline buttons).
+  const repoWidgetSidebarHtml = renderRepoWidget('memdigital', 'thou-art-that', repoStats, 'transparent', { stackActions: true });
+  const repoWidgetMobileHtml = renderRepoWidget('memdigital', 'thou-art-that', repoStats, 'transparent');
   console.log('  repo: ' + repoStats.stars + ' stars, ' + repoStats.forks + ' forks, ' + repoStats.version + ', updated ' + repoStats.updated);
 
   // Static assets (CSS, vendored deps, JS).
@@ -839,7 +844,8 @@ async function build() {
       CONTENT_HTML: rawBodyHtml,
       PAGINATION_HTML: paginationHtml,
       TOC_HTML: tocHtml,
-      REPO_WIDGET_HTML: repoWidgetTransparentHtml,
+      REPO_WIDGET_SIDEBAR_HTML: repoWidgetSidebarHtml,
+      REPO_WIDGET_MOBILE_HTML: repoWidgetMobileHtml,
       BREADCRUMB_JSON: renderBreadcrumbJson(breadcrumbs),
       VIEW_TRANSITION_STYLE: viewTransitionStyle,
       HUB_HOME_URL: hubHomeUrl
