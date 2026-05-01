@@ -59,14 +59,6 @@ body:has(.site-header.menu-is-open) {
   align-self: flex-start;
 }
 
-/* KH sidebar - subscribe CTA sits below the nav tree, full-width inside
-   the sidebar panel. Persistent on every study page. */
-.kh-sidebar__cta {
-  display: flex;
-  width: 100%;
-  margin-top: var(--gap-md, 40px);
-  justify-content: center;
-}
 
 /* About page - "Who wrote it" Richard block: text left, avatar card right.
    Stacks on mobile. Avatar uses canonical --radius corner + subtle border. */
