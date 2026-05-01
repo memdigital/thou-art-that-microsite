@@ -353,6 +353,21 @@ html { scroll-behavior: smooth; }
   text-decoration: none;
 }
 
+/* "Home" label is visually hidden on desktop (icon-only button - SR users
+   get the parent's aria-label). Mobile rule below reveals it as the only
+   visible content (icon hidden there). Locked 1 May 2026. */
+.kh-sidebar__home-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .kh-sidebar__top .kh-sidebar__search-field {
   flex: 1 1 auto;
   min-width: 0;
