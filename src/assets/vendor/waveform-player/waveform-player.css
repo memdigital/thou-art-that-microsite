@@ -301,22 +301,16 @@
   border: 0;
 }
 
-/* ===== Container-query responsive ========================================== */
-
-/* Below 400px container width, pill stacks above the waveform. The
- * component responds to its parent's column width, not the viewport,
- * so consumers don't need responsive CSS for narrow placements. */
-@container waveform-player (max-width: 400px) {
-  .marbl-waveform .mwp-inline {
-    flex-wrap: wrap;
-  }
-  .marbl-waveform .mwp-controls-pill,
-  .marbl-waveform .mwp-waveform-area {
-    width: 100%;
-  }
-  .marbl-waveform .mwp-controls-pill {
-    margin-bottom: var(--gap-xs, 10px);
-  }
+/* ===== Container-query responsive ==========================================
+ *
+ * Pill controls + waveform stay inline at every container width. Locked
+ * 1 May 2026 (Richard): the previous "stack pill above waveform below
+ * 400px" stretched the pill full-width on mobile which read as a heavy
+ * UI block. Inline reads as a single discrete player even when tight.
+ * Pill shrinks naturally; waveform fills remaining space.
+ */
+.marbl-waveform .mwp-inline {
+  flex-wrap: nowrap;
 }
 
 /* ===== Reduced motion ====================================================== */
