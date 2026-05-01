@@ -51,8 +51,16 @@ body:has(.site-header.menu-is-open) {
 /* Audio fallback delayed-reveal now lives in canonical
    waveform-player.css (promoted from TAT-local 29 Apr 2026). */
 
-/* Source repo widget block sits below the "On this page" TOC. */
-.kh-toc__source {
+/* Source repo card - sibling aside in the right column, below the TOC.
+   `grid-column: 3` pins it to the right column track of the kh-shell
+   grid; auto-flow drops it into row 2 since row 1 col 3 is the TOC. */
+.kh-source {
+  grid-column: 3;
   margin-top: var(--gap-md, 40px);
+  font-size: var(--text-sm, 13px);
+}
+
+@media (max-width: 1023px) {
+  .kh-source { display: none; }
 }
 

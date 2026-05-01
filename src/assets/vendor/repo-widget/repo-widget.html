@@ -1,25 +1,4 @@
-<!--
-  Marbl repo-widget canonical partial.
-
-  Variants on the root .repo-widget element:
-    .repo-widget--filled        (default - solid card on darker bg)
-    .repo-widget--transparent   (sidebar use - no background, lighter chrome)
-
-  Placeholders consumed by the build pipeline:
-    {{REPO_OWNER}}      e.g. memdigital
-    {{REPO_NAME}}       e.g. thou-art-that
-    {{REPO_DESCRIPTION}} short one-liner (filled variant only)
-    {{REPO_URL}}        https://github.com/{{REPO_OWNER}}/{{REPO_NAME}}
-    {{REPO_DISCUSSIONS_URL}}  {{REPO_URL}}/discussions
-    {{REPO_STARS}}      formatted star count (e.g. "42" or "1.2k")
-    {{REPO_FORKS}}      formatted fork count
-    {{REPO_VERSION}}    e.g. v0.1.0  (or empty string if unknown)
-    {{REPO_LICENSE}}    e.g. CC BY 4.0
-    {{REPO_UPDATED}}    e.g. "2 days ago" (relative time string)
-    {{REPO_DISCUSSIONS}} integer count of open discussions (or empty)
-
-  Schema.org via microdata - SoftwareSourceCode + InteractionCounter (stars).
--->
+<!-- Marbl repo-widget canonical partial. Spec: ./repo-widget.md -->
 <article class="repo-widget repo-widget--{{REPO_VARIANT}}"
          itemscope itemtype="https://schema.org/SoftwareSourceCode">
   <meta itemprop="codeRepository" content="{{REPO_URL}}">
@@ -45,9 +24,11 @@
     <li class="repo-widget__stat repo-widget__stat--stars"
         itemprop="interactionStatistic" itemscope itemtype="https://schema.org/InteractionCounter">
       <meta itemprop="interactionType" content="https://schema.org/LikeAction">
-      <a href="{{REPO_URL}}/stargazers"
+      <a href="{{REPO_URL}}"
          target="_blank" rel="noopener noreferrer"
-         data-fathom-event="Repo widget - stargazers click">
+         title="Star this repo on GitHub (you will need to be logged in)"
+         aria-label="Star {{REPO_OWNER}}/{{REPO_NAME}} on GitHub - currently {{REPO_STARS}} stars"
+         data-fathom-event="Repo widget - star intent click">
         <svg class="repo-widget__stat-icon" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
         </svg>

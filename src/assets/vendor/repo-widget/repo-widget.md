@@ -3,7 +3,7 @@
 A small canonical card showing meaningful state for a Marbl-owned (or Marbl-affiliated) GitHub repository - stars, forks, version, licence, last-updated, and links into the repo + discussions. Two visual variants: solid card for body content, transparent for sidebar use.
 
 **Live preview:** `./preview.html`
-**Status:** v1 - static (build-time data fetch). Live mode (client-side fetch with localStorage cache) deferred to v2.
+**Status:** v1.1.0 - static (build-time data fetch). Live mode (client-side fetch with localStorage cache) deferred to v2.
 
 **SEO baseline:** see [`../_seo-aeo-geo-baseline.md`](../_seo-aeo-geo-baseline.md). Microdata for `SoftwareSourceCode` + `InteractionCounter` is built into the partial.
 
@@ -178,7 +178,7 @@ WCAG AA contrast: white-85 on charcoal-light = 11.5:1, white-65 = 7.8:1, ember o
 Every link in the widget carries `data-fathom-event` for the site-level Fathom delegator (see `tat-tracking.js` pattern). Events fired:
 
 - `Repo widget - name click` - the repo title link
-- `Repo widget - stargazers click` - the stars stat
+- `Repo widget - star intent click` - the stars stat (link points at the repo root so a logged-in user can star with one extra click)
 - `Repo widget - forks click` - the forks stat (filled only)
 - `Repo widget - View on GitHub` - primary CTA
 - `Repo widget - Join discussion` - secondary CTA (filled only)
@@ -201,4 +201,5 @@ All values from `marbl-v2.css`. No invented px values, no local aliases.
 
 ## 9. Changelog
 
+- **v1.1.0** - 1 May 2026 - stars stat now links to repo root (where the GitHub Star button lives) so logged-in users can star with one extra click; aria-label and title updated accordingly. Tracking event renamed to `Repo widget - star intent click`.
 - **v1.0.0** - 1 May 2026 - initial canonical. Filled + transparent variants, six stats, two CTAs, microdata, build-time data fetching.
