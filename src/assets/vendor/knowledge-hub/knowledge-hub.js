@@ -246,14 +246,22 @@
     const sidebar = document.querySelector('.kh-sidebar');
     const toggle = document.querySelector('.kh-sidebar__toggle');
     if (!sidebar || !toggle) return;
-    // Default: collapsed on mobile, expanded on desktop. JS sets initial state
-    // based on viewport so it doesn't fight CSS at first paint.
+    // Default: collapsed on mobile, expanded on desktop. Listen to a
+    // matchMedia change event (not window.resize) so we only fire on the
+    // actual breakpoint crossing. Mobile keyboards trigger resize events
+    // when an input gains focus, and a plain resize handler would
+    // force-close the drawer the moment a user tapped the search box.
+    // Locked 1 May 2026.
+    const mql = window.matchMedia('(max-width: 768px)');
     const setInitial = () => {
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
-      sidebar.setAttribute('aria-expanded', isMobile ? 'false' : 'true');
+      sidebar.setAttribute('aria-expanded', mql.matches ? 'false' : 'true');
     };
     setInitial();
-    window.addEventListener('resize', setInitial);
+    if (mql.addEventListener) {
+      mql.addEventListener('change', setInitial);
+    } else if (mql.addListener) {
+      mql.addListener(setInitial);
+    }
 
     toggle.addEventListener('click', () => {
       const expanded = sidebar.getAttribute('aria-expanded') === 'true';

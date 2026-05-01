@@ -68,102 +68,97 @@ body:has(.site-header.menu-is-open) {
 
 /* Right rail subscribe CTA - sits below the TOC card, inside .kh-rail
    stack. Full-width inside the rail column so it reads as a deliberate
-   action below the chapter list. */
+   action below the chapter list. flex: 0 0 auto keeps it glued to the
+   bottom of the sticky rail (the TOC sibling flex-grows above it). */
 .kh-rail__cta {
   display: flex;
   width: 100%;
   justify-content: center;
-}
-
-
-/* About page - "Who wrote it" Richard block: text left, avatar card right.
-   Stacks on mobile. Avatar uses canonical --radius corner + subtle border. */
-.about-author {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--gap-md, 40px);
-  margin: 0 0 var(--gap-sm, 20px) 0;
-}
-
-.about-author__text {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.about-author__text > p:last-child {
-  margin-bottom: 0;
-}
-
-.about-author__avatar {
   flex: 0 0 auto;
-  margin: 0;
+}
+
+
+/* About page - "Who wrote it" Richard block: avatar floats LEFT, text
+   flows around it with 20px gap. Mobile drops float and stacks. */
+.about-author__avatar {
+  float: left;
+  margin: 0 var(--gap-sm, 20px) var(--gap-xs, 10px) 0;
   padding: 0;
 }
 
 .about-author__avatar img {
   display: block;
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
   object-fit: cover;
   border-radius: var(--radius, 10px);
   border: 1px solid var(--marbl-white-08, rgba(255, 255, 255, 0.08));
 }
 
+/* Clear float so the next H2 (What we believe) doesn't wrap around it. */
+.about-author__clear {
+  clear: both;
+}
+
 @media (max-width: 600px) {
-  .about-author {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-    gap: var(--gap-sm, 20px);
+  .about-author__avatar {
+    float: none;
+    margin: 0 0 var(--gap-sm, 20px) 0;
   }
   .about-author__avatar img {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
   }
 }
 
-/* Right-column rail wraps the TOC + source-repo card into a single
+/* Right-column rail wraps the TOC + Subscribe CTA into a single
    grid-column-3 cell, stacked vertically. Sticky like the left sidebar
-   so the rail stays visible while the article scrolls. Internal scroll
-   if the rail itself outgrows the viewport. */
+   so the whole rail stays visible while the article scrolls.
+
+   Locked 1 May 2026: rail is a flex column with TOC taking the
+   available space (and scrolling internally if too tall) while the
+   CTA pins to the bottom. Previously the rail itself had overflow
+   so the CTA sat below the TOC inside an internal scroll - the
+   button never reached the viewport unless the user scrolled the
+   rail with the mouse. */
 .kh-rail {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  justify-content: flex-start;
   gap: var(--gap-sm, 20px);
   font-size: var(--text-sm, 13px);
   position: sticky;
   top: var(--gap-md, 40px);
   align-self: start;
   max-height: calc(100dvh - var(--gap-md, 40px) * 2);
+}
+
+/* Canonical .kh-toc has its own position: sticky + max-height. Inside
+   the rail, the rail itself is the sticky container - we want the TOC
+   to flex-fill the available space and scroll internally if its content
+   outgrows that space, while the CTA below stays visible. */
+.kh-rail .kh-toc {
+  position: static;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
   overflow-y: auto;
-  /* Match the .kh-sidebar / .kh-toc canonical scrollbar - thin grey
-     subtle, not the page-level ember bar. */
+  /* Match the .kh-sidebar canonical scrollbar - thin grey subtle, not
+     the page-level ember bar. */
   scrollbar-width: thin;
   scrollbar-color: var(--marbl-white-15, rgba(255, 255, 255, 0.15)) transparent;
 }
-.kh-rail::-webkit-scrollbar {
+.kh-rail .kh-toc::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
-.kh-rail::-webkit-scrollbar-track { background: transparent; }
-.kh-rail::-webkit-scrollbar-thumb {
+.kh-rail .kh-toc::-webkit-scrollbar-track { background: transparent; }
+.kh-rail .kh-toc::-webkit-scrollbar-thumb {
   background: var(--marbl-white-15, rgba(255, 255, 255, 0.15));
   border-radius: var(--radius-sm, 5px);
 }
-.kh-rail::-webkit-scrollbar-thumb:hover {
+.kh-rail .kh-toc::-webkit-scrollbar-thumb:hover {
   background: var(--marbl-white-30, rgba(255, 255, 255, 0.3));
-}
-
-/* Canonical .kh-toc has its own position: sticky + max-height. With the
-   rail wrapper now doing the sticky work, the inner sticky reserves
-   max-height inside the rail and pushes the source card down. Neutralise
-   the inner sticky locally so .kh-toc takes its natural height inside
-   the flex column and the source card sits flush below it. */
-.kh-rail .kh-toc {
-  position: static;
-  max-height: none;
-  overflow-y: visible;
 }
 
 @media (max-width: 1023px) {
@@ -175,6 +170,40 @@ body:has(.site-header.menu-is-open) {
 .kh-source {
   display: block;
   margin-top: var(--gap-lg, 60px);
+}
+
+/* Mobile-only Subscribe link below the repo card. The desktop Subscribe
+   CTA lives in .kh-rail; that rail is display:none below 1024px so we
+   surface a plain text-link here for small viewports. Hidden by default,
+   revealed in the mobile media query. Locked 1 May 2026. */
+.kh-source__subscribe {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .kh-source__subscribe {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-2xs, 6px);
+    margin-top: var(--gap-sm, 20px);
+    color: var(--marbl-ember, #F35226);
+    text-decoration: none;
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--text-base, 15px);
+    font-weight: var(--font-semibold, 600);
+    border-bottom: 1px solid var(--marbl-ember-30, rgba(243, 82, 38, 0.3));
+    padding-bottom: 2px;
+    transition: border-color 0.15s ease;
+  }
+  .kh-source__subscribe:hover {
+    border-bottom-color: var(--marbl-ember, #F35226);
+  }
+  .kh-source__subscribe-arrow {
+    transition: transform 0.15s ease;
+  }
+  .kh-source__subscribe:hover .kh-source__subscribe-arrow {
+    transform: translateX(2px);
+  }
 }
 
 /* Mobile rhythm overrides — text section breaks at 40px (was 80px on

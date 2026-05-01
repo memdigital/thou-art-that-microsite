@@ -224,6 +224,13 @@
            every page, above pagination. Same on desktop + mobile. -->
       <aside class="kh-source" aria-label="Source repository">
         {{REPO_WIDGET_FILLED_HTML}}
+        <!-- Mobile-only Subscribe link. Desktop subscribe lives in the
+             .kh-rail (right column); on mobile that rail is display:none
+             so we surface a plain text link directly under the repo card. -->
+        <a class="kh-source__subscribe" href="https://subscribe.marbl.codes/?utm_source=tat&amp;utm_medium=mobile-source&amp;utm_campaign=subscribe" target="_blank" rel="noopener noreferrer" data-fathom-event="Source - Subscribe (mobile)">
+          Subscribe to Marbl Codes
+          <span class="kh-source__subscribe-arrow" aria-hidden="true">&rarr;</span>
+        </a>
       </aside>
 
       {{PAGINATION_HTML}}

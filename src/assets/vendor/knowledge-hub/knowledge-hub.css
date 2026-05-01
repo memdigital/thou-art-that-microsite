@@ -724,6 +724,11 @@ html { scroll-behavior: smooth; }
     position: relative;
     top: 0;
     max-height: none;
+    /* Reset desktop overflow:auto - mobile drawer collapses via grid-rows
+       on .kh-sidebar__panel, so the outer scroll container is not only
+       unneeded but paints a phantom scrollbar gutter on the collapsed
+       panel. Locked 1 May 2026. */
+    overflow: visible;
     border-bottom: 1px solid var(--marbl-white-08, rgba(255, 255, 255, 0.08));
     padding-bottom: var(--gap-sm, 20px);
     margin-bottom: var(--gap-sm, 20px);
