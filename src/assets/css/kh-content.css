@@ -121,6 +121,22 @@ body:has(.site-header.menu-is-open) {
   align-self: start;
   max-height: calc(100dvh - var(--gap-md, 40px) * 2);
   overflow-y: auto;
+  /* Match the .kh-sidebar / .kh-toc canonical scrollbar - thin grey
+     subtle, not the page-level ember bar. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--marbl-white-15, rgba(255, 255, 255, 0.15)) transparent;
+}
+.kh-rail::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.kh-rail::-webkit-scrollbar-track { background: transparent; }
+.kh-rail::-webkit-scrollbar-thumb {
+  background: var(--marbl-white-15, rgba(255, 255, 255, 0.15));
+  border-radius: var(--radius-sm, 5px);
+}
+.kh-rail::-webkit-scrollbar-thumb:hover {
+  background: var(--marbl-white-30, rgba(255, 255, 255, 0.3));
 }
 
 /* Canonical .kh-toc has its own position: sticky + max-height. With the

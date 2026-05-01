@@ -74,6 +74,37 @@ function bannerLine(filename) {
   return `\n/* === ${filename} === */\n`;
 }
 
+/**
+ * Rewrite relative url(...) references in a CSS file's content to absolute
+ * paths rooted at /assets/. Source file at src/assets/X/Y/file.css with
+ * url('./bg.png') becomes url('/assets/X/Y/bg.png'). Critical when the CSS
+ * gets concatenated into a different location (the bundle) - relative URLs
+ * would otherwise resolve from the bundle's location and 404.
+ *
+ * Leaves alone: data: URIs, absolute http/https URLs, paths starting with /.
+ */
+function rewriteRelativeUrls(cssContent, sourceFileRelativePath) {
+  // Source file: 'src/assets/vendor/marbl-fonts/marbl-fonts.css'
+  // Strip leading 'src/' then drop the filename, leaving the directory:
+  //   'assets/vendor/marbl-fonts'
+  const sourceDir = sourceFileRelativePath.replace(/^src\//, '').split('/').slice(0, -1).join('/');
+
+  return cssContent.replace(
+    /url\(\s*(['"]?)(?!data:|https?:|\/)([^'")\s]+)\1\s*\)/g,
+    (_match, quote, relPath) => {
+      // Normalise ./foo and foo to /assets/.../foo, collapse ../ chunks.
+      const cleaned = relPath.replace(/^\.\//, '');
+      const parts = (sourceDir + '/' + cleaned).split('/');
+      const stack = [];
+      for (const p of parts) {
+        if (p === '..') stack.pop();
+        else if (p && p !== '.') stack.push(p);
+      }
+      return `url('/${stack.join('/')}')`;
+    }
+  );
+}
+
 function build() {
   if (!existsSync(ASSETS)) mkdirSync(ASSETS, { recursive: true });
 
@@ -89,7 +120,11 @@ function build() {
         console.warn(`  bundle: missing source ${src} - skipping`);
         continue;
       }
-      const content = readFileSync(path, 'utf8');
+      let content = readFileSync(path, 'utf8');
+      // URL-rewrite for CSS bundles only - JS doesn't have the same problem.
+      if (bundleName.endsWith('.css')) {
+        content = rewriteRelativeUrls(content, src);
+      }
       totalIn += content.length;
       parts.push(bannerLine(src));
       parts.push(content);
