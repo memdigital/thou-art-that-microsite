@@ -84,3 +84,27 @@ body:has(.site-header.menu-is-open) {
   .kh-rail { display: none; }
 }
 
+/* Mobile repo card lives inside the article column, above pagination.
+   Hidden on desktop (where the right-rail copy is visible). */
+.kh-source--mobile { display: none; }
+
+@media (max-width: 1023px) {
+  .kh-source--mobile {
+    display: block;
+    margin-top: var(--gap-md, 40px);
+  }
+}
+
+/* Mobile rhythm overrides — text section breaks at 40px (was 80px on
+   desktop), pagination top spacing matches the 20px below it visually
+   instead of overshooting. */
+@media (max-width: 768px) {
+  .kh-article__body h2 {
+    margin-top: var(--gap-md, 40px);
+  }
+  .kh-pagination {
+    margin-top: var(--gap-sm, 20px);
+    padding-top: var(--gap-sm, 20px);
+  }
+}
+
