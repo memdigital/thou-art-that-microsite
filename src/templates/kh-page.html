@@ -226,20 +226,16 @@
         {{CONTENT_HTML}}
       </div>
 
-      <!-- Mobile-only repo card: rendered inside the article column above
-           pagination so mobile readers still see the source CTA. Hidden on
-           desktop via CSS. Uses the inline-buttons render (no stack-actions
-           modifier - the article column is full-width on mobile). -->
-      <aside class="kh-source kh-source--mobile" aria-label="Source repository">
-        {{REPO_WIDGET_MOBILE_HTML}}
+      <!-- Source repo card: full-width filled variant below the article on
+           every page, above pagination. Same on desktop + mobile. -->
+      <aside class="kh-source" aria-label="Source repository">
+        {{REPO_WIDGET_FILLED_HTML}}
       </aside>
 
       {{PAGINATION_HTML}}
     </article>
 
-    <!-- Right rail: TOC card + source repo card, stacked. Wrapping both
-         in a single grid-column-3 container keeps the source card flush
-         below the TOC regardless of how tall the article column gets. -->
+    <!-- Right rail: TOC only now (source widget moved into article column). -->
     <div class="kh-rail">
       <aside class="kh-toc" aria-label="On this page">
         <!-- Graph slot: hidden when empty; future Obsidian-style force
@@ -249,10 +245,6 @@
         <ul class="kh-toc__list">
           {{TOC_HTML}}
         </ul>
-      </aside>
-
-      <aside class="kh-source" aria-label="Source repository">
-        {{REPO_WIDGET_SIDEBAR_HTML}}
       </aside>
     </div>
 

@@ -736,10 +736,10 @@ async function build() {
   // Repo widget data: one fetch, reused across every KH page.
   console.log('  fetching repo stats from GitHub API...');
   const repoStats = await fetchRepoStats('memdigital', 'thou-art-that');
-  // Two renders: desktop rail = transparent + stack-actions (narrow column).
-  // Mobile in-article = transparent only (full-width container, inline buttons).
-  const repoWidgetSidebarHtml = renderRepoWidget('memdigital', 'thou-art-that', repoStats, 'transparent', { stackActions: true });
-  const repoWidgetMobileHtml = renderRepoWidget('memdigital', 'thou-art-that', repoStats, 'transparent');
+  // Single render: full-width FILLED variant, sits below article content
+  // on every page (desktop + mobile). Was previously two variants in two
+  // placements; consolidated 1 May 2026 per Richard.
+  const repoWidgetFilledHtml = renderRepoWidget('memdigital', 'thou-art-that', repoStats, 'filled');
   console.log('  repo: ' + repoStats.stars + ' stars, ' + repoStats.forks + ' forks, ' + repoStats.version + ', updated ' + repoStats.updated);
 
   // Static assets (CSS, vendored deps, JS).
@@ -853,8 +853,7 @@ async function build() {
       CONTENT_HTML: rawBodyHtml,
       PAGINATION_HTML: paginationHtml,
       TOC_HTML: tocHtml,
-      REPO_WIDGET_SIDEBAR_HTML: repoWidgetSidebarHtml,
-      REPO_WIDGET_MOBILE_HTML: repoWidgetMobileHtml,
+      REPO_WIDGET_FILLED_HTML: repoWidgetFilledHtml,
       BUNDLE_CSS_HASH: bundleHashes['marbl-core.css'] || '',
       BUNDLE_TAT_CSS_HASH: bundleHashes['tat.css'] || '',
       BUNDLE_JS_HASH: bundleHashes['marbl-core.js'] || '',
