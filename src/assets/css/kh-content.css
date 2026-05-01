@@ -58,12 +58,26 @@ body:has(.site-header.menu-is-open) {
 .kh-rail {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
   gap: var(--gap-lg, 60px);
   font-size: var(--text-sm, 13px);
   position: sticky;
   top: var(--gap-md, 40px);
+  align-self: start;
   max-height: calc(100dvh - var(--gap-md, 40px) * 2);
   overflow-y: auto;
+}
+
+/* Canonical .kh-toc has its own position: sticky + max-height. With the
+   rail wrapper now doing the sticky work, the inner sticky reserves
+   max-height inside the rail and pushes the source card down. Neutralise
+   the inner sticky locally so .kh-toc takes its natural height inside
+   the flex column and the source card sits flush below it. */
+.kh-rail .kh-toc {
+  position: static;
+  max-height: none;
+  overflow-y: visible;
 }
 
 @media (max-width: 1023px) {
