@@ -4,6 +4,16 @@
    Tokens come from marbl-v2.css. Don't redeclare KH internals.
    =================================================================== */
 
+/* Defensive: the canonical .btn-icon--mini svg sizing rule was being
+   overridden inside the bundle (computed width collapsed to 1.5px on
+   the kh-sidebar home icon). Pin explicitly. Track-down + canonical
+   fix queued. */
+.kh-sidebar__home-icon {
+  width: var(--text-lg, 18px) !important;
+  height: var(--text-lg, 18px) !important;
+  flex-shrink: 0;
+}
+
 /* Audio first-child margin now lives in canonical knowledge-hub.css
    (promoted from TAT-local 30 Apr 2026). */
 
