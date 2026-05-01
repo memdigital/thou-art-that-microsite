@@ -31,7 +31,6 @@
 
   <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/inter/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/urbanist/urbanist-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="{{BASE}}assets/audio/00-origin-story.mp3" as="audio" type="audio/mpeg">
 
   <link rel="stylesheet" href="{{BASE}}assets/vendor/marbl-fonts/marbl-fonts.css">
   <link rel="stylesheet" href="{{BASE}}assets/vendor/core/marbl-v2.css">
@@ -195,7 +194,7 @@
       </p>
 
       <div class="tat-hero__audio">
-        <div class="marbl-waveform mwp-custom" role="region" aria-label="Origin story, narrated by Nura [AI]">
+        <div class="marbl-waveform mwp-custom" role="region" aria-label="Origin story, narrated by Nura [AI]" data-fathom-event="Hero audio play">
           <div class="mwp-inline">
             <div class="mwp-controls-pill" id="pill-controls">
               <button class="mwp-btn mwp-btn--play" id="mwp-play" aria-label="Play" aria-pressed="false">
@@ -231,7 +230,7 @@
         <div role="status" aria-live="polite" aria-atomic="true" class="sr-only" id="mwp-status"></div>
       </div>
 
-      <a href="{{BASE}}study/origin-story/" class="btn btn--fill-up tat-hero__cta" id="tat-cta-enter">
+      <a href="{{BASE}}study/origin-story/" class="btn btn--fill-up tat-hero__cta" id="tat-cta-enter" data-fathom-event="Hero CTA - Enter the study">
         Enter the study
         <span class="btn__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
@@ -288,133 +287,8 @@
   <script src="{{BASE}}assets/vendor/menu/menu.js" defer></script>
   <script src="{{BASE}}assets/vendor/site-footer/site-footer.js" defer></script>
   <script src="{{BASE}}assets/vendor/waveform-player/waveform-player-init.js" defer></script>
-
-  <script>
-    (function() {
-      'use strict';
-
-      var playBtn   = document.getElementById('mwp-play');
-      var iconPlay  = playBtn.querySelector('.icon-play');
-      var iconPause = playBtn.querySelector('.icon-pause');
-      var timeEl    = document.getElementById('mwp-time');
-      var pillEl    = document.getElementById('pill-controls');
-      var volBtn    = document.getElementById('mwp-vol-btn');
-      var volSlider = document.getElementById('mwp-vol-slider');
-      var volRange  = document.getElementById('mwp-vol-range');
-      var statusEl  = document.getElementById('mwp-status');
-
-      var audio = null;
-      var wired = false;
-      var attempts = 0;
-      var MAX = 30;
-      var fathomFired = false;
-
-      function fmt(s) {
-        if (isNaN(s)) return '0:00';
-        var m = Math.floor(s / 60);
-        var sec = Math.floor(s % 60);
-        return m + ':' + (sec < 10 ? '0' : '') + sec;
-      }
-
-      function setPlaying(playing) {
-        iconPlay.hidden = playing;
-        iconPause.hidden = !playing;
-        playBtn.setAttribute('aria-pressed', String(playing));
-        playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
-        pillEl.classList.toggle('is-expanded', playing);
-        statusEl.textContent = playing ? 'Playing' : (audio ? 'Paused at ' + fmt(audio.currentTime) : '');
-      }
-
-      function trackPlayOnce() {
-        if (fathomFired) return;
-        fathomFired = true;
-        if (typeof fathom !== 'undefined' && fathom.trackEvent) {
-          fathom.trackEvent('Origin story — play');
-        }
-      }
-
-      function wireAudio(a) {
-        if (wired) return;
-        audio = a;
-        wired = true;
-
-        audio.addEventListener('play', function() { setPlaying(true); trackPlayOnce(); });
-        audio.addEventListener('pause', function() { setPlaying(false); });
-        audio.addEventListener('ended', function() { setPlaying(false); });
-        audio.addEventListener('timeupdate', function() {
-          timeEl.textContent = fmt(audio.currentTime);
-        });
-
-        volRange.value = Math.round(audio.volume * 100);
-      }
-
-      function findAudio() {
-        if (typeof WaveformPlayer === 'undefined') return false;
-        var instances = WaveformPlayer.instances;
-        if (!instances) return false;
-
-        if (instances instanceof Map) {
-          instances.forEach(function(inst) {
-            if (inst.audio && !wired) wireAudio(inst.audio);
-          });
-        } else if (typeof instances === 'object') {
-          Object.keys(instances).forEach(function(k) {
-            if (instances[k].audio && !wired) wireAudio(instances[k].audio);
-          });
-        }
-        return wired;
-      }
-
-      function poll() {
-        if (wired) return;
-        if (findAudio()) return;
-        attempts++;
-        if (attempts < MAX) {
-          setTimeout(poll, 300);
-        }
-      }
-
-      playBtn.addEventListener('click', function() {
-        var el = document.getElementById('origin-player');
-        var nativeBtn = el ? el.querySelector('button') : null;
-        if (nativeBtn) {
-          nativeBtn.click();
-          if (!wired || (audio && !audio.src)) {
-            setTimeout(function() { findAudio(); }, 200);
-          }
-        }
-      });
-
-      volRange.addEventListener('input', function() {
-        if (audio) audio.volume = volRange.value / 100;
-      });
-
-      volBtn.addEventListener('click', function() {
-        var open = volBtn.getAttribute('aria-expanded') === 'true';
-        volBtn.setAttribute('aria-expanded', String(!open));
-        volSlider.classList.toggle('is-open', !open);
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && volSlider.classList.contains('is-open')) {
-          volSlider.classList.remove('is-open');
-          volBtn.setAttribute('aria-expanded', 'false');
-          volBtn.focus();
-        }
-      });
-
-      poll();
-
-      var cta = document.getElementById('tat-cta-enter');
-      if (cta) {
-        cta.addEventListener('click', function() {
-          if (typeof fathom !== 'undefined' && fathom.trackEvent) {
-            fathom.trackEvent('Hero CTA — Enter the study');
-          }
-        });
-      }
-    })();
-  </script>
+  <script src="{{BASE}}assets/js/tat-pill.js" defer></script>
+  <script src="{{BASE}}assets/js/tat-tracking.js" defer></script>
 
 </body>
 </html>

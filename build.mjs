@@ -416,8 +416,9 @@ function renderAudioHtml(audioBasename, sectionLabel, slug) {
   const audioUrl = BASE + 'assets/audio/' + audioBasename + '.mp3';
   const playerId = 'study-player-' + slug;
   const ariaLabel = escapeHtml(sectionLabel) + ', narrated by Nura [AI]';
+  const fathomEvent = escapeHtml(sectionLabel) + ' audio play';
   return [
-    '<div class="marbl-waveform mwp-custom" role="region" aria-label="' + ariaLabel + '">',
+    '<div class="marbl-waveform mwp-custom" role="region" aria-label="' + ariaLabel + '" data-fathom-event="' + fathomEvent + '">',
     '  <div class="mwp-inline">',
     '    <div class="mwp-controls-pill" id="pill-controls-' + slug + '">',
     '      <button class="mwp-btn mwp-btn--play" id="mwp-play-' + slug + '" aria-label="Play" aria-pressed="false">',
@@ -456,44 +457,10 @@ function renderAudioHtml(audioBasename, sectionLabel, slug) {
 
 
 /* ====================================================================
-   Player wiring script — same logic as landing.html, parameterised
-   with the route slug so multiple players on a site never clash.
+   Player wiring lives in /assets/js/tat-pill.js (CSP-compliant, vendored).
+   The kh-page template loads it once; per-player wiring is by .marbl-waveform
+   region scope, so no per-page injection is needed.
    ==================================================================== */
-
-function renderPlayerScript(audioBasename, slug, sectionLabel) {
-  if (!audioBasename) return '';
-  const playerId = 'study-player-' + slug;
-  const fathomLabel = sectionLabel + ' play';
-  return [
-    '<script>',
-    '(function(){',
-    '  "use strict";',
-    '  var playBtn   = document.getElementById("mwp-play-' + slug + '");',
-    '  if (!playBtn) return;',
-    '  var iconPlay  = playBtn.querySelector(".icon-play");',
-    '  var iconPause = playBtn.querySelector(".icon-pause");',
-    '  var timeEl    = document.getElementById("mwp-time-' + slug + '");',
-    '  var pillEl    = document.getElementById("pill-controls-' + slug + '");',
-    '  var volBtn    = document.getElementById("mwp-vol-btn-' + slug + '");',
-    '  var volSlider = document.getElementById("mwp-vol-slider-' + slug + '");',
-    '  var volRange  = document.getElementById("mwp-vol-range-' + slug + '");',
-    '  var statusEl  = document.getElementById("mwp-status-' + slug + '");',
-    '  var audio = null, wired = false, attempts = 0, MAX = 30, fathomFired = false;',
-    '  function fmt(s){ if(isNaN(s))return"0:00"; var m=Math.floor(s/60),sec=Math.floor(s%60); return m+":"+(sec<10?"0":"")+sec; }',
-    '  function setPlaying(p){ iconPlay.hidden=p; iconPause.hidden=!p; playBtn.setAttribute("aria-pressed",String(p)); playBtn.setAttribute("aria-label",p?"Pause":"Play"); pillEl.classList.toggle("is-expanded",p); statusEl.textContent=p?"Playing":(audio?"Paused at "+fmt(audio.currentTime):""); }',
-    '  function trackPlayOnce(){ if(fathomFired)return; fathomFired=true; if(typeof fathom!=="undefined"&&fathom.trackEvent){ fathom.trackEvent("' + escapeJsString(fathomLabel) + '"); } }',
-    '  function wireAudio(a){ if(wired)return; audio=a; wired=true; audio.addEventListener("play",function(){setPlaying(true);trackPlayOnce();}); audio.addEventListener("pause",function(){setPlaying(false);}); audio.addEventListener("ended",function(){setPlaying(false);}); audio.addEventListener("timeupdate",function(){timeEl.textContent=fmt(audio.currentTime);}); volRange.value=Math.round(audio.volume*100); }',
-    '  function findAudio(){ if(typeof WaveformPlayer==="undefined")return false; var ins=WaveformPlayer.instances; if(!ins)return false; if(ins instanceof Map){ ins.forEach(function(i){ if(i.audio&&!wired)wireAudio(i.audio); }); } else if(typeof ins==="object"){ Object.keys(ins).forEach(function(k){ if(ins[k].audio&&!wired)wireAudio(ins[k].audio); }); } return wired; }',
-    '  function poll(){ if(wired)return; if(findAudio())return; attempts++; if(attempts<MAX) setTimeout(poll,300); }',
-    '  playBtn.addEventListener("click",function(){ var el=document.getElementById("' + playerId + '"); var nb=el?el.querySelector("button"):null; if(nb){ nb.click(); if(!wired||(audio&&!audio.src)) setTimeout(function(){findAudio();},200); } });',
-    '  volRange.addEventListener("input",function(){ if(audio) audio.volume=volRange.value/100; });',
-    '  volBtn.addEventListener("click",function(){ var open=volBtn.getAttribute("aria-expanded")==="true"; volBtn.setAttribute("aria-expanded",String(!open)); volSlider.classList.toggle("is-open",!open); });',
-    '  document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&volSlider.classList.contains("is-open")){ volSlider.classList.remove("is-open"); volBtn.setAttribute("aria-expanded","false"); volBtn.focus(); } });',
-    '  poll();',
-    '})();',
-    '</script>'
-  ].join('\n  ');
-}
 
 function findParentLabel(parentSlug) {
   for (const section of SECTIONS) {
@@ -719,7 +686,6 @@ function build() {
     const sidebarNavHtml = renderKhSidebarHtml(route);
     const paginationHtml = renderKhPaginationHtml(route.prev, route.next);
     const audioHtml = renderAudioHtml(route.audio, route.label, route.slug);
-    const playerScript = renderPlayerScript(route.audio, route.slug, route.label);
     const tocHtml = renderTocHtml(headings);
 
     // View Transition opt-in: only origin-story (the landing -> study entry
@@ -767,7 +733,6 @@ function build() {
       CONTENT_HTML: rawBodyHtml,
       PAGINATION_HTML: paginationHtml,
       TOC_HTML: tocHtml,
-      PLAYER_SCRIPT: playerScript,
       BREADCRUMB_JSON: renderBreadcrumbJson(breadcrumbs),
       VIEW_TRANSITION_STYLE: viewTransitionStyle,
       HUB_HOME_URL: hubHomeUrl
