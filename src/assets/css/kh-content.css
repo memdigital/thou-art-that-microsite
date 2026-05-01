@@ -52,19 +52,18 @@ body:has(.site-header.menu-is-open) {
    waveform-player.css (promoted from TAT-local 29 Apr 2026). */
 
 /* Right-column rail wraps the TOC + source-repo card into a single
-   grid-column-3 cell, stacked vertically. Without the wrapper the
-   source aside auto-flows to grid row 2, landing below the article
-   (the tallest cell). With the wrapper, the source sits flush below
-   the TOC regardless of article height. */
+   grid-column-3 cell, stacked vertically. Sticky like the left sidebar
+   so the rail stays visible while the article scrolls. Internal scroll
+   if the rail itself outgrows the viewport. */
 .kh-rail {
   display: flex;
   flex-direction: column;
   gap: var(--gap-md, 40px);
   font-size: var(--text-sm, 13px);
-}
-
-.kh-source {
-  /* Sits inside the rail, directly under the TOC. */
+  position: sticky;
+  top: var(--gap-md, 40px);
+  max-height: calc(100dvh - var(--gap-md, 40px) * 2);
+  overflow-y: auto;
 }
 
 @media (max-width: 1023px) {
