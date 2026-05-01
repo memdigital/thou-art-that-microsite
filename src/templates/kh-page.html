@@ -229,20 +229,24 @@
       {{PAGINATION_HTML}}
     </article>
 
-    <aside class="kh-toc" aria-label="On this page">
-      <!-- Graph slot: hidden when empty; future Obsidian-style force
-           graph plugs in here showing inter-page links. -->
-      <div class="kh-toc__graph"></div>
-      <p class="kh-toc__label">On this page</p>
-      <ul class="kh-toc__list">
-        {{TOC_HTML}}
-      </ul>
-    </aside>
+    <!-- Right rail: TOC card + source repo card, stacked. Wrapping both
+         in a single grid-column-3 container keeps the source card flush
+         below the TOC regardless of how tall the article column gets. -->
+    <div class="kh-rail">
+      <aside class="kh-toc" aria-label="On this page">
+        <!-- Graph slot: hidden when empty; future Obsidian-style force
+             graph plugs in here showing inter-page links. -->
+        <div class="kh-toc__graph"></div>
+        <p class="kh-toc__label">On this page</p>
+        <ul class="kh-toc__list">
+          {{TOC_HTML}}
+        </ul>
+      </aside>
 
-    <!-- Source repo card sits as its own card below "On this page". -->
-    <aside class="kh-source" aria-label="Source repository">
-      {{REPO_WIDGET_HTML}}
-    </aside>
+      <aside class="kh-source" aria-label="Source repository">
+        {{REPO_WIDGET_HTML}}
+      </aside>
+    </div>
 
   </main>
 
