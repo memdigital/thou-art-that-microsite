@@ -640,7 +640,7 @@ function build() {
      Landing — locked, untouched
      ------------------------------------------------------------------ */
 
-  copyAudioFor(['00-origin-story']);
+  copyAudioFor(['12-welcome']);
 
   const landingTpl = readFile(join(SRC, 'templates', 'landing.html'));
   const landingHtml = applyTemplate(landingTpl, {
