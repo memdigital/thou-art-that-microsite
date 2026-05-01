@@ -346,12 +346,12 @@
     display: none;
   }
 
-  /* Blur header background when menu is open */
-  .site-header.menu-is-open {
-    background: rgba(19, 17, 18, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
+  /* Header stays transparent over the menu overlay panels (which are
+     --marbl-charcoal). Inherits canonical site-header.menu-is-open from
+     site-header.css. The previous frosted-glass override used
+     --marbl-charcoal-darkest at 0.8 alpha, which painted the header
+     visibly darker than the charcoal panels behind it. Reverted 1 May
+     2026 after tat.marbl.codes mobile feedback. */
 
   .menu-overlay__right {
     flex: none;

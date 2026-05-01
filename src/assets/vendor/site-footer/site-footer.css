@@ -195,8 +195,10 @@
     text-align: center;
   }
 
-  /* Avatar on its own line, then links stack vertically centred.
-     Every child aligns to the column cross-axis. */
+  /* Avatar on its own line, then links flow inline (wrapping if needed).
+     Locked 1 May 2026: links were stacking vertically — now they read as
+     a single horizontal row and the featured link drops to its own line
+     below via flex-basis:100%. */
   .footer-left {
     flex-direction: column;
     align-items: center;
@@ -205,15 +207,21 @@
   }
 
   .footer-links {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    gap: var(--gap-xs, 10px);
+    gap: var(--gap-3xs, 4px) var(--gap-2xs, 8px);
     width: 100%;
   }
 
-  /* Thou Art That: white + bold on mobile only.
-     Higher specificity than .footer-links a to override its font: inherit. */
+  /* Marbl Codes featured link: white + bold + on its own line below the
+     inline standard footer links. flex-basis:100% forces the line break
+     inside the wrapping flex row. Higher specificity than .footer-links a
+     to override its colour. */
   .footer-links .footer-link-featured {
+    flex-basis: 100%;
+    text-align: center;
     color: var(--marbl-white, #ffffff) !important;
     font-weight: var(--font-bold, 700) !important;
   }

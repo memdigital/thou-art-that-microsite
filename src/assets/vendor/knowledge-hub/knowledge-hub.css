@@ -729,7 +729,9 @@ html { scroll-behavior: smooth; }
        unneeded but paints a phantom scrollbar gutter on the collapsed
        panel. Locked 1 May 2026. */
     overflow: visible;
-    border-bottom: 1px solid var(--marbl-white-08, rgba(255, 255, 255, 0.08));
+    /* No divider below the drawer - the section break reads cleanly
+       from the toggle button's own border + spacing. Removed 1 May
+       2026 after tat.marbl.codes mobile feedback. */
     padding-bottom: var(--gap-sm, 20px);
     margin-bottom: var(--gap-sm, 20px);
   }
