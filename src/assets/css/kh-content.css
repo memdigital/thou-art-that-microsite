@@ -58,7 +58,7 @@ body:has(.site-header.menu-is-open) {
 .kh-rail {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-md, 40px);
+  gap: var(--gap-lg, 60px);
   font-size: var(--text-sm, 13px);
   position: sticky;
   top: var(--gap-md, 40px);
