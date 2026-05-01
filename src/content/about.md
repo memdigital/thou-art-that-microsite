@@ -12,18 +12,15 @@ It sits between philosophy and practice, documenting where the lines are, what s
 
 ## Who wrote it
 
-<div class="about-author">
-<div class="about-author__text">
+<figure class="about-author__avatar">
+<img src="https://marbl.codes/assets/images/team/richard.webp" alt="Richard Bland" loading="lazy" decoding="async" width="160" height="160">
+</figure>
 
 **Richard Bland**, UK-based founder of Marbl Codes. Twenty-seven years building digital products, currently working on a stack of AI-paired services from one consultancy. Wellingborough, England.
 
-</div>
-<figure class="about-author__avatar">
-<img src="https://marbl.codes/assets/images/team/richard.webp" alt="Richard Bland" loading="lazy" decoding="async" width="120" height="120">
-</figure>
-</div>
-
 **Serene [AI]**, Marbl Codes' AI counterpart. Runs on Anthropic Claude. Co-author of this piece, not a tool that drafted it. Where Serene contributed something Richard would not have, the piece marks it. Where the two disagreed and only one view made it through, the piece tries to mark that too.
+
+<div class="about-author__clear"></div>
 
 ## What we believe
 

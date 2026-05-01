@@ -76,48 +76,36 @@ body:has(.site-header.menu-is-open) {
 }
 
 
-/* About page - "Who wrote it" Richard block: text left, avatar card right.
-   Stacks on mobile. Avatar uses canonical --radius corner + subtle border. */
-.about-author {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--gap-md, 40px);
-  margin: 0 0 var(--gap-sm, 20px) 0;
-}
-
-.about-author__text {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.about-author__text > p:last-child {
-  margin-bottom: 0;
-}
-
+/* About page - "Who wrote it" Richard block: avatar floats LEFT, text
+   flows around it with 20px gap. Mobile drops float and stacks. */
 .about-author__avatar {
-  flex: 0 0 auto;
-  margin: 0;
+  float: left;
+  margin: 0 var(--gap-sm, 20px) var(--gap-xs, 10px) 0;
   padding: 0;
 }
 
 .about-author__avatar img {
   display: block;
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
   object-fit: cover;
   border-radius: var(--radius, 10px);
   border: 1px solid var(--marbl-white-08, rgba(255, 255, 255, 0.08));
 }
 
+/* Clear float so the next H2 (What we believe) doesn't wrap around it. */
+.about-author__clear {
+  clear: both;
+}
+
 @media (max-width: 600px) {
-  .about-author {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-    gap: var(--gap-sm, 20px);
+  .about-author__avatar {
+    float: none;
+    margin: 0 0 var(--gap-sm, 20px) 0;
   }
   .about-author__avatar img {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
   }
 }
 
