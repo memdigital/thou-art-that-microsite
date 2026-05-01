@@ -1,12 +1,6 @@
 <!-- Marbl repo-widget canonical partial. Spec: ./repo-widget.md
-     Depends on canonical ui-items/button.css for the .btn / .btn--mini /
-     .btn--fill-up / .btn--outline classes used by the action buttons.
-
-     The inline <style> tag below is critical-path CSS - it kills FOUC
-     by applying the link/list resets before the external stylesheet
-     loads. Tiny, CSP-compliant via 'unsafe-inline', removed once a
-     single bundled marbl-core.css ships on the consuming site. -->
-<style>.repo-widget,.repo-widget *{box-sizing:border-box}.repo-widget a:not(.btn){color:inherit;text-decoration:none}.repo-widget ul,.repo-widget li{list-style:none;margin:0;padding:0}.repo-widget p{margin:0}</style>
+     Depends on canonical ui-items/button.css for .btn / .btn--mini /
+     .btn--fill-up / .btn--outline used by the action buttons. -->
 <article class="repo-widget repo-widget--{{REPO_VARIANT}}{{REPO_EXTRA_CLASSES}}"
          itemscope itemtype="https://schema.org/SoftwareSourceCode">
   <meta itemprop="codeRepository" content="{{REPO_URL}}">

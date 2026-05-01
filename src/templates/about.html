@@ -32,15 +32,9 @@
   <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/inter/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/urbanist/urbanist-variable.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/marbl-fonts/marbl-fonts.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/core/marbl-v2.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/site-header/site-header.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/site-footer/site-footer.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/menu/menu.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/cookie-consent/cookie-consent.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/ui-items/button.css">
-  <link rel="stylesheet" href="{{BASE}}assets/css/landing.css">
-  <link rel="stylesheet" href="{{BASE}}assets/css/about.css">
+  <!-- Two-bundle CSS: marbl-core (universal chrome) + tat (project). -->
+  <link rel="stylesheet" href="{{BASE}}assets/marbl-core.css?v={{BUNDLE_CSS_HASH}}">
+  <link rel="stylesheet" href="{{BASE}}assets/tat.css?v={{BUNDLE_TAT_CSS_HASH}}">
 
   <script type="application/ld+json">
   {
@@ -115,6 +109,12 @@
           <li class="menu-overlay__nav-label">Source</li>
           <li class="menu-overlay__nav-item"><a href="https://github.com/memdigital/thou-art-that" target="_blank" rel="noopener noreferrer">GitHub</a></li>
         </ul>
+        <a class="btn btn--solid btn--mini menu-overlay__cta" href="https://subscribe.marbl.codes/?utm_source=tat&amp;utm_medium=menu&amp;utm_campaign=subscribe" target="_blank" rel="noopener noreferrer" data-fathom-event="Menu - Subscribe">
+          Subscribe
+          <span class="btn__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </span>
+        </a>
       </nav>
 
       <div class="menu-overlay__centre">
@@ -255,11 +255,12 @@
     </div>
   </footer>
 
+  <!-- Third-party libs (separate for license attribution). -->
   <script src="{{BASE}}assets/vendor/gsap/gsap.min.js" defer></script>
-  <script src="{{BASE}}assets/vendor/core/marbl-core-v2.js" defer></script>
-  <script src="{{BASE}}assets/vendor/menu/menu.js" defer></script>
-  <script src="{{BASE}}assets/vendor/site-footer/site-footer.js" defer></script>
-  <script src="{{BASE}}assets/js/tat-tracking.js" defer></script>
+
+  <!-- Two-bundle JS: marbl-core (universal chrome) + tat (project-specific). -->
+  <script src="{{BASE}}assets/marbl-core.js?v={{BUNDLE_JS_HASH}}" defer></script>
+  <script src="{{BASE}}assets/tat.js?v={{BUNDLE_TAT_JS_HASH}}" defer></script>
 
 </body>
 </html>

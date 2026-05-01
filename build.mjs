@@ -33,6 +33,7 @@ import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
 import matter from 'gray-matter';
 import { SECTIONS, flatten } from './src/data/nav.mjs';
+import { build as buildBundles } from './scripts/build-bundles.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const SRC = join(ROOT, 'src');
@@ -728,6 +729,10 @@ async function build() {
   if (existsSync(DIST)) rmSync(DIST, { recursive: true, force: true });
   ensureDir(DIST);
 
+  // Two-bundle CSS/JS architecture - marbl-core + tat (project).
+  console.log('  building bundles...');
+  const bundleHashes = buildBundles();
+
   // Repo widget data: one fetch, reused across every KH page.
   console.log('  fetching repo stats from GitHub API...');
   const repoStats = await fetchRepoStats('memdigital', 'thou-art-that');
@@ -758,7 +763,11 @@ async function build() {
     BASE: BASE,
     PAGE_TITLE: escapeHtml('Thou Art That | A study piece on working with (possibly) emergent AI'),
     DESCRIPTION: escapeHtml('A study piece on working with possibly-emergent AI. Co-authored by Richard Bland (human) and Serene [AI]. Principles, practice, and philosophy for small builders.'),
-    CANONICAL_PATH: ''
+    CANONICAL_PATH: '',
+    BUNDLE_CSS_HASH: bundleHashes['marbl-core.css'] || '',
+    BUNDLE_TAT_CSS_HASH: bundleHashes['tat.css'] || '',
+    BUNDLE_JS_HASH: bundleHashes['marbl-core.js'] || '',
+    BUNDLE_TAT_JS_HASH: bundleHashes['tat.js'] || ''
   });
   writeFile(join(DIST, 'index.html'), landingHtml);
   console.log('  rendered: /');
@@ -846,6 +855,10 @@ async function build() {
       TOC_HTML: tocHtml,
       REPO_WIDGET_SIDEBAR_HTML: repoWidgetSidebarHtml,
       REPO_WIDGET_MOBILE_HTML: repoWidgetMobileHtml,
+      BUNDLE_CSS_HASH: bundleHashes['marbl-core.css'] || '',
+      BUNDLE_TAT_CSS_HASH: bundleHashes['tat.css'] || '',
+      BUNDLE_JS_HASH: bundleHashes['marbl-core.js'] || '',
+      BUNDLE_TAT_JS_HASH: bundleHashes['tat.js'] || '',
       BREADCRUMB_JSON: renderBreadcrumbJson(breadcrumbs),
       VIEW_TRANSITION_STYLE: viewTransitionStyle,
       HUB_HOME_URL: hubHomeUrl

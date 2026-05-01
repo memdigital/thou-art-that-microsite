@@ -32,18 +32,12 @@
   <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/inter/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/urbanist/urbanist-variable.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/marbl-fonts/marbl-fonts.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/core/marbl-v2.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/site-header/site-header.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/site-footer/site-footer.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/menu/menu.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/cookie-consent/cookie-consent.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/ui-items/button.css">
+  <!-- Two-bundle CSS architecture: marbl-core (universal chrome) +
+       tat (project: knowledge-hub, waveform, repo-widget, TAT-local).
+       Third-party kept separate for clear attribution. -->
+  <link rel="stylesheet" href="{{BASE}}assets/marbl-core.css?v={{BUNDLE_CSS_HASH}}">
   <link rel="stylesheet" href="{{BASE}}assets/vendor/arraypress/v1.5.2/waveform-player.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/waveform-player/waveform-player.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/knowledge-hub/knowledge-hub.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/repo-widget/repo-widget.css">
-  <link rel="stylesheet" href="{{BASE}}assets/css/kh-content.css">
+  <link rel="stylesheet" href="{{BASE}}assets/tat.css?v={{BUNDLE_TAT_CSS_HASH}}">
   {{VIEW_TRANSITION_STYLE}}
 
   <script type="application/ld+json">
@@ -116,6 +110,12 @@
           <li class="menu-overlay__nav-label">Source</li>
           <li class="menu-overlay__nav-item"><a href="https://github.com/memdigital/thou-art-that" target="_blank" rel="noopener noreferrer">GitHub</a></li>
         </ul>
+        <a class="btn btn--solid btn--mini menu-overlay__cta" href="https://subscribe.marbl.codes/?utm_source=tat&amp;utm_medium=menu&amp;utm_campaign=subscribe" target="_blank" rel="noopener noreferrer" data-fathom-event="Menu - Subscribe">
+          Subscribe
+          <span class="btn__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </span>
+        </a>
       </nav>
 
       <div class="menu-overlay__centre">
@@ -298,21 +298,14 @@
   </footer>
 
   <!-- Canonical Marbl scripts (same load order as landing) -->
+  <!-- Third-party libs (separate for license attribution + version pinning). -->
   <script src="{{BASE}}assets/vendor/gsap/gsap.min.js" defer></script>
   <script src="{{BASE}}assets/vendor/arraypress/v1.5.2/waveform-player.min.js" defer></script>
-  <script src="{{BASE}}assets/vendor/core/marbl-core-v2.js" defer></script>
-  <script src="{{BASE}}assets/vendor/menu/menu.js" defer></script>
-  <script src="{{BASE}}assets/vendor/site-footer/site-footer.js" defer></script>
-  <script src="{{BASE}}assets/vendor/waveform-player/waveform-player-init.js" defer></script>
-
-  <!-- Knowledge Hub: tier-collapse, search, scroll-spy, mobile drawer, hotkeys.
-       MiniSearch loaded BEFORE knowledge-hub.js so KH detects window.MiniSearch
-       and upgrades from nav-title-filter to full-text fuzzy search. -->
   <script src="{{BASE}}assets/vendor/minisearch/minisearch.min.js" defer></script>
-  <script src="{{BASE}}assets/vendor/knowledge-hub/knowledge-hub.js" defer></script>
 
-  <script src="{{BASE}}assets/js/tat-pill.js" defer></script>
-  <script src="{{BASE}}assets/js/tat-tracking.js" defer></script>
+  <!-- Two-bundle JS: marbl-core (universal chrome) + tat (project-specific). -->
+  <script src="{{BASE}}assets/marbl-core.js?v={{BUNDLE_JS_HASH}}" defer></script>
+  <script src="{{BASE}}assets/tat.js?v={{BUNDLE_TAT_JS_HASH}}" defer></script>
 
 </body>
 </html>
