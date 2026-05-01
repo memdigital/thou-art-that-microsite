@@ -169,17 +169,19 @@
   margin-top: var(--gap-3xs, 5px);
 }
 
-/* Narrow contexts (sidebars, rails, mobile cards) - stack the buttons
-   vertically and stretch them full-width so they read as a deliberate
-   pair instead of awkwardly wrapping. Container query so this fires on
-   the widget's own width, not the viewport. */
+/* Narrow contexts (sidebars, rails, mobile cards) - keep buttons inline
+   side-by-side, each taking exactly half the row so they read as a
+   deliberate equal pair. Container query so this fires on the widget's
+   own width, not the viewport. */
 @container repo-widget (max-width: 320px) {
   .repo-widget__actions {
-    flex-direction: column;
-    align-items: stretch;
+    flex-wrap: nowrap;
   }
   .repo-widget__actions .btn {
-    width: 100%;
+    flex: 1 1 0;
+    min-width: 0;
+    padding-left: var(--gap-2xs, 8px);
+    padding-right: var(--gap-2xs, 8px);
     justify-content: center;
   }
 }
