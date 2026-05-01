@@ -110,12 +110,6 @@
           <li class="menu-overlay__nav-label">Source</li>
           <li class="menu-overlay__nav-item"><a href="https://github.com/memdigital/thou-art-that" target="_blank" rel="noopener noreferrer">GitHub</a></li>
         </ul>
-        <a class="btn btn--outline btn--mini menu-overlay__cta" href="https://subscribe.marbl.codes/?utm_source=tat&amp;utm_medium=menu&amp;utm_campaign=subscribe" target="_blank" rel="noopener noreferrer" data-fathom-event="Menu - Subscribe">
-          Subscribe
-          <span class="btn__icon btn__icon--no-rotate" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </a>
       </nav>
 
       <div class="menu-overlay__centre">
@@ -235,7 +229,7 @@
       {{PAGINATION_HTML}}
     </article>
 
-    <!-- Right rail: TOC only now (source widget moved into article column). -->
+    <!-- Right rail: TOC + subscribe CTA below it. -->
     <div class="kh-rail">
       <aside class="kh-toc" aria-label="On this page">
         <!-- Graph slot: hidden when empty; future Obsidian-style force
@@ -246,6 +240,13 @@
           {{TOC_HTML}}
         </ul>
       </aside>
+
+      <a class="btn btn--outline btn--mini kh-rail__cta" href="https://subscribe.marbl.codes/?utm_source=tat&amp;utm_medium=rail&amp;utm_campaign=subscribe" target="_blank" rel="noopener noreferrer" data-fathom-event="Rail - Subscribe">
+        Subscribe
+        <span class="btn__icon btn__icon--no-rotate" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
     </div>
 
   </main>
