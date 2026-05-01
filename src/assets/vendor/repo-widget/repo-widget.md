@@ -3,7 +3,7 @@
 A small canonical card showing meaningful state for a Marbl-owned (or Marbl-affiliated) GitHub repository - stars, forks, version, licence, last-updated, and links into the repo + discussions. Two visual variants: solid card for body content, transparent for sidebar use.
 
 **Live preview:** `./preview.html`
-**Status:** v1.5.0 - static (build-time data fetch). Live mode (client-side fetch with localStorage cache) deferred to v2.
+**Status:** v1.5.1 - static (build-time data fetch). Live mode (client-side fetch with localStorage cache) deferred to v2.
 
 **Depends on:** `ui-items/button.css` (canonical buttons used for the action footer). Vendor it alongside this component.
 
@@ -199,6 +199,7 @@ All values from `marbl-v2.css`. No invented px values, no local aliases.
 
 ## 9. Changelog
 
+- **v1.5.1** - 1 May 2026 - kill FOUC: inline a tiny critical-path `<style>` block at the top of the partial that resets `<a>`/`<ul>`/`<li>`/`<p>` defaults before the external `repo-widget.css` loads. Was flashing blue underlined links on first paint when many vendored stylesheets compete for browser bandwidth. CSP-compliant via `style-src 'unsafe-inline'`.
 - **v1.5.0** - 1 May 2026 - action button layout split by variant + viewport: filled (full-width contexts) keeps buttons inline at natural widths; transparent (sidebars) stacks them vertically full-width on desktop; both variants drop to inline 50/50 equal-width on mobile (≤768px viewport). Container-query approach from v1.2/v1.4 retired in favour of viewport + variant rules so behaviour is predictable per context.
 - **v1.4.0** - 1 May 2026 - narrow-context (≤320px container width) action buttons now stay inline side-by-side with 50/50 equal width and centred labels (was stacked + full-width). Reads as a tighter, deliberate pair on sidebar/mobile.
 - **v1.3.0** - 1 May 2026 - hover treatment simplified: every link inside the widget (name, stars, forks, etc.) drops to a plain colour shift to ember on hover - no underline, no border-bottom (was a 1px white-30 underline on stat links). Version stat moved back to `--filled-only` so the transparent variant in narrow sidebars carries just stars / forks / last-updated. Container-query button stack (v1.2-era) kept.
