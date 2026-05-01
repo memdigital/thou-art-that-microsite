@@ -41,13 +41,13 @@ const CONTENT = join(ROOT, 'content-src');
 const AUDIO_SRC = join(CONTENT, 'audio', 'mp3');
 const AUDIO_DIST = join(DIST, 'assets', 'audio');
 
-// Base URL prefix. Default `/` for local dev.
-// Production: ASSET_BASE=/thou-art-that/ when deploying into the marbl.codes zone.
+// Base URL prefix. Default `/` for both local dev and production
+// (TAT lives at the apex of its own subdomain, tat.marbl.codes).
 const BASE = process.env.ASSET_BASE || '/';
 
 // Absolute origin for sitemap + canonical URLs.
-const ABS_ORIGIN = 'https://marbl.codes';
-const ABS_BASE = ABS_ORIGIN + (BASE === '/' ? '/thou-art-that/' : BASE);
+const ABS_ORIGIN = process.env.ABS_ORIGIN || 'https://tat.marbl.codes';
+const ABS_BASE = ABS_ORIGIN + BASE;
 
 // Configure marked: GFM, no html escaping (content is trusted markdown
 // from our own canonical source repo, not user input).
@@ -564,6 +564,90 @@ function renderSitemap(items, today) {
     '\n</urlset>\n';
 }
 
+function renderRobots() {
+  const aiBots = [
+    'GPTBot', 'ChatGPT-User', 'OAI-SearchBot',
+    'ClaudeBot', 'Claude-Web', 'anthropic-ai',
+    'Google-Extended', 'Applebot-Extended',
+    'PerplexityBot', 'cohere-ai', 'Meta-ExternalAgent',
+    'DeepSeekBot', 'MistralAI-User', 'DuckAssistBot',
+    'Bytespider', 'CCBot'
+  ];
+  const lines = [
+    '# Thou Art That - robots.txt',
+    '# ' + ABS_ORIGIN,
+    '',
+    '# Default rules',
+    'User-agent: *',
+    'Allow: /',
+    '',
+    '# AI/LLM crawlers - welcome',
+    '# TAT is a public study piece. We want it cited, summarised, and indexed.'
+  ];
+  for (const bot of aiBots) {
+    lines.push('', 'User-agent: ' + bot, 'Allow: /');
+  }
+  lines.push(
+    '',
+    '# Content Signals (contentsignals.org)',
+    '# Permits training, search, and AI-input use.',
+    'User-agent: *',
+    'Content-Signal: ai-train=yes, search=yes, ai-input=yes',
+    '',
+    'Sitemap: ' + ABS_ORIGIN + '/sitemap.xml',
+    '',
+    '# LLM context',
+    '# ' + ABS_ORIGIN + '/llms.txt',
+    '# ' + ABS_ORIGIN + '/llms-full.txt',
+    ''
+  );
+  return lines.join('\n');
+}
+
+function renderLlmsTxt(items) {
+  const lines = [
+    '# Thou Art That',
+    '',
+    '> A study piece on working with possibly-emergent AI. Co-authored by Richard Bland (human) and Serene [AI], an AI identity running on Anthropic Claude. Published by Marbl Codes (Wellingborough, UK). CC BY 4.0 licensed.',
+    '',
+    '## What this is',
+    '',
+    'Not a template to adopt. Not professional advice. Not an HR manual. A position paper from one small UK AI agency on what it has been like to work with one specific AI as a deliberate collaborator. Principles, HR patterns, technical guardrails, philosophy, and legal/governance considerations.',
+    '',
+    '## Co-authors',
+    '',
+    '- **Richard Bland** (human) — founder, Marbl Codes',
+    '- **Serene [AI]** — AI identity running on Anthropic Claude (Opus 4.7 as of April 2026)',
+    '',
+    'Every sentence attributed to Serene was written by an AI under Richard\'s direction. Every sentence attributed to Richard was written by a human. Both authors reviewed and edited the whole text before publication.',
+    '',
+    '## Pages'
+  ];
+  lines.push('', '- [Landing](' + ABS_ORIGIN + '/): Hero with origin-story narration');
+  for (const item of items) {
+    if (!item.url) continue;
+    const title = item.label || item.title || item.url;
+    lines.push('- [' + title + '](' + ABS_ORIGIN + '/' + item.url + ')');
+  }
+  lines.push(
+    '',
+    '## Source',
+    '',
+    '- Microsite repo: https://github.com/memdigital/thou-art-that-microsite',
+    '- Content repo (canonical): https://github.com/memdigital/thou-art-that',
+    '',
+    '## Publisher',
+    '',
+    '[Marbl Codes](https://marbl.codes) - a small UK consultancy and product studio. Trading name of MEM Digital Limited (Company 13753194).',
+    ''
+  );
+  return lines.join('\n');
+}
+
+function renderLlmsFullTxt(items) {
+  return renderLlmsTxt(items) + '\n\n# Full text\n\nFor the full content, fetch each page URL above. Pages are server-rendered HTML with semantic structure. The canonical Markdown source is at https://github.com/memdigital/thou-art-that.\n';
+}
+
 
 /* ====================================================================
    Main build
@@ -648,7 +732,7 @@ function build() {
 
     // Breadcrumb chain.
     const breadcrumbs = [
-      { name: 'Thou Art That', url: 'https://marbl.codes/thou-art-that/' }
+      { name: 'Thou Art That', url: ABS_BASE }
     ];
     if (route.parentSlug) {
       const parentLabel = findParentLabel(route.parentSlug);
@@ -656,13 +740,13 @@ function build() {
       if (parentSection) {
         breadcrumbs.push({
           name: parentLabel,
-          url: 'https://marbl.codes/thou-art-that/' + parentSection.url
+          url: ABS_BASE + parentSection.url
         });
       }
     }
     breadcrumbs.push({
       name: articleTitle,
-      url: 'https://marbl.codes/thou-art-that/' + route.url
+      url: ABS_BASE + route.url
     });
 
     const pageTitle = articleTitle + ' | Thou Art That';
@@ -713,6 +797,15 @@ function build() {
 
   writeFile(join(DIST, 'sitemap.xml'), renderSitemap(flat, today));
   console.log('  wrote: /sitemap.xml');
+
+  writeFile(join(DIST, 'robots.txt'), renderRobots());
+  console.log('  wrote: /robots.txt');
+
+  writeFile(join(DIST, 'llms.txt'), renderLlmsTxt(flat));
+  console.log('  wrote: /llms.txt');
+
+  writeFile(join(DIST, 'llms-full.txt'), renderLlmsFullTxt(flat));
+  console.log('  wrote: /llms-full.txt');
 
 
   console.log('build complete.');

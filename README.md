@@ -2,7 +2,7 @@
 
 Static microsite for [*Thou Art That*](https://github.com/memdigital/thou-art-that) — a study piece on working with possibly-emergent AI, by Richard Bland and Serene [AI].
 
-Deployed to `marbl.codes/thou-art-that/` via Cloudflare Pages.
+Deployed to **[tat.marbl.codes](https://tat.marbl.codes)** via Cloudflare Pages.
 
 ## Stack
 
@@ -11,17 +11,13 @@ Plain HTML + vanilla CSS + small Node build script. Matches the marbl-codes patt
 - **Content source:** git submodule of `github.com/memdigital/thou-art-that` (the public study piece)
 - **Render:** `marked` (markdown → HTML) + `gray-matter` (frontmatter)
 - **Templates:** HTML with simple `{{placeholder}}` interpolation
-- **Styling:** vendored `marbl.css` from marbl.codes + local overrides
-- **Interactive bits:** ArrayPress WaveformPlayer for audio, vanilla JS for GitHub widget
-
-## Layout
-
-1000px max-width including sidebar. Narrow content column (~720px reading measure). Simple sidebar linking all framework pages. Matches the marbl.codes header / footer / burger menu patterns.
+- **Styling:** vendored Marbl canonical components (marbl-fonts, marbl-v2 core, site-header, site-footer, menu, ui-items, knowledge-hub, waveform-player)
+- **Knowledge Hub:** every section page rendered through the canonical Marbl Knowledge Hub component (v1.4)
 
 ## Build
 
 ```bash
-git clone --recurse-submodules git@github.com:memdigital/thou-art-that-microsite.git
+git clone --recurse-submodules https://github.com/memdigital/thou-art-that-microsite.git
 cd thou-art-that-microsite
 npm install
 npm run build          # static output to dist/
@@ -46,9 +42,9 @@ git commit -m "Update content to latest upstream"
 
 ## Deploy
 
-Cloudflare Pages project `thou-art-that-microsite`. Build command: `npm run build`. Build output: `dist/`. Served at `marbl.codes/thou-art-that/*` via a Cloudflare Worker path-rewrite (see `workers/proxy/` TBD).
+Cloudflare Pages project `thou-art-that-microsite`, connected to this GitHub repo. Build command: `npm run build`. Build output: `dist/`. Served at `tat.marbl.codes`.
 
-`git submodule update --init --recursive` must be part of the CF Pages build command so the content is available at build time.
+**Submodule init must be enabled** in the CF Pages build settings so `content-src/` is populated at build time.
 
 ## Structure
 
@@ -57,21 +53,20 @@ thou-art-that-microsite/
 ├── build.mjs                    # render script (markdown → HTML via templates)
 ├── content-src/                 # git submodule (public thou-art-that repo)
 ├── src/
-│   ├── pages/                   # markdown frontmatter + layout refs
-│   ├── templates/               # HTML shells with placeholders
-│   ├── components/              # header, sidebar, footer, waveform, github-widget
+│   ├── content/                 # microsite-local markdown (about, tracks)
+│   ├── data/
+│   │   └── nav.mjs              # 36-URL manifest (the source of truth)
+│   ├── templates/               # landing.html + kh-page.html + about.html
 │   └── assets/
-│       ├── css/                 # marbl.css (vendored) + microsite overrides
-│       ├── js/                  # waveform init + github widget
-│       └── images/              # banner, social, og
+│       ├── css/                 # microsite-local CSS (about, kh-content, landing)
+│       └── vendor/              # vendored Marbl canonical components
 ├── workers/
 │   └── github-stats/            # CF Worker proxying GH API (star count)
 ├── dist/                        # build output (gitignored)
-├── _headers                     # Cloudflare Pages security headers
-└── _redirects                   # if needed
+└── _headers                     # Cloudflare Pages security + cache headers
 ```
 
 ## Licence
 
 Microsite build code: MIT.
-Content (from the submodule) inherits the upstream licence: CC BY 4.0 for docs, MIT for code samples. See the licence file in the `content-src/` submodule for full terms.
+Content (from the `content-src/` submodule) inherits the upstream licence: CC BY 4.0. See the licence file in the `thou-art-that` repo for full terms.

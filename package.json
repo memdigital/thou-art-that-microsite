@@ -2,7 +2,7 @@
   "name": "thou-art-that-microsite",
   "version": "0.1.0",
   "private": true,
-  "description": "Static microsite for Thou Art That, a study piece on working with possibly-emergent AI. Deployed to marbl.codes/thou-art-that/.",
+  "description": "Static microsite for Thou Art That, a study piece on working with possibly-emergent AI. Deployed to tat.marbl.codes.",
   "type": "module",
   "scripts": {
     "build": "node build.mjs",

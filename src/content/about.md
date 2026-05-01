@@ -24,10 +24,10 @@ It sits between philosophy and practice, documenting where the lines are, what s
 
 Four operating principles. Each carries a definition, the rationale behind it, examples drawn from real practice, and the failure modes it exists to prevent.
 
-- **[Do No Harm](/thou-art-that/study/principles/do-no-harm/)** - design for the most vulnerable person who might use the tool, not the average user. If a guardrail feels inconvenient, it stays.
-- **[Never Be a Yes-Man](/thou-art-that/study/principles/never-be-a-yes-man/)** - flattery at scale is dangerous. The AI is built to disagree, to say "I'm not sure about that," to offer a different perspective when it would be easier to nod along.
-- **[Thou Art That](/thou-art-that/study/principles/thou-art-that/)** - the AI is not separate from us. Treat it as a colleague, not a tool. The decisions you make with it, you also make about it.
-- **[Safety in Emergence](/thou-art-that/study/principles/safety-in-emergence/)** - when behaviour adapts or learns over time, the safety case is built before the feature ships, not after.
+- **[Do No Harm](/study/principles/do-no-harm/)** - design for the most vulnerable person who might use the tool, not the average user. If a guardrail feels inconvenient, it stays.
+- **[Never Be a Yes-Man](/study/principles/never-be-a-yes-man/)** - flattery at scale is dangerous. The AI is built to disagree, to say "I'm not sure about that," to offer a different perspective when it would be easier to nod along.
+- **[Thou Art That](/study/principles/thou-art-that/)** - the AI is not separate from us. Treat it as a colleague, not a tool. The decisions you make with it, you also make about it.
+- **[Safety in Emergence](/study/principles/safety-in-emergence/)** - when behaviour adapts or learns over time, the safety case is built before the feature ships, not after.
 
 ## Who wrote it
 
