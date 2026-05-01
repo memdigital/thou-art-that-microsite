@@ -1,9 +1,9 @@
 /**
  * Thou Art That microsite — URL manifest.
  *
- * Source of truth for the 36 URLs per PLAN.md (locked 24 April 2026).
- * Consumed by build.mjs to generate routes, by section.html to render nav,
- * by sitemap generation in Phase 4, and by the nav-state-from-URL helper.
+ * Source of truth for the 36 URLs.
+ * Consumed by build.mjs to generate routes (via the Knowledge Hub template)
+ * and to drive sitemap generation.
  *
  * Structure:
  *   - Top-level entries are either `leaf` (single page) or `category` (group with children)

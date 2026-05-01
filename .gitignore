@@ -8,3 +8,8 @@ Thumbs.db
 .env.*
 _bin/
 *.bak
+
+# Local-only working artefacts
+.tmp/
+_inspiration/
+PLAN.md

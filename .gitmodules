@@ -1,3 +1,3 @@
 [submodule "content-src"]
 	path = content-src
-	url = git@github.com:memdigital/thou-art-that.git
+	url = https://github.com/memdigital/thou-art-that.git
