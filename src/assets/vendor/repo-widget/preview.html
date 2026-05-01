@@ -119,13 +119,13 @@
   <main class="preview-stage">
 
     <section class="rw-section">
-      <p class="rw-section__label">Component &middot; Data &middot; v1.2.0</p>
+      <p class="rw-section__label">Component &middot; Data &middot; v1.3.0</p>
       <h1 class="rw-section__title">Repo Widget</h1>
       <p class="rw-section__desc">A small canonical card showing meaningful state for a Marbl-owned GitHub repository - stars, forks, version, last-updated, and links into the repo + discussions. Two visual variants: <code>--filled</code> for body content, <code>--transparent</code> for sidebars. Action buttons use the canonical <code>.btn .btn--fill-up.btn--mini</code> + <code>.btn .btn--outline.btn--mini</code> from <code>ui-items/button.css</code>.</p>
 
       <div class="rw-demo">
 
-        <article class="repo-widget repo-widget--filled"
+        <article class="repo-widget repo-widget--transparent"
                  itemscope itemtype="https://schema.org/SoftwareSourceCode">
           <meta itemprop="codeRepository" content="https://github.com/memdigital/thou-art-that">
 
@@ -162,7 +162,7 @@
                 <span class="repo-widget__stat-label">forks</span>
               </a>
             </li>
-            <li class="repo-widget__stat repo-widget__stat--version">
+            <li class="repo-widget__stat repo-widget__stat--version repo-widget__stat--filled-only">
               <svg class="repo-widget__stat-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.41 11.58l-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9a2 2 0 0 0 2.83 0l7-7a2 2 0 0 0 0-2.84zM6.5 8A1.5 1.5 0 1 1 8 6.5 1.5 1.5 0 0 1 6.5 8z"/></svg>
               <span class="repo-widget__stat-value" itemprop="softwareVersion">v0.1.0</span>
             </li>
@@ -187,9 +187,6 @@
             </a>
           </footer>
         </article>
-
-        <div class="rw-demo__sidebar-frame">
-          <p class="rw-demo__sidebar-label">Sidebar context</p>
 
           <article class="repo-widget repo-widget--transparent"
                    itemscope itemtype="https://schema.org/SoftwareSourceCode">
@@ -226,7 +223,7 @@
                   <span class="repo-widget__stat-label">forks</span>
                 </a>
               </li>
-              <li class="repo-widget__stat repo-widget__stat--version">
+              <li class="repo-widget__stat repo-widget__stat--version repo-widget__stat--filled-only">
                 <svg class="repo-widget__stat-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.41 11.58l-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9a2 2 0 0 0 2.83 0l7-7a2 2 0 0 0 0-2.84zM6.5 8A1.5 1.5 0 1 1 8 6.5 1.5 1.5 0 0 1 6.5 8z"/></svg>
                 <span class="repo-widget__stat-value" itemprop="softwareVersion">v0.1.0</span>
               </li>
@@ -252,7 +249,6 @@
             </footer>
           </article>
 
-        </div>
       </div>
     </section>
 

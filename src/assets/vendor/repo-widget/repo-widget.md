@@ -3,7 +3,7 @@
 A small canonical card showing meaningful state for a Marbl-owned (or Marbl-affiliated) GitHub repository - stars, forks, version, licence, last-updated, and links into the repo + discussions. Two visual variants: solid card for body content, transparent for sidebar use.
 
 **Live preview:** `./preview.html`
-**Status:** v1.2.0 - static (build-time data fetch). Live mode (client-side fetch with localStorage cache) deferred to v2.
+**Status:** v1.3.0 - static (build-time data fetch). Live mode (client-side fetch with localStorage cache) deferred to v2.
 
 **Depends on:** `ui-items/button.css` (canonical buttons used for the action footer). Vendor it alongside this component.
 
@@ -70,7 +70,7 @@ Solid card on a slightly raised background. Use in body content, dedicated "Sour
 
 ### `repo-widget--transparent`
 
-No background, lighter border, tighter padding. Use in sidebars (KH "On this page" column, footer columns, narrow rails). Hides the description (`--filled-only`). Shows: header, all four stats, both CTAs.
+No background, lighter border, tighter padding. Use in sidebars (KH "On this page" column, footer columns, narrow rails). Hides everything marked `--filled-only`: description and version stat. Shows: header, three stats (stars / forks / last-updated), both CTAs.
 
 ---
 
@@ -86,7 +86,7 @@ No background, lighter border, tighter padding. Use in sidebars (KH "On this pag
 | `{{REPO_DESCRIPTION}}` | filled only | "A study piece on..." | omit on transparent |
 | `{{REPO_STARS}}` | yes | `42` or `1.2k` | format integers >= 1000 as `1.2k` |
 | `{{REPO_FORKS}}` | yes | `3` | |
-| `{{REPO_VERSION}}` | yes | `v0.1.0` | from CITATION.cff or latest GH release |
+| `{{REPO_VERSION}}` | filled only | `v0.1.0` | from CITATION.cff or latest GH release |
 | `{{REPO_UPDATED}}` | yes | `2 days ago` | relative time string |
 | `{{REPO_UPDATED_ISO}}` | yes | `2026-04-30` | ISO 8601 for `<time datetime>` |
 | `{{REPO_DISCUSSIONS_SUFFIX}}` | yes | ` (3)` or empty | `(N)` if N > 0 |
@@ -199,6 +199,7 @@ All values from `marbl-v2.css`. No invented px values, no local aliases.
 
 ## 9. Changelog
 
+- **v1.3.0** - 1 May 2026 - hover treatment simplified: every link inside the widget (name, stars, forks, etc.) drops to a plain colour shift to ember on hover - no underline, no border-bottom (was a 1px white-30 underline on stat links). Version stat moved back to `--filled-only` so the transparent variant in narrow sidebars carries just stars / forks / last-updated. Container-query button stack (v1.2-era) kept.
 - **v1.2.0** - 1 May 2026 - **brand discipline pass**: action buttons now use canonical `.btn .btn--fill-up.btn--mini` (primary) + `.btn .btn--outline.btn--mini` (secondary) from `ui-items/button.css` instead of bespoke `.repo-widget__cta*` classes. Licence stat dropped per Richard. Forks + last-updated promoted to always-visible (was filled-only). Both CTAs now show on the transparent variant. Repo widget became the standard reference for "Marbl-only? load `/marbl-design-system` skill, read `brand-kit.md` + `ui-items.md`, then build."
 - **v1.1.0** - 1 May 2026 - stars stat now links to repo root (where the GitHub Star button lives) so logged-in users can star with one extra click; aria-label and title updated accordingly. Tracking event renamed to `Repo widget - star intent click`.
 - **v1.0.0** - 1 May 2026 - initial canonical. Filled + transparent variants, six stats, two CTAs, microdata, build-time data fetching.

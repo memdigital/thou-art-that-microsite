@@ -33,7 +33,7 @@
 .repo-widget--transparent {
   background: transparent;
   border: 1px solid var(--marbl-white-10, rgba(255, 255, 255, 0.1));
-  padding: var(--gap-xs, 10px) var(--gap-sm, 20px);
+  padding: var(--gap-sm, 20px);
 }
 
 /* Hide filled-only chrome inside transparent variant */
@@ -71,14 +71,12 @@
 .repo-widget__name a {
   color: var(--marbl-white, #ffffff);
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 150ms ease, color 150ms ease;
+  transition: color 150ms ease;
 }
 
 .repo-widget__name a:hover,
 .repo-widget__name a:focus-visible {
   color: var(--marbl-ember, #F35226);
-  border-bottom-color: var(--marbl-ember, #F35226);
 }
 
 .repo-widget__name a:focus-visible {
@@ -122,14 +120,16 @@
   gap: var(--gap-3xs, 5px);
   color: inherit;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: color 150ms ease, border-color 150ms ease;
+  transition: color 150ms ease;
 }
 
 .repo-widget__stat a:hover,
-.repo-widget__stat a:focus-visible {
-  color: var(--marbl-white, #ffffff);
-  border-bottom-color: var(--marbl-white-30, rgba(255, 255, 255, 0.3));
+.repo-widget__stat a:focus-visible,
+.repo-widget__stat a:hover .repo-widget__stat-value,
+.repo-widget__stat a:focus-visible .repo-widget__stat-value,
+.repo-widget__stat a:hover .repo-widget__stat-label,
+.repo-widget__stat a:focus-visible .repo-widget__stat-label {
+  color: var(--marbl-ember, #F35226);
 }
 
 .repo-widget__stat a:focus-visible {
@@ -185,6 +185,11 @@
 }
 
 /* ===== Reduced motion ===================================================== */
+
+/* Hide filled-only stats inside transparent variant (e.g. version). */
+.repo-widget--transparent .repo-widget__stat--filled-only {
+  display: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .repo-widget__name a,
