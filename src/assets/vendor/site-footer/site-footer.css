@@ -70,7 +70,11 @@
 .footer-links {
   display: flex;
   align-items: center;
-  gap: var(--gap-sm, 20px);
+  /* Tight container gap because each link has 8px horizontal padding
+     for tap target. Visual text-to-text spacing = container gap +
+     2x link padding = 4 + 16 = 20px (matches original tight feel).
+     Locked 1 May 2026. */
+  gap: var(--gap-3xs, 4px);
   flex-wrap: wrap;
 }
 
@@ -106,7 +110,7 @@
 .footer-right {
   display: flex;
   align-items: center;
-  gap: var(--gap-xs, 10px);
+  gap: var(--gap-3xs, 4px);
 }
 
 /* .btn-icon-social is defined in core/marbl-v2.css - canonical across the site.
