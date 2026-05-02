@@ -226,10 +226,15 @@
         {{REPO_WIDGET_FILLED_HTML}}
         <!-- Mobile-only Subscribe link. Desktop subscribe lives in the
              .kh-rail (right column); on mobile that rail is display:none
-             so we surface a plain text link directly under the repo card. -->
-        <a class="kh-source__subscribe" href="https://subscribe.marbl.codes/?utm_source=tat&amp;utm_medium=mobile-source&amp;utm_campaign=subscribe" target="_blank" rel="noopener noreferrer" data-fathom-event="Source - Subscribe (mobile)">
+             so we surface a canonical Ghost button (text + envelope icon,
+             text-only chrome) centred under the repo card. Same envelope
+             icon as the desktop rail; .btn__icon--no-rotate stops the
+             default Ghost diagonal-arrow rotation. -->
+        <a class="btn btn--ghost btn--mini kh-source__subscribe" href="https://subscribe.marbl.codes/?utm_source=tat&amp;utm_medium=mobile-source&amp;utm_campaign=subscribe" target="_blank" rel="noopener noreferrer" data-fathom-event="Source - Subscribe (mobile)">
           Subscribe to Marbl Codes
-          <span class="kh-source__subscribe-arrow" aria-hidden="true">&rarr;</span>
+          <span class="btn__icon btn__icon--no-rotate" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </a>
       </aside>
 
