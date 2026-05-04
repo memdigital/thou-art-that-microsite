@@ -13,3 +13,7 @@ _bin/
 .tmp/
 _inspiration/
 PLAN.md
+
+.dev.vars*
+!.dev.vars.example
+!.env.example
