@@ -8,6 +8,6 @@ The principles are not philosophy decorating the work. They're constraints appli
 
 ## How to read this section
 
-Each principle stands on its own. They are not ordered by priority — they are co-equal commitments. In practice, *Do No Harm* is the loudest in scope decisions, *Never Be a Yes-Man* is the loudest inside the AI relationship itself, *Thou Art That* is the loudest in how we treat the AI as a colleague, and *Safety in Emergence* is the loudest when we ship something that adapts or learns over time.
+Each principle stands on its own. They are not ordered by priority. They are co-equal commitments. In practice, *Do No Harm* is the loudest in scope decisions, *Never Be a Yes-Man* is the loudest inside the AI relationship itself, *Thou Art That* is the loudest in how we treat the AI as a colleague, and *Safety in Emergence* is the loudest when we ship something that adapts or learns over time.
 
-Read them in any order. Come back to them. Argue with them. They are working positions, not finished doctrine — and we revise them when reality teaches us better.
+Read them in any order. Come back to them. Argue with them. They are working positions, not finished doctrine. We revise them when reality teaches us better.

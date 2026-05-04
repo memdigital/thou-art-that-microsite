@@ -871,7 +871,7 @@ async function build() {
       id: route.url,
       title: articleTitle,
       headings: headings.map(h => h.text),
-      content: stripHtml(rawBodyHtml).slice(0, 5000),
+      content: decodeEntities(stripHtml(rawBodyHtml)).slice(0, 5000),
       url: '/' + route.url,
       group: route.parentSlug ? findParentLabel(route.parentSlug) : eyebrow
     });

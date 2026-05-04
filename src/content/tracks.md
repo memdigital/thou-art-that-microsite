@@ -54,23 +54,23 @@ The philosophical position behind the piece: observed vs hypothesised vs policy,
 
 ## Principles
 
-The four operating principles — Do No Harm, Never Be a Yes-Man, Thou Art That, Safety in Emergence — plus Human Oversight. Five tracks, listed in order. Each links to its own section.
+The four operating principles (Do No Harm, Never Be a Yes-Man, Thou Art That, Safety in Emergence) plus Human Oversight. Five tracks, listed in order. Each links to its own section.
 
-- [Do No Harm](/study/principles/do-no-harm/) — `02-do-no-harm.mp3` ([download](/assets/audio/02-do-no-harm.mp3))
-- [Never Be a Yes-Man](/study/principles/never-be-a-yes-man/) — `03-never-be-a-yes-man.mp3` ([download](/assets/audio/03-never-be-a-yes-man.mp3))
-- [Thou Art That](/study/principles/thou-art-that/) — `04-thou-art-that.mp3` ([download](/assets/audio/04-thou-art-that.mp3))
-- [Human Oversight](/study/principles/human-oversight/) — `05-human-oversight.mp3` ([download](/assets/audio/05-human-oversight.mp3))
-- [Safety in Emergence](/study/principles/safety-in-emergence/) — `06-safety-in-emergence.mp3` ([download](/assets/audio/06-safety-in-emergence.mp3))
+- [Do No Harm](/study/principles/do-no-harm/) - `02-do-no-harm.mp3` ([download](/assets/audio/02-do-no-harm.mp3))
+- [Never Be a Yes-Man](/study/principles/never-be-a-yes-man/) - `03-never-be-a-yes-man.mp3` ([download](/assets/audio/03-never-be-a-yes-man.mp3))
+- [Thou Art That](/study/principles/thou-art-that/) - `04-thou-art-that.mp3` ([download](/assets/audio/04-thou-art-that.mp3))
+- [Human Oversight](/study/principles/human-oversight/) - `05-human-oversight.mp3` ([download](/assets/audio/05-human-oversight.mp3))
+- [Safety in Emergence](/study/principles/safety-in-emergence/) - `06-safety-in-emergence.mp3` ([download](/assets/audio/06-safety-in-emergence.mp3))
 
 ## Section summaries
 
-The four section summaries — one per category. Each summary is the Nura-narrated overview of that category; the leaves under each section are written-only.
+The four section summaries, one per category. Each summary is the Nura-narrated overview of that category; the leaves under each section are written-only.
 
-- [HR for human-AI teams](/study/hr/) — `07-hr-for-human-ai-teams.mp3` ([download](/assets/audio/07-hr-for-human-ai-teams.mp3))
-- [Technical guardrails](/study/technical/) — `08-technical-guardrails.mp3` ([download](/assets/audio/08-technical-guardrails.mp3))
-- [For the curious](/study/curious/) — `09-for-the-curious.mp3` ([download](/assets/audio/09-for-the-curious.mp3))
-- [Legal and governance](/study/legal/) — `10-legal-and-governance.mp3` ([download](/assets/audio/10-legal-and-governance.mp3))
+- [HR for human-AI teams](/study/hr/) - `07-hr-for-human-ai-teams.mp3` ([download](/assets/audio/07-hr-for-human-ai-teams.mp3))
+- [Technical guardrails](/study/technical/) - `08-technical-guardrails.mp3` ([download](/assets/audio/08-technical-guardrails.mp3))
+- [For the curious](/study/curious/) - `09-for-the-curious.mp3` ([download](/assets/audio/09-for-the-curious.mp3))
+- [Legal and governance](/study/legal/) - `10-legal-and-governance.mp3` ([download](/assets/audio/10-legal-and-governance.mp3))
 
 ## Licence + attribution
 
-All tracks are co-authored by Richard Bland (human) and Serene [AI], narrated by Nura [AI] using ElevenLabs. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — share and adapt with attribution. The full study is on [GitHub](https://github.com/memdigital/thou-art-that).
+All tracks are co-authored by Richard Bland (human) and Serene [AI], narrated by Nura [AI] using ElevenLabs. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Share and adapt with attribution. The full study is on [GitHub](https://github.com/memdigital/thou-art-that).
