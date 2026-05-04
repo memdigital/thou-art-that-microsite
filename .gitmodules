@@ -1,3 +1,4 @@
 [submodule "content-src"]
 	path = content-src
 	url = https://github.com/memdigital/thou-art-that.git
+	branch = master
