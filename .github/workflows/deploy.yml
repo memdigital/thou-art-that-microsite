@@ -36,6 +36,18 @@ jobs:
       - name: Build
         run: node build.mjs
 
+      - name: Diagnose CF API access (temp; remove once deploy works)
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "Token length: ${#CF_TOKEN}"
+          echo "Account ID length: ${#CF_ACCT}"
+          echo "--- token verify ---"
+          curl -s -H "Authorization: Bearer $CF_TOKEN" https://api.cloudflare.com/client/v4/user/tokens/verify | head -c 500; echo
+          echo "--- pages project GET ---"
+          curl -s -H "Authorization: Bearer $CF_TOKEN" "https://api.cloudflare.com/client/v4/accounts/$CF_ACCT/pages/projects/thou-art-that-microsite" | head -c 500; echo
+
       - name: Deploy to Cloudflare Pages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
