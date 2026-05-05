@@ -573,6 +573,23 @@ function renderRobots() {
 }
 
 /* ====================================================================
+   Title accent — wraps the configured word in canonical .marbl-text-accent
+   so it picks up Petrona italic per the Marbl brand kit.
+   ==================================================================== */
+
+function applyTitleAccent(title, accent) {
+  if (!accent || !title) return escapeHtml(title || '');
+  const idx = title.toLowerCase().indexOf(accent.toLowerCase());
+  if (idx === -1) return escapeHtml(title);
+  const before = title.slice(0, idx);
+  const word = title.slice(idx, idx + accent.length);
+  const after = title.slice(idx + accent.length);
+  return escapeHtml(before)
+    + '<span class="marbl-text-accent">' + escapeHtml(word) + '</span>'
+    + escapeHtml(after);
+}
+
+/* ====================================================================
    Repo widget — canonical Marbl component, build-time data fetch.
    ==================================================================== */
 
@@ -797,6 +814,7 @@ async function build() {
 
     // Title + eyebrow + lead resolution.
     const articleTitle = frontmatter.title || route.label;
+    const articleTitleHtml = applyTitleAccent(articleTitle, route.titleAccent);
     const eyebrow = frontmatter.eyebrow
       || (route.parentSlug ? findParentLabel(route.parentSlug) : (route.isCategory ? 'Thou Art That' : 'Thou Art That'));
     const leadHtml = frontmatter.lead
@@ -847,6 +865,7 @@ async function build() {
       CANONICAL_PATH: route.url,
       EYEBROW: escapeHtml(eyebrow),
       ARTICLE_TITLE: escapeHtml(articleTitle),
+      ARTICLE_TITLE_HTML: articleTitleHtml,
       LEAD_HTML: leadHtml,
       SIDEBAR_NAV_HTML: sidebarNavHtml,
       AUDIO_HTML: audioHtml,

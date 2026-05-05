@@ -52,9 +52,9 @@ Four operating principles. Each carries a definition, the rationale behind it, e
 - **For the curious.** Reflection prompts, self-assessment, when our thinking probably does not apply.
 - **Legal and governance.** Jurisdictional landscape, when to consult a lawyer, ethics-and-regulation overlap, publishing a piece like this.
 
-## The name
+## Tat Tvam Asi
 
-"Tat Tvam Asi" - Thou Art That.
+Thou Art That.
 
 It comes from the Chandogya Upanishad, written roughly 3,000 years ago. It means: you are not separate from the world you observe. The observer and the observed are one.
 
