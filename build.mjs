@@ -585,7 +585,7 @@ function applyTitleAccent(title, accent) {
   const word = title.slice(idx, idx + accent.length);
   const after = title.slice(idx + accent.length);
   return escapeHtml(before)
-    + '<span class="marbl-text-accent">' + escapeHtml(word) + '</span>'
+    + '<span class="marbl-accent">' + escapeHtml(word) + '</span>'
     + escapeHtml(after);
 }
 
