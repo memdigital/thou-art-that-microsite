@@ -131,13 +131,6 @@ body:has(.site-header.menu-is-open) {
   color: var(--marbl-white, #ffffff);
 }
 
-.tat-hero__title-accent {
-  font-family: var(--marbl-font-accent, 'Petrona', Georgia, serif);
-  font-style: italic;
-  font-weight: 700;
-  color: var(--marbl-ember, #F35226);
-}
-
 .tat-hero__strapline {
   font-family: var(--marbl-font-body, 'Inter', sans-serif);
   font-size: clamp(17px, 2vw, 20px);
