@@ -1,29 +1,12 @@
 /* ===================================================================
-   Thou Art That — Landing — LOCKED
-   TAT-specific hero rhythm only. Tokens, scrollbar, cursor, button,
-   header, footer, menu, cookie banner, waveform-player chrome all
-   come from the Marbl design system (marbl-v2.css + canonical
-   component CSS) loaded above this file.
-
-   Per PLAN.md (locked 24 April 2026, Phase 1).
-   Re-locked 29 April 2026 after canonical chrome re-vendor sweep
-   (menu/site-header/site-footer/marbl-v2/button/cookie-consent/
-   waveform-player CSS resync vs marbl-codes canonical) and burger
-   left-column nav trim to "The piece" + "Source" only. Do not modify
-   landing.html or landing.css without explicit Richard sign-off.
-
-   Additions on top of lock (29 Apr 2026, sign-off Richard):
-   - View Transitions API: subtle cross-fade with scale on every
-     same-origin TAT navigation (see "Page transition" block below).
+   Thou Art That — Landing
+   TAT-specific hero rhythm. All chrome (tokens, header, footer, menu,
+   buttons, cookie banner, waveform-player) loads from the Marbl
+   design system above this file.
    =================================================================== */
 
-/* Page transition (View Transitions API) — landing surface only.
-   Pairs with the matching opt-in injected into the origin-story page
-   by build.mjs. All other TAT routes do NOT opt in, so navigation
-   between them stays instant per Richard's call 29 Apr 2026.
-
-   Stronger settings than the first pass: 3% scale, 500/650ms,
-   so the transition is felt rather than guessed at. */
+/* Page transition (View Transitions API) — landing only.
+   Subtle 3% scale cross-fade, 500/650ms. */
 @view-transition {
   navigation: auto;
 }

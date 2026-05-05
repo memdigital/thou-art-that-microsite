@@ -1,23 +1,22 @@
 #!/usr/bin/env node
 /**
- * Thou Art That microsite — Phase 3 build (Knowledge Hub).
+ * Thou Art That microsite — static build.
  *
- * Renders landing (locked) + every manifest entry through the canonical
- * Marbl Knowledge Hub component (knowledge-hub v1.2 LOCKED 28 April 2026).
- * One template covers About + 35 study URLs.
+ * Renders the landing page plus every manifest entry through a shared
+ * Knowledge Hub template. One template covers About + the study URLs.
  *
  * Inputs:
- *   src/templates/landing.html     — locked landing page (canonical chrome)
- *   src/templates/kh-page.html     — Knowledge Hub page template (every other route)
- *   src/data/nav.mjs               — URL manifest (36 entries)
+ *   src/templates/landing.html     — landing page
+ *   src/templates/kh-page.html     — Knowledge Hub page template
+ *   src/data/nav.mjs               — URL manifest
  *   content-src/                   — submodule with markdown source
- *   src/content/                   — microsite-local markdown (e.g. about.md)
- *   content-src/audio/mp3/*.mp3    — Nura narration tracks
+ *   src/content/                   — microsite-local markdown
+ *   content-src/audio/mp3/*.mp3    — narration tracks
  *
  * Output:
  *   dist/index.html                          — landing
- *   dist/about/index.html                    — KH-rendered about
- *   dist/study/<slug>/index.html             — KH-rendered study leaves
+ *   dist/about/index.html                    — about
+ *   dist/study/<slug>/index.html             — study leaves
  *   dist/study/<category>/index.html         — KH-rendered category landings
  *   dist/study/<category>/<slug>/index.html  — KH-rendered category leaves
  *   dist/search-index.json                   — MiniSearch-ready
@@ -256,9 +255,7 @@ function renderMarkdownSource(relativePath, sourceLocation = 'content-src') {
 
   let html = marked.parse(stripped);
 
-  // Strip <hr> tags entirely — surrounding h2 80px section margin handles
-  // the visual break already, and bare horizontal rules read as random
-  // noise mid-article. Source semantics lost on purpose (Richard 30 Apr 2026).
+  // Strip <hr> tags — h2 section margin handles the visual break.
   html = html.replace(/<hr\s*\/?>(\s*\n)?/gi, '');
 
   // Rewrite .md / folder links in content. Canonical content-src files
@@ -580,9 +577,9 @@ function renderRobots() {
 function applyTitleAccent(title, accent) {
   if (!accent || !title) return escapeHtml(title || '');
   // Word-boundary regex: refuses substring matches ("piece" must not match
-  // inside "masterpiece"). Throws on zero matches or multiple matches so a
-  // misconfigured nav entry fails the build loudly instead of silently
-  // wrapping the wrong word — Moirai (Ratio) flagged 5 May 2026.
+  // inside "masterpiece"). Throws on zero or multiple matches so a
+  // misconfigured nav entry fails loudly instead of silently wrapping
+  // the wrong word.
   const escaped = accent.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const re = new RegExp('\\b' + escaped + '\\b', 'gi');
   const matches = title.match(re);
@@ -763,9 +760,7 @@ async function build() {
   // Repo widget data: one fetch, reused across every KH page.
   console.log('  fetching repo stats from GitHub API...');
   const repoStats = await fetchRepoStats('memdigital', 'thou-art-that');
-  // Single render: full-width FILLED variant, sits below article content
-  // on every page (desktop + mobile). Was previously two variants in two
-  // placements; consolidated 1 May 2026 per Richard.
+  // Full-width FILLED variant, rendered below article content on every page.
   const repoWidgetFilledHtml = renderRepoWidget('memdigital', 'thou-art-that', repoStats, 'filled');
   console.log('  repo: ' + repoStats.stars + ' stars, ' + repoStats.forks + ' forks, ' + repoStats.version + ', updated ' + repoStats.updated);
 
@@ -780,7 +775,7 @@ async function build() {
 
 
   /* ------------------------------------------------------------------
-     Landing — locked, untouched
+     Landing
      ------------------------------------------------------------------ */
 
   copyAudioFor(['12-welcome']);
@@ -836,10 +831,8 @@ async function build() {
     const audioHtml = renderAudioHtml(route.audio, route.label, route.slug);
     const tocHtml = renderTocHtml(headings);
 
-    // View Transition opt-in: only origin-story (the landing -> study entry
-    // point) declares @view-transition. Pairs with the matching rule in
-    // landing.css. All other study pages omit it so navigation between
-    // them stays instant per Richard's call 29 Apr 2026.
+    // View Transition opt-in: only origin-story (landing -> study entry
+    // point) declares @view-transition. Other study pages stay instant.
     const viewTransitionStyle = route.slug === 'origin-story' && !route.parentSlug
       ? '<style>@view-transition { navigation: auto; }</style>'
       : '';

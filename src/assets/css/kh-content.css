@@ -57,14 +57,8 @@ body:has(.site-header.menu-is-open) {
   padding-top: 90px;
 }
 
-/* View transitions are NOT applied at the kh-content layer.
-   Only the landing + origin-story pages opt in (landing.css + an
-   inline opt-in injected by build.mjs into origin-story specifically),
-   so navigation between study pages stays instant per Richard's call
-   29 Apr 2026. */
-
-/* Audio fallback delayed-reveal now lives in canonical
-   waveform-player.css (promoted from TAT-local 29 Apr 2026). */
+/* View transitions only apply on landing + origin-story; other study
+   pages stay instant. */
 
 /* Right rail subscribe CTA - sits below the TOC card, inside .kh-rail
    stack. Full-width inside the rail column so it reads as a deliberate

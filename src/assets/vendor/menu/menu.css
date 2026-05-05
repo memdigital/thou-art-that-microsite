@@ -50,6 +50,14 @@
   opacity: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  /* Hide scrollbar visually but keep scrolling functional. The overlay
+     covers a dark seamless surface; a default scrollbar breaks the visual. */
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE / old Edge */
+}
+
+.menu-overlay__content::-webkit-scrollbar {
+  display: none;                /* Chromium / Safari */
 }
 
 /* ==========================================================================
