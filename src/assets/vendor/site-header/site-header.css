@@ -81,7 +81,7 @@
   padding: 0;
   -webkit-appearance: none;
   appearance: none;
-  border-radius: 50%;
+  border-radius: var(--radius-circle, 50%);
 }
 
 .menu-toggle:focus-visible {
@@ -101,7 +101,7 @@
   gap: var(--gap-half, 5px);
   width: 50px;
   height: 50px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle, 50%);
   border: 1px solid var(--marbl-white-30, rgba(255, 255, 255, 0.3));
   background: transparent;
   transition: border-color var(--transition-base, 0.2s ease);
@@ -115,7 +115,8 @@
   display: block;
   height: 1.5px;
   background: var(--marbl-white, #ffffff);
-  border-radius: 1px;
+  /* stylelint-disable-next-line declaration-property-value-disallowed-list */
+  border-radius: 1px; /* hairline radius — no token at 1px (smallest is --radius-2xs at 2px) */
   transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1),
               opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1),
               width 0.4s cubic-bezier(0.77, 0, 0.175, 1);
@@ -143,10 +144,13 @@
   transform: translateY(-6.5px) rotate(-45deg);
 }
 
-/* Mobile */
+/* Mobile — match desktop's vertical breathing room. The 10px collapse felt
+   too tight against the 50px burger circle on phones (Richard, 5 May 2026).
+   --gap-sm (20px) on both axes mirrors the desktop block-padding so the
+   header reads as the same component, just with tighter side gutters. */
 @media (max-width: 768px) {
   .site-header {
-    padding: var(--gap-xs, 10px) var(--gap-sm, 20px);
+    padding: var(--gap-sm, 20px);
   }
 }
 
