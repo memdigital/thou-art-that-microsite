@@ -81,10 +81,14 @@
    Display title accent — the brand-canonical word-accent pattern.
 
    Wrap a single word inside a display heading in <span class="marbl-accent">
-   to stamp it with Petrona italic, ember colour, and a small upscale.
+   to stamp it with Petrona italic, ember colour, and an upscale.
    Mirrors the inline pattern used across marbl.codes (about.html hero,
-   index.html hero, ecosystem cards). 1.1em + extrabold lifts it above
-   the surrounding Urbanist title without overwhelming it.
+   index.html hero, ecosystem cards). Sizing: default 1.15em, loud 1.25em
+   for hero-scale headlines where the default feels quiet. The accent is
+   ALWAYS larger than its surrounding text — never smaller.
+
+   Sourced from brand-kit.md "Title Accent (Petrona italic)" — the
+   canonical Marbl visual spec. If anything diverges, brand-kit wins.
 
    Use on display-scale headings (h1 / large h2). Avoid on body copy
    — for italic emphasis on body copy use .marbl-text-accent instead.
@@ -93,6 +97,10 @@
   font-family: var(--marbl-font-accent);
   font-style: italic;
   font-weight: 800;
-  font-size: 1.1em;
+  font-size: 1.15em;
   color: var(--marbl-ember);
+}
+
+.marbl-accent--loud {
+  font-size: 1.25em;
 }
