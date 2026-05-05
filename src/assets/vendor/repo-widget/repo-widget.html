@@ -2,6 +2,7 @@
      Depends on canonical ui-items/button.css for .btn / .btn--mini /
      .btn--fill-up / .btn--outline used by the action buttons. -->
 <article class="repo-widget repo-widget--{{REPO_VARIANT}}{{REPO_EXTRA_CLASSES}}"
+         data-shields-repo="{{REPO_OWNER}}/{{REPO_NAME}}"
          itemscope itemtype="https://schema.org/SoftwareSourceCode">
   <meta itemprop="codeRepository" content="{{REPO_URL}}">
 
@@ -33,7 +34,7 @@
         <svg class="repo-widget__stat-icon" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
         </svg>
-        <span class="repo-widget__stat-value" itemprop="userInteractionCount">{{REPO_STARS}}</span>
+        <span class="repo-widget__stat-value" itemprop="userInteractionCount" data-shields-metric="stars">{{REPO_STARS}}</span>
         <span class="repo-widget__stat-label">stars</span>
       </a>
     </li>
@@ -44,7 +45,7 @@
         <svg class="repo-widget__stat-icon" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M6 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 8a5 5 0 0 1-1-9.9V1a1 1 0 1 1 2 0v.1A5 5 0 0 1 6 11zm12-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 8a5 5 0 1 1 1-9.9V1a1 1 0 1 0-2 0v.1A5 5 0 0 0 18 11zM7 13.5h10v3a1 1 0 0 0 1 1 5 5 0 1 1-3 9 5 5 0 0 1-3-9 1 1 0 0 0 1-1v-3z"/>
         </svg>
-        <span class="repo-widget__stat-value">{{REPO_FORKS}}</span>
+        <span class="repo-widget__stat-value" data-shields-metric="forks">{{REPO_FORKS}}</span>
         <span class="repo-widget__stat-label">forks</span>
       </a>
     </li>
@@ -52,13 +53,13 @@
       <svg class="repo-widget__stat-icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M21.41 11.58l-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9a2 2 0 0 0 2.83 0l7-7a2 2 0 0 0 0-2.84zM6.5 8A1.5 1.5 0 1 1 8 6.5 1.5 1.5 0 0 1 6.5 8z"/>
       </svg>
-      <span class="repo-widget__stat-value" itemprop="softwareVersion">{{REPO_VERSION}}</span>
+      <span class="repo-widget__stat-value" itemprop="softwareVersion" data-shields-metric="release">{{REPO_VERSION}}</span>
     </li>
     <li class="repo-widget__stat repo-widget__stat--updated">
       <svg class="repo-widget__stat-icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm1-8h4v2h-6V7h2v5z"/>
       </svg>
-      <span class="repo-widget__stat-value"><time datetime="{{REPO_UPDATED_ISO}}">{{REPO_UPDATED}}</time></span>
+      <span class="repo-widget__stat-value"><time datetime="{{REPO_UPDATED_ISO}}" data-shields-metric="last-commit">{{REPO_UPDATED}}</time></span>
     </li>
   </ul>
 

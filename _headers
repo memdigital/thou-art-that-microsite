@@ -2,7 +2,7 @@
 # Deployed at tat.marbl.codes (subdomain). Headers applied to all routes.
 
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.usefathom.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://marbl.codes https://subscribe.marbl.codes https://cdn.usefathom.com; media-src 'self'; font-src 'self' data:; connect-src 'self' https://cdn.usefathom.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.usefathom.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://marbl.codes https://subscribe.marbl.codes https://cdn.usefathom.com; media-src 'self'; font-src 'self' data:; connect-src 'self' https://cdn.usefathom.com https://img.shields.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   Referrer-Policy: strict-origin-when-cross-origin
   X-Content-Type-Options: nosniff

@@ -65,6 +65,7 @@ const BUNDLES = {
   'tat.js': [
     'src/assets/vendor/waveform-player/waveform-player-init.js',
     'src/assets/vendor/knowledge-hub/knowledge-hub.js',
+    'src/assets/vendor/repo-widget/repo-widget.js',
     'src/assets/js/tat-pill.js',
     'src/assets/js/tat-tracking.js'
   ]

@@ -3,9 +3,11 @@
 A small canonical card showing meaningful state for a Marbl-owned (or Marbl-affiliated) GitHub repository - stars, forks, version, licence, last-updated, and links into the repo + discussions. Two visual variants: solid card for body content, transparent for sidebar use.
 
 **Live preview:** `./preview.html`
-**Status:** v1.6.0 - static (build-time data fetch). Live mode (client-side fetch with localStorage cache) deferred to v2.
+**Status:** v2.0.0 - hybrid (build-time bake + client-side shields.io live upgrade). Numbers refresh on every page load with no rebuild needed.
 
-**Depends on:** `ui-items/button.css` (canonical buttons used for the action footer). Vendor it alongside this component.
+**Depends on:** `ui-items/button.css` (canonical buttons used for the action footer). Vendor it alongside this component. **JS:** `./repo-widget.js` (the shields.io enhance script — load once on the page, not per widget).
+
+**CSP requirement (v2):** consuming page must allow `connect-src https://img.shields.io` so the enhance script can fetch shields' JSON endpoint.
 
 **SEO baseline:** see [`../_seo-aeo-geo-baseline.md`](../_seo-aeo-geo-baseline.md). Microdata for `SoftwareSourceCode` + `InteractionCounter` is built into the partial.
 
@@ -95,9 +97,11 @@ Empty placeholders (omit a stat) should resolve to `""` in the build, so the mar
 
 ---
 
-## 4. Data fetching (build time)
+## 4. Data fetching — two layers
 
-Each consuming site implements its own fetch. The canonical pattern:
+### Layer 1 — build time (bake)
+
+Each consuming site fetches GitHub once at build, populates the placeholders, and ships the resulting HTML. This guarantees AEO crawlers, no-JS clients, and very-slow networks see real numbers immediately, no FOUC, no layout shift. The canonical pattern for the build fetch:
 
 ```js
 async function fetchRepoStats(owner, repo, githubToken) {
@@ -136,6 +140,14 @@ function formatCount(n) {
 ```
 
 If the API call fails (rate limit, network error), fall back to placeholder values from `CITATION.cff` so the build never breaks.
+
+### Layer 2 — runtime (shields.io live upgrade)
+
+The `data-shields-repo` attribute on the article root and `data-shields-metric` attributes on each stat value tag the markup for the enhance script. On `DOMContentLoaded`, `repo-widget.js` reads each tagged element, calls `https://img.shields.io/github/{metric}/{repo}.json`, and overwrites the baked text if shields returns a sensible value. Sentinel responses ("not found", "no releases", "invalid") are ignored — the baked value is retained.
+
+Supported metrics: `stars`, `forks`, `release`, `last-commit`. Shields handles GitHub API rate-limit + caching upstream so the consuming page never talks to GitHub directly.
+
+To opt out of live upgrade for a specific stat, omit `data-shields-metric` on that span. The build-baked value remains static.
 
 ---
 
