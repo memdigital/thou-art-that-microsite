@@ -21,6 +21,7 @@ export const SECTIONS = [
     type: 'leaf',
     slug: 'about',
     label: 'About',
+    titleAccent: 'piece',
     url: 'about/',
     audio: '11-about',
     source: 'src/content/about.md',
