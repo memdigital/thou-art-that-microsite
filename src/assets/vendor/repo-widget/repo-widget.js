@@ -70,7 +70,19 @@
         // Defensive: only accept string messages — if shields ever changes
         // shape and returns an object, do not coerce it into the DOM.
         if (typeof data.message !== 'string') return;
+        var oldValue = el.textContent;
         el.textContent = data.message;
+        // WCAG 2.5.3 (Label in Name): the parent anchor's aria-label is
+        // baked at build time and contains the old value. Replace the
+        // first occurrence so the accessible name still contains the
+        // visible text after the live swap.
+        var anchor = el.closest('a[aria-label]');
+        if (anchor && oldValue && oldValue !== data.message) {
+          var label = anchor.getAttribute('aria-label');
+          if (label && label.indexOf(oldValue) !== -1) {
+            anchor.setAttribute('aria-label', label.replace(oldValue, data.message));
+          }
+        }
       })
       .catch(function () { /* keep baked value */ })
       .then(function () { if (timer) clearTimeout(timer); });

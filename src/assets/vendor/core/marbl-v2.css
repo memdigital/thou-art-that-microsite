@@ -352,3 +352,16 @@ img {
   height: 18px;
   fill: currentColor;
 }
+
+/* Fathom Analytics injects an unsized 1x1 tracking pixel <img> into the body
+   on each pageview. Without size hints it pushes a layout shift the moment
+   the request resolves (CLS ≈ 0.37 on the worst TAT pages). Pin out of flow
+   so it can never affect layout. Same applies to any future tracker that
+   posts back via an unsized image. */
+img[src*="cdn.usefathom.com"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  visibility: hidden;
+}
