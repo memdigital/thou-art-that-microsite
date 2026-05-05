@@ -1,9 +1,5 @@
 /**
  * Waveform Player wrapper — Marbl pill-controls + line waveform.
- * Harvested from marbl.codes/thou-art-that 20 April 2026.
- * Truly canonical from 25 April 2026: pill-controls CSS moved here
- * from preview.html inline `<style>` block so consumers can drop the
- * component into any page without copying preview-only styles.
  *
  * Depends on: ArrayPress WaveformPlayer v1.5.2 CSS + JS, vendored
  * at marbl-codes/src/website/components/waveform-player/assets/arraypress/v1.5.2/.
@@ -34,10 +30,7 @@
  * waveform-player init fires. After 1.5s, if init succeeded the :has()
  * rule below keeps it hidden permanently; if init failed the fallback
  * reveals via the `mwp-fallback-reveal` keyframe so users without JS
- * still get a working player. Robust graceful degradation.
- *
- * Pattern earned 29 Apr 2026 on TAT microsite when View Transitions
- * caught the native player flashing before init. */
+ * still get a working player. */
 .marbl-waveform .mwp-fallback {
   width: 100%;
   margin-top: var(--gap-xs, 10px);
@@ -303,10 +296,7 @@
 
 /* ===== Container-query responsive ==========================================
  *
- * Pill controls + waveform stay inline at every container width. Locked
- * 1 May 2026 (Richard): the previous "stack pill above waveform below
- * 400px" stretched the pill full-width on mobile which read as a heavy
- * UI block. Inline reads as a single discrete player even when tight.
+ * Pill controls + waveform stay inline at every container width.
  * Pill shrinks naturally; waveform fills remaining space.
  */
 .marbl-waveform .mwp-inline {

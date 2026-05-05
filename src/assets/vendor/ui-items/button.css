@@ -1,6 +1,6 @@
 /* ===================================================================
    Canonical Marbl buttons — ui-items §1-3
-   Extracted from ui-items/preview.html, 23 April 2026 (subscribe rollout)
+   Extracted from ui-items/preview.html,  (subscribe rollout)
    Source of truth. Consumers: subscribe.marbl.codes, luma, atlas, etc.
    =================================================================== */
 
@@ -167,7 +167,7 @@
    tab / external link" affordance. For non-action icons (chat bubble,
    info, status) the rotate is wrong. Apply this modifier to keep the
    icon static while the rest of the .btn hover treatment still fires.
-   Locked 1 May 2026. */
+    */
 .btn__icon--no-rotate svg,
 .btn__icon--no-rotate:hover svg,
 *:hover > .btn__icon--no-rotate svg,
@@ -235,7 +235,7 @@
   color: var(--marbl-white, #fff);
   filter: none;
 }
-/* Mini icon button — 40px outer (Marbl size token alignment, 30 Apr 2026).
+/* Mini icon button — 40px outer (Marbl size token alignment, ).
    Was 36/16/8 — non-token values. Now --gap-md / --text-lg / --radius. */
 .btn-icon--mini {
   width: var(--gap-md, 40px);

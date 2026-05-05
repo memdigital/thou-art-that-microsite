@@ -16,7 +16,7 @@
   /* content-box so the named size (40 / 60 / 80 / 100) refers to the
      visible avatar (the inner content area), not the bordered outer.
      Without this, global `* { box-sizing: border-box }` + 1px border
-     squeezes a "40px" avatar to 38x38 visible. Locked 30 Apr 2026. */
+     squeezes a "40px" avatar to 38x38 visible.  */
   box-sizing: content-box;
   display: inline-flex;
   align-items: center;

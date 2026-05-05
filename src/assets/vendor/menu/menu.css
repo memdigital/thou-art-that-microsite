@@ -328,8 +328,8 @@
 }
 
 /* Header + menu-toggle styles live in site-header.css (canonical single source).
-   They used to be duplicated here - removed 20 April 2026 to stop cascade fights
-   that were forcing a border-bottom Richard had explicitly turned off. */
+   They used to be duplicated here - removed  to stop cascade fights
+   that were forcing a border-bottom had been explicitly turned off. */
 
 /* ==========================================================================
    Mobile
@@ -358,8 +358,7 @@
      --marbl-charcoal). Inherits canonical site-header.menu-is-open from
      site-header.css. The previous frosted-glass override used
      --marbl-charcoal-darkest at 0.8 alpha, which painted the header
-     visibly darker than the charcoal panels behind it. Reverted 1 May
-     2026 after tat.marbl.codes mobile feedback. */
+     visibly darker than the charcoal panels behind it. Reverted  after tat.marbl.codes mobile feedback. */
 
   .menu-overlay__right {
     flex: none;
@@ -405,9 +404,6 @@
    :has() support: Chrome 105+, Safari 15.4+, Firefox 121+ (well-supported
    for our audience). Older browsers degrade gracefully — they still see
    the jump, but no other breakage.
-
-   (Reconciled 28 Apr 2026 — earlier version selected body.menu-is-open
-   directly, which never matched because menu.js doesn't class the body.)
    ========================================================================== */
 body:has(.site-header.menu-is-open) {
   overflow: hidden;

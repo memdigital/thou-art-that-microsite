@@ -1,6 +1,5 @@
 /**
  * Site Footer
- * Harvested from subscribe.marbl.codes 20 April 2026.
  * Depends on: core/marbl-v2.css tokens + base .site-footer rules.
  *
  * IMPORTANT: static-positioned by default. Apply .site-footer--fixed
@@ -29,7 +28,7 @@
 /* .footer-avatar: footer-positioning concerns only.
    Avatar primitive (size, radius, border, hover) is canonical in
    ui-items/avatar.css — consumers must load that and apply
-   `.avatar avatar--40` on the same element. Reconciled 28 Apr 2026
+   `.avatar avatar--40` on the same element. 
    (was duplicating 36px width/border rules; now matches canonical 40px
    from .avatar--40). The fallback rules below kick in if avatar.css
    isn't loaded — they match avatar.css exactly so no visual drift. */
@@ -39,7 +38,7 @@
   justify-content: center;
   /* Visible avatar size is 40 (--gap-md) and content-box keeps the
      1px border outside the 40px content so the rendered avatar is a
-     true 40x40. Locked 30 Apr 2026 (previously border-box squeezed
+     true 40x40.  (previously border-box squeezed
      visible content to 38x38). Tokenised to --gap-md. */
   box-sizing: content-box;
   width: var(--gap-md, 40px);
@@ -73,7 +72,7 @@
   /* Tight container gap because each link has 8px horizontal padding
      for tap target. Visual text-to-text spacing = container gap +
      2x link padding = 4 + 16 = 20px (matches original tight feel).
-     Locked 1 May 2026. */
+      */
   gap: var(--gap-3xs, 4px);
   flex-wrap: wrap;
 }
@@ -91,7 +90,7 @@
   /* Padding gives the inline footer links a 24px+ tap target on touch
      devices (WCAG 2.5.8). Container gap (--gap-sm, 20px) plus each
      link's horizontal padding gives adjacent-target spacing well over
-     24px. Locked 1 May 2026 (negative-margin trick removed - it
+     24px.  (negative-margin trick removed - it
      cancelled the spacing). */
   padding: var(--gap-2xs, 8px);
   cursor: pointer;
@@ -196,7 +195,7 @@
   }
 
   /* Avatar on its own line, then links flow inline (wrapping if needed).
-     Locked 1 May 2026: links were stacking vertically — now they read as
+     : links were stacking vertically — now they read as
      a single horizontal row and the featured link drops to its own line
      below via flex-basis:100%. */
   .footer-left {

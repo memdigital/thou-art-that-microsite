@@ -4,8 +4,6 @@
  * Wires up: sidebar search filter, tier-collapse on group labels,
  * mobile sidebar drawer toggle, smooth-scroll TOC anchors,
  * and IntersectionObserver scroll-spy on the right TOC.
- *
- * Settled: 28 April 2026
  */
 
 (function () {
@@ -27,7 +25,7 @@
   /* === Tier toggle on .kh-nav__group (nestable, any depth) ===
      Each group has a direct-child label-button and direct-child children panel.
      :scope > selector ensures nested groups don't fight their parents.
-     Accordion behaviour (locked 30 Apr 2026): opening a group automatically
+     Accordion behaviour (): opening a group automatically
      closes its sibling groups at the same tier, so only one branch is open
      at a time per parent. */
   function initTierToggle() {
@@ -90,7 +88,7 @@
         group.classList.toggle('is-hidden', q && visible === 0);
         if (q) {
           // Save the pre-search state once, then expand-all so the user
-          // can see which group every match lives in. Locked 30 Apr 2026.
+          // can see which group every match lives in. 
           if (group.dataset.preSearchExpanded === undefined) {
             group.dataset.preSearchExpanded = group.getAttribute('aria-expanded') || 'false';
           }
@@ -250,9 +248,7 @@
     // matchMedia change event (not window.resize) so we only fire on the
     // actual breakpoint crossing. Mobile keyboards trigger resize events
     // when an input gains focus, and a plain resize handler would
-    // force-close the drawer the moment a user tapped the search box.
-    // Locked 1 May 2026.
-    const mql = window.matchMedia('(max-width: 768px)');
+    // force-close the drawer the moment a user tapped the search box.    const mql = window.matchMedia('(max-width: 768px)');
     const setInitial = () => {
       sidebar.setAttribute('aria-expanded', mql.matches ? 'false' : 'true');
     };

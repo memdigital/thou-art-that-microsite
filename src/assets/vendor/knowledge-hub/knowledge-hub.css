@@ -9,7 +9,6 @@
    informational pages, repo doc pages.
 
    Spec: ./knowledge-hub.md  ·  Preview: ./preview.html
-   Settled: 28 April 2026
 
    Class prefix: .kh-*
    Loads alongside canonical site-header / menu / site-footer / cookie-consent.
@@ -39,7 +38,7 @@ html { scroll-behavior: smooth; }
 
 /* Sidebar scrollbar override — thin + subtle grey, scoped to KH
    sidebar only. Page-level (html) scrollbar stays canonical ember
-   per marbl-v2.css. Locked 30 Apr 2026. */
+   per marbl-v2.css.  */
 .kh-sidebar,
 .kh-toc {
   scrollbar-width: thin;
@@ -313,7 +312,7 @@ html { scroll-behavior: smooth; }
   font-weight: var(--font-semibold, 600);
 }
 
-/* Top-level hierarchy emphasis (locked 29 Apr 2026):
+/* Top-level hierarchy emphasis ():
    - direct .kh-nav children (top-level leaves + group labels) read WHITE
      and hover EMBER -- they're the entry points
    - nested children (everything inside .kh-nav__children-inner) keep the
@@ -339,7 +338,7 @@ html { scroll-behavior: smooth; }
    Pulls the Contents nav up the sidebar - the Search heading was
    removed because the input's placeholder + aria-label carry the
    meaning, and the heading was just adding vertical noise.
-   Locked 30 Apr 2026. */
+    */
 .kh-sidebar__top {
   display: flex;
   align-items: center;
@@ -355,7 +354,7 @@ html { scroll-behavior: smooth; }
 
 /* "Home" label is visually hidden on desktop (icon-only button - SR users
    get the parent's aria-label). Mobile rule below reveals it as the only
-   visible content (icon hidden there). Locked 1 May 2026. */
+   visible content (icon hidden there).  */
 .kh-sidebar__home-label {
   position: absolute;
   width: 1px;
@@ -393,7 +392,7 @@ html { scroll-behavior: smooth; }
   line-height: 1.7;
 }
 
-/* Article header gap → 40 (was 80). Locked 30 Apr 2026 — section
+/* Article header gap → 40 (was 80).  — section
    spacing is too loud at 80px between header and first content; 40
    reads as "next thing related" rather than "next section". */
 .kh-article__header { margin-bottom: var(--gap-md, 40px); }
@@ -470,8 +469,7 @@ html { scroll-behavior: smooth; }
 }
 
 /* Inline audio block at top of article body (KH §6.2). 40px gap below
-   so the next h2 lands at consistent rhythm. Locked canonical 30 Apr
-   2026 (was TAT-local in kh-content.css). */
+   so the next h2 lands at consistent rhythm. */
 .kh-article__body > .marbl-waveform.mwp-custom:first-child {
   margin: 0 0 var(--gap-md, 40px);
 }
@@ -509,7 +507,7 @@ html { scroll-behavior: smooth; }
    zero footprint: the surrounding h2 (80px top margin) creates the
    section break already, and a bare line in mid-article reads as
    random noise. Source semantics preserved — screen readers still
-   announce the separator. Locked 30 Apr 2026. */
+   announce the separator.  */
 .kh-article__body hr {
   border: 0;
   height: 0;
@@ -595,7 +593,7 @@ html { scroll-behavior: smooth; }
   letter-spacing: 2px;
   text-transform: uppercase;
   /* white-65 hits WCAG AA contrast ratio against --marbl-charcoal.
-     white-40 was 3.5:1 (failed Lighthouse a11y). Locked 1 May 2026. */
+     white-40 was 3.5:1 (failed Lighthouse a11y).  */
   color: var(--marbl-white-65, rgba(255, 255, 255, 0.65));
   margin-bottom: var(--gap-tight);
 }
@@ -615,7 +613,7 @@ html { scroll-behavior: smooth; }
   max-height: calc(100dvh - var(--gap-md, 40px) * 2);
   overflow-y: auto;
   /* Full-card treatment: border on all sides, no background fill,
-     standard radius + padding. Locked 30 Apr 2026 (replaced earlier
+     standard radius + padding.  (replaced earlier
      border-left only). */
   border: 1px solid var(--marbl-white-08, rgba(255, 255, 255, 0.08));
   border-radius: var(--radius, 10px);
@@ -628,7 +626,7 @@ html { scroll-behavior: smooth; }
    the right column. Component to be plugged in (Obsidian-style force
    graph showing page relationships). Empty stub for now; the slot
    exists so consumers can drop in markup without re-shaping the
-   canonical partial. Locked 30 Apr 2026. */
+   canonical partial.  */
 .kh-toc__graph {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -727,11 +725,10 @@ html { scroll-behavior: smooth; }
     /* Reset desktop overflow:auto - mobile drawer collapses via grid-rows
        on .kh-sidebar__panel, so the outer scroll container is not only
        unneeded but paints a phantom scrollbar gutter on the collapsed
-       panel. Locked 1 May 2026. */
+       panel.  */
     overflow: visible;
     /* No divider below the drawer - the section break reads cleanly
-       from the toggle button's own border + spacing. Removed 1 May
-       2026 after tat.marbl.codes mobile feedback. */
+       from the toggle button's own border + spacing. Removed  after tat.marbl.codes mobile feedback. */
     padding-bottom: var(--gap-sm, 20px);
     margin-bottom: var(--gap-sm, 20px);
   }

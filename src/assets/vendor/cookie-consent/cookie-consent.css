@@ -38,9 +38,7 @@
 /* Inner content stack - 10px gaps between label, text, footer (brand-kit gap-xs).
    align-items: stretch + text-align: left are defensive against any legacy
    core rule that might try to centre the flex children horizontally (the
-   v1 `marbl.css` block that used to live here did exactly that, and its
-   ghost haunted the banner on 24 Apr 2026 until the dead block was
-   deleted). Keep these !important so the banner reads left-aligned. */
+   v1 `marbl.css` block that used to live here did exactly that, and Keep these !important so the banner reads left-aligned. */
 .cookie-consent-content {
   display: flex !important;
   flex-direction: column !important;
