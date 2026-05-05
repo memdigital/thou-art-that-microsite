@@ -579,14 +579,24 @@ function renderRobots() {
 
 function applyTitleAccent(title, accent) {
   if (!accent || !title) return escapeHtml(title || '');
-  const idx = title.toLowerCase().indexOf(accent.toLowerCase());
-  if (idx === -1) return escapeHtml(title);
-  const before = title.slice(0, idx);
+  // Word-boundary regex: refuses substring matches ("piece" must not match
+  // inside "masterpiece"). Throws on zero matches or multiple matches so a
+  // misconfigured nav entry fails the build loudly instead of silently
+  // wrapping the wrong word — Moirai (Ratio) flagged 5 May 2026.
+  const escaped = accent.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp('\\b' + escaped + '\\b', 'gi');
+  const matches = title.match(re);
+  if (!matches || matches.length === 0) {
+    throw new Error('applyTitleAccent: accent "' + accent + '" not found in title "' + title + '"');
+  }
+  if (matches.length > 1) {
+    throw new Error('applyTitleAccent: accent "' + accent + '" matches ' + matches.length + ' times in title "' + title + '" — be more specific');
+  }
+  const idx = title.search(re);
   const word = title.slice(idx, idx + accent.length);
-  const after = title.slice(idx + accent.length);
-  return escapeHtml(before)
+  return escapeHtml(title.slice(0, idx))
     + '<span class="marbl-accent">' + escapeHtml(word) + '</span>'
-    + escapeHtml(after);
+    + escapeHtml(title.slice(idx + accent.length));
 }
 
 /* ====================================================================

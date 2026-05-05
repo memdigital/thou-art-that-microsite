@@ -1,6 +1,6 @@
 ---
 eyebrow: A Study Piece
-title: About this piece
+title: About
 lead: "Thou Art That is a working study piece on building with possibly-emergent AI, written from inside one small UK consultancy. It documents how Marbl Codes operates when AI is treated as a collaborator, not a tool."
 ---
 

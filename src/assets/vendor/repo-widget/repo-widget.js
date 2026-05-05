@@ -42,6 +42,11 @@
         || lower.indexOf('invalid') !== -1;
   }
 
+  // 2-second timeout per fetch via AbortController. If shields.io is slow
+  // or down, we silently keep the baked value rather than leaving the user
+  // staring at a stale-feeling page while the request hangs.
+  var FETCH_TIMEOUT_MS = 2000;
+
   function refresh(el) {
     var widget = el.closest('[data-shields-repo]');
     if (!widget) return;
@@ -50,13 +55,25 @@
     if (!repo || !metric || !ENDPOINTS[metric]) return;
 
     var url = 'https://img.shields.io/' + ENDPOINTS[metric] + '/' + repo + '.json';
-    fetch(url, { credentials: 'omit', mode: 'cors' })
+    var controller = ('AbortController' in window) ? new AbortController() : null;
+    var timer = controller
+      ? setTimeout(function () { controller.abort(); }, FETCH_TIMEOUT_MS)
+      : null;
+
+    var opts = { credentials: 'omit', mode: 'cors' };
+    if (controller) opts.signal = controller.signal;
+
+    fetch(url, opts)
       .then(function (res) { return res.ok ? res.json() : null; })
       .then(function (data) {
         if (!data || isSentinel(data.message)) return;
+        // Defensive: only accept string messages — if shields ever changes
+        // shape and returns an object, do not coerce it into the DOM.
+        if (typeof data.message !== 'string') return;
         el.textContent = data.message;
       })
-      .catch(function () { /* keep baked value */ });
+      .catch(function () { /* keep baked value */ })
+      .then(function () { if (timer) clearTimeout(timer); });
   }
 
   function init() {

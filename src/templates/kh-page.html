@@ -32,6 +32,10 @@
   <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/inter/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/urbanist/urbanist-variable.woff2" as="font" type="font/woff2" crossorigin>
 
+  <!-- Repo widget v2 fetches stats from img.shields.io on DOMContentLoaded.
+       Preconnect saves the TLS handshake on the first parallel request. -->
+  <link rel="preconnect" href="https://img.shields.io" crossorigin>
+
   <!-- Two-bundle CSS architecture: marbl-core (universal chrome) +
        tat (project: knowledge-hub, waveform, repo-widget, TAT-local).
        Third-party kept separate for clear attribution. -->

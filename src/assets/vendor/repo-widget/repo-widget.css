@@ -143,6 +143,12 @@
 }
 
 .repo-widget__stat-value {
+  /* tabular-nums + min-width reserve a stable slot so the live shields.io
+     swap (build-time bake -> runtime value) does not produce CLS even when
+     the digit count differs. 3ch covers up to "999" / "1.2k" comfortably;
+     longer values just expand from there. */
+  display: inline-block;
+  min-width: 3ch;
   font-variant-numeric: tabular-nums;
   font-weight: 500;
   color: var(--marbl-white-85, rgba(255, 255, 255, 0.85));
