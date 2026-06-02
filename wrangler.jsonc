@@ -1,0 +1,10 @@
+{
+  // Thou Art That microsite - static site served via Workers Static Assets.
+  // Migrated from CF Pages (Direct Upload) to a Worker ~5 May 2026.
+  // Build: `node build.mjs` -> dist/ , then `wrangler deploy`.
+  "name": "thou-art-that-microsite",
+  "compatibility_date": "2026-05-01",
+  "assets": {
+    "directory": "./dist"
+  }
+}
