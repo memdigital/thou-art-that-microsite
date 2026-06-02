@@ -15,3 +15,7 @@ _inspiration/
 PLAN.md
 drafts/audio-candidates/
 drafts/audio-mixed/
+
+.dev.vars*
+!.dev.vars.example
+!.env.example
