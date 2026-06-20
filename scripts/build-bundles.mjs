@@ -38,17 +38,12 @@ const ASSETS = join(DIST, 'assets');
 // Each bundle is an ordered list of source files (relative to repo root).
 // Order matters - cascade order determines override winners.
 
+// NOTE (20 Jun 2026): the universal chrome (marbl-fonts, marbl-v2, site-header,
+// pill-nav, footer-reveal, button) is no longer bundled here - it is LINKED
+// directly from marbl.codes in the templates (assemble from canonical, don't
+// rebuild). The old marbl-core.css/js bundles + the cursor/menu/old-footer
+// vendor files they pulled in are retired. Only TAT-specific CSS/JS is bundled.
 const BUNDLES = {
-  'marbl-core.css': [
-    'src/assets/vendor/marbl-fonts/marbl-fonts.css',
-    'src/assets/vendor/core/marbl-v2.css',
-    'src/assets/vendor/site-header/site-header.css',
-    'src/assets/vendor/site-footer/site-footer.css',
-    'src/assets/vendor/menu/menu.css',
-    'src/assets/vendor/cookie-consent/cookie-consent.css',
-    'src/assets/vendor/ui-items/button.css',
-    'src/assets/vendor/ui-items/avatar.css'
-  ],
   'tat.css': [
     'src/assets/vendor/knowledge-hub/knowledge-hub.css',
     'src/assets/vendor/waveform-player/waveform-player.css',
@@ -56,11 +51,6 @@ const BUNDLES = {
     'src/assets/css/landing.css',
     'src/assets/css/about.css',
     'src/assets/css/kh-content.css'
-  ],
-  'marbl-core.js': [
-    'src/assets/vendor/core/marbl-core-v2.js',
-    'src/assets/vendor/menu/menu.js',
-    'src/assets/vendor/site-footer/site-footer.js'
   ],
   'tat.js': [
     'src/assets/vendor/waveform-player/waveform-player-init.js',
