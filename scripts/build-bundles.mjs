@@ -50,7 +50,8 @@ const BUNDLES = {
     'src/assets/vendor/repo-widget/repo-widget.css',
     'src/assets/css/landing.css',
     'src/assets/css/about.css',
-    'src/assets/css/kh-content.css'
+    'src/assets/css/kh-content.css',
+    'src/assets/css/codes-layer.css'
   ],
   'tat.js': [
     'src/assets/vendor/waveform-player/waveform-player-init.js',

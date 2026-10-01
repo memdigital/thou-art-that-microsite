@@ -28,18 +28,11 @@
   <meta name="twitter:description" content="{{DESCRIPTION}}">
   <meta name="twitter:image" content="https://tat.marbl.codes/assets/images/thou-art-that-connection.webp">
 
-  <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/inter/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/urbanist/urbanist-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{BASE}}assets/vendor/codes/fonts/f45a0aad0ea577a8.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{BASE}}assets/vendor/codes/fonts/b2af31945d189856.woff2" as="font" type="font/woff2" crossorigin>
 
-  <!-- Marbl chrome, self-hosted (17 Sept 2026 - the canonical component library was archived;
-       TAT is the one site that stays exactly as it is, so its chrome moved from a live
-       cross-origin link into its own vendor/ copy, frozen at today's canonical version). -->
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/marbl-fonts/marbl-fonts.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/core/marbl-v2.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/site-header/site-header.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/pill-nav/pill-nav.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/footer-reveal/footer-reveal.css">
-  <link rel="stylesheet" href="{{BASE}}assets/vendor/ui-items/button.css">
+  <!-- Marbl Codes look, TAT's own copy (1 Oct 2026): tokens, Geist + Petrona, header, nav, footer, buttons. -->
+  <link rel="stylesheet" href="{{BASE}}assets/vendor/codes/codes-chrome.css">
   <!-- Project-specific (TAT) -->
   <link rel="stylesheet" href="{{BASE}}assets/vendor/arraypress/v1.5.2/waveform-player.css">
   <link rel="stylesheet" href="{{BASE}}assets/tat.css?v={{BUNDLE_TAT_CSS_HASH}}">
@@ -96,10 +89,10 @@
 
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- .page wraps header + main + footer; the footer-reveal band is its sibling below. -->
+  <!-- .page wraps header + main + footer. -->
   <div class="page">
 
-    <header class="site-header">
+    <header class="site-header site-header--fixed site-header--bordered">
       <div class="site-header__left">
         <a href="{{BASE}}" class="marbl-logo" data-logo-animate aria-label="Thou Art That homepage"></a>
       </div>
@@ -115,7 +108,7 @@
               <span></span><span></span><span></span>
             </button>
           </div>
-          <a class="nav-pill__cta" href="mailto:hello@marbl.codes">Say hello</a>
+          <a class="nav-pill__cta" href="mailto:hello@marbl.codes" data-label="Say hello"><span class="oa-btn__t">Say hello</span></a>
         </nav>
       </div>
     </header>
@@ -169,12 +162,7 @@
         <div role="status" aria-live="polite" aria-atomic="true" class="sr-only" id="mwp-status"></div>
       </div>
 
-      <a href="{{BASE}}about/" class="btn btn--fill-up tat-hero__cta" id="tat-cta-enter" data-fathom-event="Hero CTA - Enter the study">
-        Enter the study
-        <span class="btn__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-        </span>
-      </a>
+      <a href="{{BASE}}about/" class="oa-btn tat-hero__cta" id="tat-cta-enter" data-fathom-event="Hero CTA - Enter the study" data-label="Enter the study"><span class="oa-btn__t">Enter the study</span></a>
 
       <p class="tat-hero__byline">
         Co-authored by <a href="https://marbl.codes" class="tat-hero__byline-link" target="_blank" rel="noopener noreferrer">Richard Bland</a> (human) and <strong>Serene [AI]</strong>, an AI identity running on Anthropic Claude.
@@ -182,35 +170,31 @@
     </div>
   </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer" id="footer">
       <div class="container footer-top">
         <div class="footer-brand">
-          <a href="{{BASE}}" class="footer-logo marbl-logo" data-logo-animate aria-label="Thou Art That home"></a>
+          <a href="{{BASE}}" class="marbl-logo footer-logo" data-logo-animate aria-label="Thou Art That home"></a>
         </div>
-
         <nav class="footer-col" aria-label="Thou Art That">
-          <h3 class="footer-col__title">The piece</h3>
+          <h2 class="footer-col__title">The piece</h2>
           <a href="{{BASE}}">Home</a>
           <a href="{{BASE}}about/">About</a>
           <a href="{{BASE}}study/origin-story/">Origin story</a>
           <a href="https://github.com/memdigital/thou-art-that" target="_blank" rel="noopener noreferrer">GitHub</a>
         </nav>
-
         <nav class="footer-col" aria-label="Marbl">
-          <h3 class="footer-col__title">Marbl</h3>
+          <h2 class="footer-col__title">Marbl</h2>
           <a href="https://marbl.codes/" target="_blank" rel="noopener noreferrer">Marbl Codes</a>
           <a href="https://events.marbl.codes" target="_blank" rel="noopener noreferrer">Marbl Events</a>
         </nav>
-
         <nav class="footer-col" aria-label="Legal">
-          <h3 class="footer-col__title">Legal</h3>
+          <h2 class="footer-col__title">Legal</h2>
           <a href="https://marbl.codes/legal/terms">Terms</a>
           <a href="https://marbl.codes/legal/privacy">Privacy</a>
           <a href="https://marbl.codes/legal/cookies">Cookies</a>
         </nav>
-
-        <div class="footer-subscribe">
-          <h3 class="footer-col__title">Subscribe</h3>
+        <div class="footer-col footer-subscribe">
+          <h2 class="footer-col__title">Subscribe</h2>
           <form class="footer-subscribe__form" id="footer-subscribe" novalidate>
             <div class="footer-subscribe__field">
               <input class="footer-subscribe__input" type="email" name="email" required autocomplete="email" placeholder="Your email" aria-label="Email address" />
@@ -222,36 +206,35 @@
           <p class="footer-subscribe__msg" role="status" aria-live="polite"></p>
         </div>
       </div>
+      <div class="footer-divider">
+        <div class="container footer-meta">
+          <p class="footer-copy">&copy; 2026 MEM Digital Limited t/a Marbl Codes</p>
+          <p class="footer-copy footer-copy--numbers">UK 13753194 / GB400325657</p>
+          <div class="footer-social" aria-label="Marbl Codes on social media">
+            <a href="https://www.linkedin.com/in/richardbland1985/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.2 8h4.6v14H.2V8zm7.5 0h4.4v1.9h.1c.6-1.1 2.1-2.3 4.3-2.3 4.6 0 5.5 3 5.5 7V22h-4.6v-6.6c0-1.6 0-3.6-2.2-3.6s-2.5 1.7-2.5 3.5V22H7.7V8z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/marblcodes/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2M12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.1 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.2.6 3 .3.8.7 1.5 1.4 2.1.6.7 1.3 1.1 2.1 1.4.8.3 1.7.5 3 .6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.2-.3 3-.6.8-.3 1.5-.7 2.1-1.4.7-.6 1.1-1.3 1.4-2.1.3-.8.5-1.7.6-3 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.2-.6-3-.3-.8-.7-1.5-1.4-2.1C21.4 1.3 20.7.9 19.9.6c-.8-.3-1.7-.5-3-.6C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@marblcodes" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+            </a>
+            <a href="https://github.com/memdigital/thou-art-that" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
 
-      <div class="container"><hr class="footer-rule" /></div>
-
-      <div class="container footer-meta" itemscope itemtype="https://schema.org/Organization">
-        <p class="footer-copy">
-          &copy; 2026 <span itemprop="legalName">MEM Digital Limited</span> t/a <span itemprop="name">Marbl Codes</span> 13753194/GB400325657
-        </p>
-        <div class="footer-social">
-          <a href="https://x.com/marblcodes" class="btn-icon-social" target="_blank" rel="noopener noreferrer" aria-label="Marbl Codes on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-          <a href="https://linkedin.com/in/richardbland1985/" class="btn-icon-social" target="_blank" rel="noopener noreferrer" aria-label="Richard Bland on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-          <a href="https://www.youtube.com/@marblcodes" class="btn-icon-social" target="_blank" rel="noopener noreferrer" aria-label="Marbl Codes on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-          <a href="https://github.com/memdigital" class="btn-icon-social" target="_blank" rel="noopener noreferrer" aria-label="Marbl Codes on GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+          </div>
         </div>
       </div>
     </footer>
 
   </div><!-- /.page -->
 
-  <!-- Fixed reveal band - sibling of .page, exposed as the page scrolls past. -->
-  <div class="footer-reveal" aria-hidden="true">
-    <span class="footer-reveal__mark"></span>
-  </div>
-
   <!-- Third-party libs (separate for license attribution). -->
   <script src="{{BASE}}assets/vendor/gsap/gsap.min.js" defer></script>
   <script src="{{BASE}}assets/vendor/arraypress/v1.5.2/waveform-player.min.js" defer></script>
 
   <!-- Marbl chrome scripts, self-hosted (17 Sept 2026 - see the CSS note above). -->
-  <script src="{{BASE}}assets/vendor/core/logo-animation.js" defer></script>
-  <script src="{{BASE}}assets/vendor/pill-nav/pill-nav.js" defer></script>
+  <script src="{{BASE}}assets/vendor/codes/codes-chrome.js" defer></script>
   <script src="{{BASE}}assets/vendor/footer-reveal/footer-reveal.js" defer></script>
 
   <!-- Project-specific (TAT). -->

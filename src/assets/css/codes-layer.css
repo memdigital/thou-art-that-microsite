@@ -1,0 +1,154 @@
+/* ===================================================================
+   Thou Art That - the Marbl Codes look (1 October 2026)
+   Richard: "switch up the style to something matching the new Marbl
+   Codes". Loaded LAST in tat.css, after the knowledge-hub, player and
+   page CSS, so it only has to say what changes. Tokens, fonts, header,
+   footer and buttons come from vendor/codes/codes-chrome.css (a copy of
+   the live site's rules, never linked).
+
+   What TAT keeps on purpose: a dark reading surface all the way down.
+   The new site's hub posts turn to paper below the hero; TAT is a long
+   read with an audio player built for dark, so it takes the type, the
+   edges, the labels and the buttons, not the paper.
+   =================================================================== */
+
+/* 1 · Fonts. The knowledge-hub, player and repo-widget CSS ask for
+   --font-body / --font-heading (and fall back to Inter / Urbanist by
+   name, which are no longer shipped). Point all of them at Geist. */
+:root {
+  --font-body: var(--font-geist);
+  --font-heading: var(--font-geist);
+  --marbl-font-accent: var(--font-petrona);
+}
+
+/* 2 · The accent word: Petrona bold italic in ember at the line's own
+   size - the new site's .mk-accent, not the old 120% bump. */
+.marbl-accent {
+  font-family: var(--font-petrona);
+  font-style: italic;
+  font-weight: 700;
+  font-size: inherit;
+  letter-spacing: 0;
+  color: var(--marbl-ember);
+}
+
+/* 3 · Edges. The header sits on the shell formula (40px gutter, content
+   centred in --shell-max). Every TAT column starts on the same pixel as
+   the logo, as on marbl.codes. The header is fixed, so each page clears
+   --header-h before its first line. */
+.kh-shell {
+  max-width: none;
+  padding-top: calc(var(--header-h) + var(--gap-lg));
+  padding-bottom: var(--gap-xl);
+  padding-inline: max(var(--shell-pad), calc((100% - var(--shell-content)) / 2));
+}
+/* Desktop only: below 769px the sidebar is a relative drawer, where a
+   top offset would push it down over the article title. */
+@media (min-width: 769px) {
+  .kh-sidebar,
+  .kh-rail {
+    top: calc(var(--header-h) + var(--gap-md));
+    max-height: calc(100dvh - var(--header-h) - var(--gap-md) * 2);
+  }
+}
+.kh-article__body h2,
+.kh-article__body h3,
+.kh-article [id] {
+  scroll-margin-top: calc(var(--header-h) + var(--gap-md));
+}
+
+/* 4 · Type at the new site's weights: display in Geist 500 with tight
+   tracking (hub post H1 measured on marbl.codes 1 Oct: 500, -2px, lh 1;
+   H2: 500, -0.5px). */
+.kh-article__title {
+  font-weight: var(--font-medium, 500);
+  letter-spacing: -2px;
+  line-height: 1;
+}
+.kh-article__body h2,
+.kh-article__body h3 {
+  font-weight: var(--font-medium, 500);
+  letter-spacing: -0.5px;
+}
+
+/* 5 · Landing hero: the new site's home-hero composition - left on the
+   shell edge, display type, the waveform and CTA beneath. */
+.tat-landing-main {
+  justify-content: flex-start;
+  min-height: 100svh;
+  padding: calc(var(--header-h) + var(--gap-xl)) max(var(--shell-pad), calc((100% - var(--shell-content)) / 2)) var(--gap-xl);
+}
+.tat-hero {
+  max-width: var(--width-md);
+  text-align: left;
+}
+.tat-hero__title {
+  font-size: var(--text-5xl);
+  font-weight: var(--font-medium, 500);
+  letter-spacing: -2px;
+  line-height: 1;
+}
+.tat-hero__strapline,
+.tat-hero__byline {
+  margin-left: 0;
+  margin-right: 0;
+}
+.tat-hero__audio {
+  margin-left: 0;
+  margin-right: 0;
+}
+.tat-hero__cta {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* 6 · Sidebar "hub start" button: a square line button (the old one was
+   v2's .btn-icon, which is no longer shipped). */
+.kh-sidebar__top .kh-sidebar__home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--marbl-white-15);
+  color: var(--marbl-white-70);
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+.kh-sidebar__top .kh-sidebar__home:hover,
+.kh-sidebar__top .kh-sidebar__home:focus-visible {
+  color: var(--marbl-ember);
+  border-color: var(--marbl-ember);
+}
+
+/* 7 · Square everywhere: the KH cards and controls carried v2 radii. */
+.kh-toc,
+.kh-sidebar__toggle,
+.kh-sidebar__search,
+.kh-search-results,
+.repo-widget,
+.mwp-btn,
+.tat-hero__audio * {
+  border-radius: 0;
+}
+
+/* 8 · The subscribe CTAs below the TOC and under the repo card fill
+   their column. */
+.kh-rail__cta,
+.kh-source__subscribe {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .kh-shell {
+    padding-top: calc(var(--header-h) + var(--gap-md));
+    padding-inline: var(--shell-pad);
+  }
+  .tat-landing-main {
+    padding-top: calc(var(--header-h) + var(--gap-lg));
+  }
+}
+
+/* Phones: the hero button goes full width, as the new site's hero pair does. */
+@media (max-width: 480px) {
+  .tat-hero__cta { display: flex; width: 100%; }
+}

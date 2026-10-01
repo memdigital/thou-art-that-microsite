@@ -1,0 +1,4 @@
+/ @390: failed=["docW=380 h1font=Geist, \"Geist fallback: Arial\", \"Geist f"] brokenImgs=[] 
+/ @1440: failed=["docW=1430 h1font=Geist, \"Geist fallback: Arial\", \"Geist f"] brokenImgs=[] 
+/about/ @390: failed=["docW=380 h1font=Geist, \"Geist fallback: Arial\", \"Geist f"] brokenImgs=[] 
+/about/ @1440: failed=["docW=1430 h1font=Geist, \"Geist fallback: Arial\", \"Geist f"] brokenImgs=[] 
