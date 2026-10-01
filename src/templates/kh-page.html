@@ -11,37 +11,37 @@
 
   <link rel="canonical" href="https://tat.marbl.codes/{{CANONICAL_PATH}}">
 
-  <link rel="icon" type="image/svg+xml" href="https://marbl.codes/assets/logos/marbl-symbol-orange.svg">
-  <link rel="icon" type="image/png" sizes="96x96" href="https://marbl.codes/assets/icons/favicon-96x96.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://marbl.codes/assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg">
+  <link rel="icon" href="/assets/brand/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/apple-touch-icon.png">
 
   <meta property="og:title" content="{{PAGE_TITLE}}">
   <meta property="og:description" content="{{DESCRIPTION}}">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://tat.marbl.codes/{{CANONICAL_PATH}}">
-  <meta property="og:image" content="https://marbl.codes/assets/images/thou-art-that-connection.webp">
+  <meta property="og:image" content="https://tat.marbl.codes/assets/images/thou-art-that-connection.webp">
   <meta property="og:locale" content="en_GB">
   <meta property="og:site_name" content="Marbl Codes">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{PAGE_TITLE}}">
   <meta name="twitter:description" content="{{DESCRIPTION}}">
-  <meta name="twitter:image" content="https://marbl.codes/assets/images/thou-art-that-connection.webp">
+  <meta name="twitter:image" content="https://tat.marbl.codes/assets/images/thou-art-that-connection.webp">
 
-  <link rel="preload" href="https://marbl.codes/components/marbl-fonts/assets/inter/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="https://marbl.codes/components/marbl-fonts/assets/urbanist/urbanist-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/inter/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{BASE}}assets/vendor/marbl-fonts/assets/urbanist/urbanist-variable.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- Repo widget v2 fetches stats from img.shields.io on DOMContentLoaded.
        Preconnect saves the TLS handshake on the first parallel request. -->
   <link rel="preconnect" href="https://img.shields.io" crossorigin>
 
   <!-- Canonical Marbl chrome - linked from marbl.codes (assemble, don't rebuild). -->
-  <link rel="stylesheet" href="https://marbl.codes/components/marbl-fonts/marbl-fonts.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://marbl.codes/core/marbl-v2.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://marbl.codes/components/site-header/site-header.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://marbl.codes/components/pill-nav/pill-nav.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://marbl.codes/components/footer-reveal/footer-reveal.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://marbl.codes/components/ui-items/button.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{BASE}}assets/vendor/marbl-fonts/marbl-fonts.css">
+  <link rel="stylesheet" href="{{BASE}}assets/vendor/core/marbl-v2.css">
+  <link rel="stylesheet" href="{{BASE}}assets/vendor/site-header/site-header.css">
+  <link rel="stylesheet" href="{{BASE}}assets/vendor/pill-nav/pill-nav.css">
+  <link rel="stylesheet" href="{{BASE}}assets/vendor/footer-reveal/footer-reveal.css">
+  <link rel="stylesheet" href="{{BASE}}assets/vendor/ui-items/button.css">
   <!-- Project-specific (TAT) -->
   <link rel="stylesheet" href="{{BASE}}assets/vendor/arraypress/v1.5.2/waveform-player.css">
   <link rel="stylesheet" href="{{BASE}}assets/tat.css?v={{BUNDLE_TAT_CSS_HASH}}">
@@ -57,7 +57,7 @@
         "name": "Marbl Codes",
         "legalName": "MEM Digital Limited",
         "url": "https://marbl.codes",
-        "logo": "https://marbl.codes/assets/images/marbl-logo.png"
+        "logo": "https://tat.marbl.codes/assets/brand/icon-512.png"
       },
       {
         "@type": "Article",
@@ -224,7 +224,6 @@
           <h3 class="footer-col__title">Marbl</h3>
           <a href="https://marbl.codes/" target="_blank" rel="noopener noreferrer">Marbl Codes</a>
           <a href="https://events.marbl.codes" target="_blank" rel="noopener noreferrer">Marbl Events</a>
-          <a href="https://vaulted.marbl.codes" target="_blank" rel="noopener noreferrer">Vaulted</a>
         </nav>
 
         <nav class="footer-col" aria-label="Legal">
@@ -276,9 +275,9 @@
   <script src="{{BASE}}assets/vendor/minisearch/minisearch.min.js" defer></script>
 
   <!-- Canonical Marbl chrome scripts - from marbl.codes (assemble, don't rebuild). -->
-  <script src="https://marbl.codes/core/logo-animation.js" crossorigin="anonymous" defer></script>
-  <script src="https://marbl.codes/components/pill-nav/pill-nav.js" crossorigin="anonymous" defer></script>
-  <script src="https://marbl.codes/components/footer-reveal/footer-reveal.js" crossorigin="anonymous" defer></script>
+  <script src="{{BASE}}assets/vendor/core/logo-animation.js" defer></script>
+  <script src="{{BASE}}assets/vendor/pill-nav/pill-nav.js" defer></script>
+  <script src="{{BASE}}assets/vendor/footer-reveal/footer-reveal.js" defer></script>
 
   <!-- Project-specific (TAT). -->
   <script src="{{BASE}}assets/tat.js?v={{BUNDLE_TAT_JS_HASH}}" defer></script>

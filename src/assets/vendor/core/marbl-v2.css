@@ -19,6 +19,15 @@
   --marbl-charcoal-darkest: #131112;  /* Dark text on ember CTA — locked 30 Apr 2026 */
   --marbl-charcoal-light: #1d1a1b;
   --marbl-charcoal-lighter: #232021;
+
+  /* Warm dark-elevation ladder (Richard, 15 Jun 2026, square kit) — visibly
+     stepped lighter charcoals that keep the espresso warmth (R≥G, no cool tint).
+     Used to lift dark sections + layer dark cards above them. Ladder:
+     hero/body #171415 → raised section → card → card hover. */
+  --marbl-charcoal-raised: #211d1e;       /* lifted dark band (e.g. a section) */
+  --marbl-charcoal-card: #2c2829;         /* card on a dark band */
+  --marbl-charcoal-card-hover: #363132;   /* card hover */
+
   --marbl-ember: #F35226;
   --marbl-ember-dark: #BB2F09;
   --marbl-crimson: #322A2A;
@@ -50,11 +59,33 @@
   /* Black opacity scale (dark overlays on light surfaces) */
   --marbl-black-15: rgba(0, 0, 0, 0.15);
 
-  /* Status */
-  --color-success: #22c55e;
-  --color-warning: #f59e0b;
-  --color-error: #ef4444;
-  --color-info: #3b82f6;
+  /* ── Status — warm Marbl palette (adopted from the Marbl Dash admin theme,
+     18 Jun 2026). Replaces the old stock-Tailwind hex (#22c55e / #f59e0b /
+     #ef4444 / #3b82f6) with the warm family: sage / honey / terracotta /
+     warm-slate. NO clinical blue, NO clinical green. Each role has a solid
+     (badges, dots, borders on dark), a -tint (badge/banner fills on light),
+     and a -text (accessible text colour on the tint). ── */
+  --color-success: #5e8c4f;        /* sage */
+  --color-success-tint: #e7ece0;
+  --color-success-text: #4a7040;
+  --color-warning: #d79a3c;        /* honey */
+  --color-warning-tint: #f4ead3;
+  --color-warning-text: #8a6420;
+  --color-error: #c5341b;          /* terracotta — distinct from the ember CTA */
+  --color-error-tint: #f2e1d9;
+  --color-error-text: #a32a15;
+  --color-info: #6e8389;           /* warm slate — never clinical blue */
+  --color-info-tint: #dee7e6;
+  --color-info-text: #475a5e;
+
+  /* Notification / badge / pill-title accents (warm equivalents of the stock
+     blue/red/orange/teal/purple). Drives badges, tags, toasts, pill titles. */
+  --badge-slate: #6e8389;          /* info */
+  --badge-terracotta: #c5341b;     /* danger */
+  --badge-honey: #d79a3c;          /* warning */
+  --badge-sage: #5e8c4f;           /* success */
+  --badge-plum: #806572;           /* muted warm plum — the family's "purple" */
+  --badge-taupe: #8a807d;          /* neutral */
 
   /* ── Typography ── */
   --font-heading: 'Urbanist', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -95,14 +126,30 @@
   --gap-4xl: 140px;
   --gap-5xl: 160px;
 
-  /* ── Border radius ── */
-  --radius-2xs: 2px;       /* Tightest — small UI utility rails (slider tracks) */
-  --radius-xs: 4px;        /* Small focus ring radius */
-  --radius-sm: 8px;        /* Compact controls (mini buttons) */
-  --radius: 10px;          /* Default */
-  --radius-lg: 20px;
-  --radius-circle: 50%;    /* Round shapes — locked 30 Apr 2026 */
-  --radius-full: 9999px;
+  /* ── Control tokens — buttons, inputs, pills (locked 20 Jun 2026) ──
+     Deliberately OFF the layout gap scale: controls have their own rhythm
+     (a 1:2 button is 14/28, not 20/40 which reads as a chunky tablet).
+     Tokenised so there are NO raw values — use these for EVERY control
+     padding/height across all builds, Marbl and client. See MARBL/Brand.md. */
+  --control-h: 48px;          /* standard control height (solid/outline button, input) */
+  --control-h-sm: 36px;       /* compact / mini control height */
+  --control-pad-x: 28px;      /* standard horizontal padding */
+  --control-pad-x-sm: 16px;   /* compact / mini control horizontal padding */
+  --control-pad-y: 14px;      /* vertical padding for height:auto text/ghost buttons + inputs */
+
+  /* ── Border radius — SQUARE direction (Richard, 15 Jun 2026, new Marbl style kit).
+     Everything square: every corner token flattened to 0 — buttons, nav pill, cards,
+     inputs, badges, AND former circles (avatars, dots) all go hard-square at source.
+     --radius-round kept as the single fully-rounded ESCAPE HATCH for any element that
+     genuinely needs a circle/pill again later. Unused by default. ── */
+  --radius-2xs: 0;
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius: 0;
+  --radius-lg: 0;
+  --radius-circle: 0;      /* was 50% — squared per "square them all" */
+  --radius-full: 0;        /* was 100px — squared (mini nav pill, badges) */
+  --radius-round: 9999px;  /* escape hatch: the one token that stays fully round, just in case */
 
   /* ── Icon sizing ── */
   /* Glyph + container dimensions for icons (separate from gap/spacing).
@@ -138,6 +185,18 @@
   --width-2xl: 1400px;
   --width-max: 1600px;
   --width-ultra: 1800px;
+
+  /* ── Light palette (warm paper/marble) — promoted from Marbl Events 20 Jun 2026.
+     The source-of-truth sibling for all Marbl sites. Used by .band--light surfaces
+     and the .accordion--line / .accordion--light variants. Additive: nothing renders
+     light until an element opts in via .band--light or a --light component variant. ── */
+  --marbl-paper: #F5F6EA;        /* light band background */
+  --marbl-marble: #E9EADE;       /* card / open-accordion surface on light */
+  --marbl-ink: #171415;          /* primary text on light */
+  --marbl-ink-muted: #5F5653;    /* secondary text on light */
+  --marbl-paper-border: #E8E5DF; /* hairline on light */
+  --marbl-ink-border: rgba(23, 20, 21, 0.15); /* stronger ink hairline on light (buttons/pills) */
+  --ember-on-light: var(--marbl-ember); /* ember stays true on light (Richard's override, 15 Jun) */
 
   /* ── Breakpoints (CSS custom properties can't be used in @media,
        but documented here as canonical reference) ── */

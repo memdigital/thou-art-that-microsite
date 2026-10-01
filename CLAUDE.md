@@ -35,10 +35,12 @@ npx wrangler deploy       # from repo root; uses wrangler.jsonc { name: thou-art
 
 **Templates** (`src/templates/`): only **`landing.html`** (homepage) and **`kh-page.html`** (every Knowledge-Hub study page) are used by the build. `about.html` is **UNUSED legacy** — `/about/` renders through `kh-page.html`. Don't edit about.html expecting it to ship.
 
-**Chrome = LINKED from marbl.codes canonical, not bundled** (realigned 20 Jun 2026, the "assemble from canonical, don't rebuild" rule — `[[feedback-assemble-from-canonical-not-rebuild]]`). The head links live CSS/JS from `https://marbl.codes/...`:
-- CSS: `components/marbl-fonts/marbl-fonts.css`, `core/marbl-v2.css`, `components/site-header/site-header.css`, `components/pill-nav/pill-nav.css`, `components/footer-reveal/footer-reveal.css`, `components/ui-items/button.css` (all `crossorigin="anonymous"` — marbl.codes serves `ACAO: *`).
-- JS: `core/logo-animation.js`, `components/pill-nav/pill-nav.js`, `components/footer-reveal/footer-reveal.js`.
+**Chrome = SELF-HOSTED in `src/assets/vendor/`, not linked** (moved 17 Sept 2026, when the canonical `Marbl-Codes` component library was archived - `[[feedback-assemble-from-canonical-not-rebuild]]` now means "copy, never link cross-origin"; the 20 Jun "link, don't rebuild" era is over). TAT is the one property Richard asked to keep running exactly as it looked that day, so its chrome is a frozen COPY of what canonical served on 17 Sept 2026, not a live link that would drift if canonical ever changed again - because canonical mostly won't exist to drift.
+- CSS (all via `{{BASE}}assets/vendor/...`): `marbl-fonts/marbl-fonts.css`, `core/marbl-v2.css`, `site-header/site-header.css`, `pill-nav/pill-nav.css`, `footer-reveal/footer-reveal.css`, `ui-items/button.css`.
+- JS: `core/logo-animation.js`, `pill-nav/pill-nav.js`, `footer-reveal/footer-reveal.js`.
+- `_headers` CSP tightened to match: `marbl.codes` dropped from `script-src`/`style-src`/`font-src` (nothing loads from there anymore); kept in `img-src` (favicon/OG images still live on marbl.codes) and `connect-src` (the footer subscribe POST still hits `marbl.codes/api/subscribe`).
 - The old `marbl-core.css/js` bundles are **retired** in `build-bundles.mjs`; only project-specific `tat.css` / `tat.js` (knowledge-hub, waveform-player, repo-widget, landing/about/kh-content, tat-pill, tat-tracking) are still bundled. The old vendor dirs (menu, site-footer, cookie-consent, core/marbl-core-v2.js, ui-items/avatar) are dead but left in place.
+- Footer's "Marbl" link column dropped its Vaulted link (Vaulted was taken down the same day).
 
 **Chrome pattern (matches Vaulted/legal/proposals):** site-header (logo) + pill-nav, content in `.page`, footer-reveal + central Resend subscribe, `.footer-reveal` band as `.page` sibling, **orange logo favicon** (`marbl.codes/assets/logos/marbl-symbol-orange.svg`), no custom cursor, no cookie banner (Fathom is cookieless).
 

@@ -76,7 +76,7 @@
   padding: 0;
   -webkit-appearance: none;
   appearance: none;
-  border-radius: var(--radius-circle, 50%);
+  border-radius: var(--radius-circle, 0);
 }
 
 .menu-toggle:focus-visible {
@@ -96,7 +96,7 @@
   gap: var(--gap-half, 5px);
   width: 50px;
   height: 50px;
-  border-radius: var(--radius-circle, 50%);
+  border-radius: var(--radius-circle, 0);
   border: 1px solid var(--marbl-white-30, rgba(255, 255, 255, 0.3));
   background: transparent;
   transition: border-color var(--transition-base, 0.2s ease);
@@ -138,6 +138,34 @@
 .menu-toggle.is-open .menu-toggle__line:nth-child(3) {
   transform: translateY(-6.5px) rotate(-45deg);
 }
+
+/* ==========================================================================
+   Header button variant — logo + button INSTEAD of the burger.
+   For pages with no menu overlay: legal pages, holding/interstitial pages.
+   Sits in .site-header__right. Captured here 2 Jun 2026 (previously duplicated
+   in legal/legal-page.css + components/holding-page/holding-page.css).
+   ========================================================================== */
+.legal-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-xs, 10px);
+  height: 44px;
+  padding: 0 var(--gap-sm, 20px);
+  background: transparent;
+  border: 1px solid var(--marbl-white-15, rgba(255, 255, 255, 0.15));
+  border-radius: var(--radius, 0);
+  color: var(--marbl-white-85, rgba(255, 255, 255, 0.85));
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-sm, 13px);
+  font-weight: var(--font-semibold, 600);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color var(--transition-base, 0.2s ease), color var(--transition-base, 0.2s ease);
+}
+.legal-back-btn:hover { border-color: var(--marbl-ember, #F35226); color: var(--marbl-ember, #F35226); }
+.legal-back-btn:focus-visible { outline: 2px solid var(--marbl-ember, #F35226); outline-offset: 2px; }
+.legal-back-btn svg { width: var(--icon-md, 16px); height: var(--icon-md, 16px); transition: transform var(--transition-base, 0.2s ease); }
+.legal-back-btn:hover svg { transform: translateX(-2px); }
 
 /* Mobile — match desktop's vertical breathing room. The 10px collapse felt
    too tight against the 50px burger circle on phones.

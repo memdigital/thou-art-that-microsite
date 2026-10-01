@@ -1,0 +1,205 @@
+/**
+ * Site Footer — TALL canonical footer (Marbl square kit, 15 Jun 2026).
+ * Depends on: core/marbl-v2.css tokens + .btn-icon-social (canonical).
+ *
+ * Structure: brand + link columns + subscribe (.footer-top), a visible
+ * legal/meta row (.footer-meta — no hover box, no avatar), and a giant
+ * MARBL wordmark that rises into view on scroll over an ember band.
+ * Square throughout (radius tokens are 0 in this kit).
+ */
+
+/* Reveal-footer geometry: the page clears this much at the bottom so the fixed
+   wordmark layer behind it is exposed when you reach the end. */
+body { --footer-reveal-h: clamp(160px, 16vw, 320px); }
+.page {
+  position: relative;
+  z-index: 1;
+  background: var(--marbl-charcoal, #171415);
+  margin-bottom: var(--footer-reveal-h);
+}
+
+/* Canonical container — bundled here so the footer (and any consuming page) gets
+   edge padding WITHOUT pulling the marbl-core bundle (which carries the cursor).
+   Without this, the footer columns + meta row touch the viewport edges when the
+   component is installed from the library on a non-holding page. Mirrors the
+   marbl-core .container: max 1600px, 40px desktop / 20px mobile inline padding. */
+.container {
+  width: 100%;
+  max-width: var(--width-max, 1600px);
+  margin-inline: auto;
+  padding-inline: var(--gap-md, 40px);
+  box-sizing: border-box;
+}
+@media (max-width: 520px) {
+  .container { padding-inline: var(--gap-sm, 20px); }
+}
+
+.site-footer {
+  position: static;
+  background: var(--marbl-charcoal, #171415);
+  color: var(--marbl-white-90, rgba(255, 255, 255, 0.9));
+  padding-bottom: var(--gap-md, 40px);
+}
+
+/* ── Top: brand + nav columns + subscribe ───────────────────────────── */
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr 1.7fr;
+  gap: var(--gap-lg, 60px) var(--gap-md, 40px);
+  padding-block: var(--gap-xl, 80px) var(--gap-lg, 60px);
+  align-items: start;
+}
+
+.footer-brand { display: flex; flex-direction: column; gap: var(--gap-sm, 20px); }
+.footer-logo { display: inline-flex; height: 52px; width: auto; }
+.footer-tagline {
+  margin: 0;
+  max-width: 28ch;
+  color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
+  font-size: var(--text-sm, 13px);
+  line-height: 1.6;
+}
+
+.footer-col { display: flex; flex-direction: column; }
+.footer-col__title {
+  margin: 0 0 var(--gap-sm, 20px);
+  font-size: var(--text-xs, 11px);
+  font-weight: var(--font-bold, 700);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--marbl-white-40, rgba(255, 255, 255, 0.4));
+}
+.footer-col a {
+  color: var(--marbl-white-70, rgba(255, 255, 255, 0.7));
+  text-decoration: none;
+  font-size: var(--text-sm, 13px);
+  line-height: 1;
+  padding: var(--gap-tight, 6px) 0;
+  width: fit-content;
+  transition: color var(--transition-fast, 0.15s ease);
+}
+.footer-col a:hover,
+.footer-col a:focus-visible { color: var(--marbl-ember, #F35226); }
+
+/* ── Subscribe (Sympos-style underline + square ember submit) ────────── */
+.footer-subscribe { display: flex; flex-direction: column; }
+.footer-subscribe__hint {
+  margin: 0 0 var(--gap-sm, 20px);
+  max-width: 32ch;
+  color: var(--marbl-white-50, rgba(255, 255, 255, 0.5));
+  font-size: var(--text-sm, 13px);
+  line-height: 1.6;
+}
+.footer-subscribe__form { display: flex; flex-direction: column; }
+/* Input + submit share one underline; the Turnstile sits BELOW this row so it
+   never steals the button's right-edge alignment. */
+.footer-subscribe__field {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gap-xs, 10px);
+  border-bottom: 1px solid var(--marbl-white-15, rgba(255, 255, 255, 0.15));
+  transition: border-color var(--transition-fast, 0.15s ease);
+}
+.footer-subscribe__field:focus-within { border-bottom-color: var(--marbl-ember, #F35226); }
+/* Canonical underline input (ui-items): transparent bg, hairline underline,
+   ember focus border. */
+.footer-subscribe__input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  color: var(--marbl-white, #fff);
+  font: inherit;
+  font-size: var(--text-base, 15px);
+  padding: var(--gap-xs, 10px) 0;
+}
+.footer-subscribe__input::placeholder { color: var(--marbl-white-40, rgba(255, 255, 255, 0.4)); }
+.footer-subscribe__input:focus { outline: none; }
+.footer-subscribe__btn {
+  flex-shrink: 0;
+  /* 10px gap between the button's bottom and the underline (matches input padding). */
+  margin-bottom: var(--gap-xs, 10px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--marbl-ember, #F35226);
+  color: var(--marbl-charcoal-darkest, #131112);
+  border: 0;
+  border-radius: var(--radius, 0);
+  cursor: pointer;
+  transition: background var(--transition-fast, 0.15s ease), color var(--transition-fast, 0.15s ease);
+}
+.footer-subscribe__btn:hover { background: var(--marbl-ember-dark, #BB2F09); color: var(--marbl-white, #fff); }
+.footer-subscribe__btn svg { width: 18px; height: 18px; transition: transform var(--transition-base, 0.2s ease); }
+.footer-subscribe__btn:hover svg { transform: translateX(2px); }
+.footer-subscribe__msg {
+  margin: var(--gap-xs, 10px) 0 0;
+  min-height: 1.2em;
+  font-size: var(--text-sm, 13px);
+  color: var(--marbl-ember, #F35226);
+}
+
+/* ── Meta row: visible legal/copyright (no hover box) + social ──────── */
+/* Rule sits inside a .container so its width = content width (not the
+   container's padded border-box) — aligns with the columns above. */
+.footer-rule {
+  border: 0;
+  border-top: 1px solid var(--marbl-white-08, rgba(255, 255, 255, 0.08));
+  margin: 0;
+}
+.footer-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--gap-sm, 20px);
+  padding-block: var(--gap-md, 40px);
+}
+.footer-copy {
+  margin: 0;
+  color: var(--marbl-white-40, rgba(255, 255, 255, 0.4));
+  font-size: var(--text-sm, 13px);
+  line-height: 1.6;
+}
+.footer-social { display: flex; align-items: center; gap: var(--gap-2xs, 8px); }
+
+/* ── Fixed reveal layer: full-width Marbl wordmark on ember, behind page ──
+   .page is opaque charcoal and carries margin-bottom = reveal height, so the
+   document scrolls past it and exposes the fixed wordmark beneath. */
+.footer-reveal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  height: var(--footer-reveal-h);
+  background: var(--marbl-charcoal, #171415);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+/* Ember wordmark via mask (the source SVG is a single charcoal fill), so it
+   reads orange on the charcoal band. cover = full-bleed, cropped (cut-off). */
+.footer-reveal__mark {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--marbl-ember, #F35226);
+  -webkit-mask: url('/marbl/marblcodes.svg') center / cover no-repeat;
+          mask: url('/marbl/marblcodes.svg') center / cover no-repeat;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .footer-top { grid-template-columns: 1fr 1fr; gap: var(--gap-md, 40px); padding-block: var(--gap-lg, 60px) var(--gap-md, 40px); }
+  .footer-brand { grid-column: 1 / -1; }
+  .footer-subscribe { grid-column: 1 / -1; }
+}
+@media (max-width: 520px) {
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-meta { flex-direction: column; align-items: flex-start; }
+}

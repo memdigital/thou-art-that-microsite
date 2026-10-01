@@ -14,7 +14,7 @@ It sits between philosophy and practice, documenting where the lines are, what s
 
 <div class="about-author">
 <figure class="about-author__avatar">
-<img src="https://marbl.codes/assets/images/team/richard.webp" alt="Richard Bland" loading="lazy" decoding="async" width="160" height="160">
+<img src="/assets/images/team/richard.webp" alt="Richard Bland" loading="lazy" decoding="async" width="160" height="160">
 <figcaption class="about-author__caption">Richard Bland</figcaption>
 </figure>
 <div class="about-author__bio">

@@ -1,24 +1,30 @@
 /* ===================================================================
-   Canonical Marbl buttons — ui-items §1-3
-   Extracted from ui-items/preview.html,  (subscribe rollout)
-   Source of truth. Consumers: subscribe.marbl.codes, luma, atlas, etc.
+   Canonical Marbl buttons - ui-items §1-3
+   Source of truth. Consumers: marbl.codes, events, agency site, etc.
+
+   16 Jul 2026: the SPLIT family (two-cell colour-blocked button)
+   replaced fill-up, solid, classic outline, bare icon-with-text and
+   .btn--mini as the CTA + utility set. Old variants retired to
+   _BIN/2026-07-16-split-button-replaces-cta-family/ (+ git history).
+   Ghost, Read More, icon-only buttons and back-link are unchanged.
    =================================================================== */
 
 /* ═══════════════════════════════════════════════════════
-   BUTTONS — SHARED BASE
+   BUTTONS - SHARED BASE
+   (ghost + read-more ride on this; the split family does not)
    ═══════════════════════════════════════════════════════ */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--gap-xs, 10px);
-  height: 48px;
-  padding: 0 28px;
+  height: var(--control-h, 48px);
+  padding: 0 var(--control-pad-x, 28px);
   font-family: var(--font-body, 'Inter', sans-serif);
-  font-size: 15px;
+  font-size: var(--text-base, 15px);
   font-weight: 700;
   border: none;
-  border-radius: var(--radius, 10px);
+  border-radius: var(--radius, 0);
   cursor: pointer;
   text-decoration: none;
   position: relative;
@@ -26,14 +32,14 @@
   white-space: nowrap;
 }
 
-/* Icon circle */
+/* Icon chip (ghost + read-more) */
 .btn__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: var(--icon-2xl, 28px);
   height: var(--icon-2xl, 28px);
-  border-radius: var(--radius-circle, 50%);
+  border-radius: var(--radius-circle, 0);
   flex-shrink: 0;
   transition: background 0.3s ease;
 }
@@ -48,74 +54,124 @@
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ── FILL UP (outline, fills from bottom) ── */
-.btn--fill-up {
-  background: transparent;
-  color: var(--marbl-ember, #F35226);
-  border: 1px solid var(--marbl-ember, #F35226);
-  z-index: 1;
-  transition: color 0.3s ease, border-color 0.3s ease;
+/* ═══════════════════════════════════════════════════════
+   SPLIT (the CTA + utility family, adopted 16 Jul 2026)
+   Two full-height cells, hard square: text cell + icon cell.
+   Standalone anatomy - NOT a .btn modifier.
+   Default = dark surfaces (ember + ember-dark cell).
+   Only the icon animates on hover: arrows rotate 45deg from
+   up-right to right (the Marbl motion signature); non-arrow
+   icons take .btn-split__icon--roll and roll through the cell
+   (exit top, re-enter from below - icon appears twice, see below).
+   The icon cell always sits AFTER the text (right side).
+   ═══════════════════════════════════════════════════════ */
+.btn-split {
+  display: inline-flex;
+  align-items: stretch;
+  height: var(--control-h, 48px);
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  /* Label voice (16 Jul 2026): same treatment as the header Sign In CTA */
+  font-size: var(--text-xs, 11px);
+  font-weight: var(--font-semibold, 600);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
 }
-.btn--fill-up::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  background: var(--marbl-ember, #F35226);
-  border-radius: var(--radius, 10px);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: -1;
-}
-.btn--fill-up .btn__icon { background: var(--marbl-ember-10, rgba(243,82,38,0.1)); color: var(--marbl-ember, #F35226); }
-.btn--fill-up:hover::before { transform: scaleY(1); }
-.btn--fill-up:hover { color: var(--marbl-charcoal-darkest, #131112); border-color: var(--marbl-ember, #F35226); }
-.btn--fill-up:hover .btn__icon { background: var(--marbl-black-15, rgba(0,0,0,0.15)); color: var(--marbl-charcoal-darkest, #131112); }
-.btn--fill-up:hover .btn__icon svg { transform: rotate(45deg); }
-
-/* ── SOLID (filled ember, darkens on hover) ── */
-.btn--solid {
+.btn-split__text {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--gap-sm, 20px);
   background: var(--marbl-ember, #F35226);
   color: var(--marbl-charcoal-darkest, #131112);
-  border: 1px solid var(--marbl-ember, #F35226);
-  z-index: 1;
-  transition: color 0.3s ease, border-color 0.3s ease;
 }
-.btn--solid::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
+.btn-split__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-h, 48px); /* square cell: matches button height */
+  flex-shrink: 0;
   background: var(--marbl-ember-dark, #BB2F09);
-  border-radius: var(--radius, 10px);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: -1;
+  color: var(--marbl-charcoal-darkest, #131112); /* dark icons on dark-surface buttons (16 Jul) */
+  transition: background 0.3s ease;
 }
-.btn--solid .btn__icon { background: var(--marbl-black-15, rgba(0,0,0,0.15)); color: var(--marbl-charcoal-darkest, #131112); }
-.btn--solid:hover::before { transform: scaleY(1); }
-.btn--solid:hover { color: var(--marbl-white, #fff); border-color: var(--marbl-ember-dark, #BB2F09); }
-.btn--solid:hover .btn__icon { background: var(--marbl-white-15, rgba(255,255,255,0.15)); color: var(--marbl-white, #fff); }
-.btn--solid:hover .btn__icon svg { transform: rotate(45deg); }
+.btn-split__icon svg {
+  width: var(--icon-md, 16px);
+  height: var(--icon-md, 16px);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-split:hover .btn-split__icon svg { transform: rotate(45deg); }
 
-/* ── OUTLINE (white border, goes ember) ── */
-.btn--outline {
+/* Non-arrow icons (download, mail, share, filter...) don't rotate -
+   they ROLL on hover: the icon exits through the top and re-enters
+   from the bottom. Markup contract: the icon SVG appears TWICE in
+   the cell, the second copy with class "dup". */
+.btn-split__icon--roll { position: relative; overflow: hidden; }
+.btn-split__icon--roll svg { transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+.btn-split__icon--roll svg.dup { position: absolute; inset: 0; margin: auto; transform: translateY(250%); }
+.btn-split:hover .btn-split__icon--roll svg:not(.dup) { transform: translateY(-250%); }
+.btn-split:hover .btn-split__icon--roll svg.dup { transform: translateY(0); }
+
+/* Forward arrow (right-facing, slides right on hover - the read-more move).
+   Use for continue / next / go-somewhere actions; the up-right arrow
+   stays the default for CTAs. */
+.btn-split__icon--forward svg { transition: transform 0.3s ease; }
+.btn-split:hover .btn-split__icon--forward svg { transform: translateX(3px); }
+
+/* ── Ink (light backgrounds): ember + darkest-charcoal icon cell ── */
+.btn-split--ink .btn-split__icon {
+  background: var(--marbl-charcoal-darkest, #131112);
+  color: var(--marbl-ember, #F35226);
+}
+.btn-split--ink:hover .btn-split__icon { background: var(--marbl-black, #000); }
+
+/* ── Outline (secondary partner) ── */
+.btn-split--outline .btn-split__text {
   background: transparent;
-  color: var(--marbl-white-85, rgba(255,255,255,0.85));
   border: 1px solid var(--marbl-white-15, rgba(255,255,255,0.15));
+  color: var(--marbl-white-85, rgba(255,255,255,0.85));
   transition: border-color 0.2s ease, color 0.2s ease;
 }
-.btn--outline .btn__icon { background: var(--marbl-white-06, rgba(255,255,255,0.06)); color: var(--marbl-white-85, rgba(255,255,255,0.85)); }
-.btn--outline:hover { border-color: var(--marbl-ember, #F35226); color: var(--marbl-ember, #F35226); }
-.btn--outline:hover .btn__icon { background: var(--marbl-ember-10, rgba(243,82,38,0.1)); color: var(--marbl-ember, #F35226); }
-.btn--outline:hover .btn__icon svg { transform: rotate(45deg); }
+/* drop the shared edge only when an icon cell follows the text cell */
+.btn-split--outline .btn-split__text:not(:last-child) { border-right: none; }
+.btn-split--outline .btn-split__icon {
+  background: transparent;
+  border: 1px solid var(--marbl-white-15, rgba(255,255,255,0.15));
+  color: var(--marbl-white-85, rgba(255,255,255,0.85));
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.btn-split--outline:hover .btn-split__text,
+.btn-split--outline:hover .btn-split__icon {
+  border-color: var(--marbl-ember, #F35226);
+  color: var(--marbl-ember, #F35226);
+}
+
+/* ── Mini (36px compact) - same type as full size (label voice) ── */
+.btn-split--mini {
+  height: var(--control-h-sm, 36px);
+}
+.btn-split--mini .btn-split__text { padding: 0 var(--control-pad-x-sm, 16px); }
+.btn-split--mini .btn-split__icon { width: var(--control-h-sm, 36px); }
+.btn-split--mini .btn-split__icon svg {
+  width: var(--icon-xs, 11px);
+  height: var(--icon-xs, 11px);
+}
 
 /* ── GHOST (text + arrow, no bg/border) ── */
 .btn--ghost {
   background: transparent;
   color: var(--marbl-white-70, rgba(255,255,255,0.7));
   height: auto;
-  padding: 14px 0;
+  padding: var(--control-pad-y, 14px) 0;
   border-radius: 0;
   transition: color 0.2s ease;
 }
@@ -128,7 +184,7 @@
   background: transparent;
   color: var(--marbl-white-70, rgba(255,255,255,0.7));
   height: auto;
-  padding: 14px 0;
+  padding: var(--control-pad-y, 14px) 0;
   border-radius: 0;
   transition: color 0.2s ease;
   gap: 0;
@@ -140,7 +196,7 @@
   background: transparent;
   color: var(--marbl-white-70, rgba(255,255,255,0.7));
   height: auto;
-  padding: 14px 0;
+  padding: var(--control-pad-y, 14px) 0;
   border-radius: 0;
   transition: color 0.2s ease;
 }
@@ -148,19 +204,6 @@
 .btn--read-more:hover { color: var(--marbl-ember, #F35226); }
 .btn--read-more:hover .btn__icon { background: var(--marbl-ember-10, rgba(243,82,38,0.1)); color: var(--marbl-ember, #F35226); }
 .btn--read-more:hover .btn__icon svg { transform: translateX(3px); }
-
-/* ── MINI (compact height — uses --gap-2xs gap, --radius-sm radius) ── */
-.btn--mini {
-  height: 36px;
-  padding: 0 16px;
-  font-size: 12px;
-  font-weight: 600;
-  gap: var(--gap-2xs, 8px);
-  border-radius: var(--radius-sm, 8px);
-}
-.btn--mini::before { border-radius: var(--radius-sm, 8px) !important; }
-.btn--mini .btn__icon { width: var(--icon-xl, 22px); height: var(--icon-xl, 22px); }
-.btn--mini .btn__icon svg { width: var(--icon-xs, 11px); height: var(--icon-xs, 11px); }
 
 /* Modifier: opt out of the 45deg hover rotate.
    The default .btn__icon svg rotates on hover - reads as "open in new
@@ -174,35 +217,15 @@
 .btn:hover .btn__icon--no-rotate svg { transform: none !important; }
 
 /* ═══════════════════════════════════════════════════════
-   ICON BUTTONS (icon left or right with text — no circle bg)
-   ═══════════════════════════════════════════════════════ */
-.btn__icon--bare {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: transform 0.3s ease;
-}
-.btn__icon--bare svg {
-  width: 18px;
-  height: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* ═══════════════════════════════════════════════════════
    ICON-ONLY BUTTONS
    ═══════════════════════════════════════════════════════ */
 .btn-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius, 10px);
+  width: var(--control-h, 48px);
+  height: var(--control-h, 48px);
+  border-radius: var(--radius, 0);
   border: 1px solid var(--marbl-white-15, rgba(255,255,255,0.15));
   background: transparent;
   color: var(--marbl-white-70, rgba(255,255,255,0.7));
@@ -222,7 +245,7 @@
   border-color: var(--marbl-ember, #F35226);
   color: var(--marbl-ember, #F35226);
 }
-.btn-icon--circle { border-radius: var(--radius-circle, 50%); }
+.btn-icon--circle { border-radius: var(--radius-circle, 0); }
 .btn-icon--filled {
   background: var(--marbl-ember, #F35226);
   border-color: var(--marbl-ember, #F35226);
@@ -240,10 +263,44 @@
 .btn-icon--mini {
   width: var(--gap-md, 40px);
   height: var(--gap-md, 40px);
-  border-radius: var(--radius, 10px);
+  border-radius: var(--radius, 0);
 }
 .btn-icon--mini svg {
   width: var(--text-lg, 18px);
   height: var(--text-lg, 18px);
 }
-.btn-icon--mini.btn-icon--circle { border-radius: var(--radius-circle, 50%); }
+.btn-icon--mini.btn-icon--circle { border-radius: var(--radius-circle, 0); }
+
+/* ── BACK LINK (left arrow + text, slides left on hover) ──
+   Consistent "back" affordance across pages. Default = on dark surfaces;
+   add .back-link--ink on light bands. Captured from Marbl Events, 18 Jun 2026. */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-2xs, 8px);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: var(--text-sm, 13px);
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--marbl-white-50, rgba(255,255,255,0.5));
+  transition: color 0.2s ease;
+}
+.back-link svg {
+  width: 16px; height: 16px;
+  fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+  transition: transform 0.3s ease;
+}
+.back-link:hover { color: var(--marbl-ember, #F35226); }
+.back-link:hover svg { transform: translateX(-3px); }
+.back-link--ink { color: var(--marbl-ink-muted, #5F5653); }
+
+/* ═══════════════════════════════════════════════════════
+   DISABLED STATES (canonical - ui-items §States)
+   35% opacity, no pointer events. Applied via the `disabled` attribute.
+   ═══════════════════════════════════════════════════════ */
+.btn:disabled, .btn-split:disabled, .btn-icon:disabled, .btn-carousel:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
