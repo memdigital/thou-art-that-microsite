@@ -6,12 +6,18 @@ Tweaks and outstanding work for the Thou Art That microsite.
 
 ## Open
 
-_Nothing outstanding. Add items here as they come up._
+- ⬜ **Richard's call:** bin the unlinked v2 vendor dirs (marbl-fonts, core/marbl-v2.css, site-header, pill-nav, footer-reveal CSS, ui-items, logo-animation.js, pill-nav.js) - nothing links them since the 1 Oct restyle.
+
+## Done - 1 Oct 2026 (Marbl Codes window)
+
+- ✅ **Restyled to the new Marbl Codes look** (Richard: "switch up the style to something matching the new Marbl Codes"). Geist + Petrona, new header/nav/footer, oa-btn buttons, shell-aligned edges, left-aligned hero; TAT stays dark. Architecture in CLAUDE.md. Moirai PASS 80%.
+- ✅ **Self-hosted** favicons, share image, About photo, footer assets (the old marbl.codes paths died 28 Sept).
+- ✅ **Mobile CLS fixed**: the phone contents drawer now ships folded. Live Lighthouse mobile /about/: perf 74 -> 96, a11y 96 -> 100, CLS 0.387 -> 0.004. SEO 92 is our deliberate Content-Signal line in robots.txt (Lighthouse calls it unknown) - leave it.
 
 ### Watching (not blocking)
 
 - **Audio mix recipe is gitignored-private** — `mix-with-bed.mjs` + `_bed-source-60s.mp3` live in `thou-art-that/audio-tools/` (intentionally gitignored alongside `generate-audio.mjs` for secrets-path + stinger-licensing reasons). Reproducible-for-Richard, not reproducible-for-public-forkers. No action needed unless we ever want public reproducibility.
-- **Residual CLS ~0.36 from waveform-player reveal** — Fathom tracking pixel suppression cleared 0.37 of the original 0.41 CLS, but the `mwp-fallback-reveal` animation in `waveform-player.css` still shifts layout when the player initialises. Lighthouse mobile agentic-browsing dropped from 100 to 76 because of this. Not blocking a11y/SEO/best-practices (all 100/100/100). Separate fix when there's an audio-component pass — the animation needs to reserve its final height or use compositor-only properties.
+- ~~**Residual CLS ~0.36 from waveform-player reveal**~~ **RESOLVED 1 Oct 2026:** it was the phone drawer folding after first paint, not the player (see Done). — Fathom tracking pixel suppression cleared 0.37 of the original 0.41 CLS, but the `mwp-fallback-reveal` animation in `waveform-player.css` still shifts layout when the player initialises. Lighthouse mobile agentic-browsing dropped from 100 to 76 because of this. Not blocking a11y/SEO/best-practices (all 100/100/100). Separate fix when there's an audio-component pass — the animation needs to reserve its final height or use compositor-only properties.
 - **Stylelint debt on legacy marbl.codes pages** — about.html, index.html, ecosystem.html, marbl-home.css carry ~40 pre-existing raw colour/spacing values that should be canonical tokens. Pre-commit hook flags them. Tonight's accent fix on these files used `--no-verify` per Richard's call. Cleanup deferred to the legacy-page rebuild pass.
 
 ---
