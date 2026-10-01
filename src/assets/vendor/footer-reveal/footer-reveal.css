@@ -187,8 +187,8 @@ body { --footer-reveal-h: clamp(160px, 16vw, 320px); }
   width: 100%;
   height: 100%;
   background: var(--marbl-ember, #F35226);
-  -webkit-mask: url('/marbl/marblcodes.svg') center / cover no-repeat;
-          mask: url('/marbl/marblcodes.svg') center / cover no-repeat;
+  -webkit-mask: url('/assets/brand/marblcodes.svg') center / cover no-repeat;
+          mask: url('/assets/brand/marblcodes.svg') center / cover no-repeat;
   user-select: none;
   pointer-events: none;
 }

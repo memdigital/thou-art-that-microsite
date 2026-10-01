@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Date: Thu, 01 Oct 2026 15:36:28 GMT
+Content-Type: text/html
+Connection: keep-alive
+CF-Cache-Status: HIT
+Cache-Control: public, max-age=0, must-revalidate
+ETag: "a0c323f6f99230bb75dbedd2b4eeaf3e"
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+content-security-policy: default-src 'self'; script-src 'self' https://cdn.usefathom.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://marbl.codes https://cdn.usefathom.com; media-src 'self'; font-src 'self' data:; connect-src 'self' https://marbl.codes https://cdn.usefathom.com https://img.shields.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+cross-origin-opener-policy: same-origin
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=()
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-frame-options: DENY
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Wm3JhE0ocfwEyEcQmuKaMHdc24dTQBVoOzinD15l5b5Yz0uCEY5V6diJLxr8wdLPqyCMFDL8kw0%2FYT3sqskVp9%2BXKClLbYrSlFVw5%2BgpvnTKzUyP6XnNMVX0f6dgncxUpqs%3D"}]}
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: a43c8b0cdbfcf4c1-LHR
+alt-svc: h3=":443"; ma=86400
+

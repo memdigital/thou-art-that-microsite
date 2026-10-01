@@ -1,0 +1,4 @@
+/ @390: failed=[] brokenImgs=[] icons=["https://tat.marbl.codes/assets/brand/favicon.svg","https://tat.marbl.codes/assets/brand/favicon.ico","https://tat.marbl.codes/assets/brand/apple-touch-icon.png"]
+/ @1440: failed=[] brokenImgs=[] icons=["https://tat.marbl.codes/assets/brand/favicon.svg","https://tat.marbl.codes/assets/brand/favicon.ico","https://tat.marbl.codes/assets/brand/apple-touch-icon.png"]
+/about/ @390: failed=[] brokenImgs=[] icons=["https://tat.marbl.codes/assets/brand/favicon.svg","https://tat.marbl.codes/assets/brand/favicon.ico","https://tat.marbl.codes/assets/brand/apple-touch-icon.png"]
+/about/ @1440: failed=[] brokenImgs=[] icons=["https://tat.marbl.codes/assets/brand/favicon.svg","https://tat.marbl.codes/assets/brand/favicon.ico","https://tat.marbl.codes/assets/brand/apple-touch-icon.png"]
