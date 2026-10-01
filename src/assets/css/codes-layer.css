@@ -138,3 +138,22 @@
 @media (max-width: 480px) {
   .tat-hero__cta { display: flex; width: 100%; }
 }
+
+/* 8 · The phone contents drawer ships FOLDED (kh-page.html), so it never
+   snaps shut after first paint - that late fold was the whole of the
+   mobile CLS (Lighthouse 1 Oct: 0.387, every shift on .kh-article).
+   Desktop ignores the attribute. With no script to open it, show it open
+   and hide the toggle, so the contents stay reachable. */
+@media (max-width: 768px) and (scripting: none) {
+  .kh-sidebar[aria-expanded="false"] .kh-sidebar__panel {
+    grid-template-rows: 1fr;
+    margin-top: var(--gap-sm);
+  }
+  .kh-sidebar__toggle { display: none; }
+}
+
+/* 9 · Footer small print to 50% white: the copied 40% measures about
+   3.6:1 on charcoal at 11px and fails WCAG AA; 50% is about 5.3:1. */
+.footer-copy {
+  color: var(--marbl-white-50);
+}
