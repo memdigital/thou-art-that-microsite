@@ -62,13 +62,13 @@
    H2: 500, -0.5px). */
 .kh-article__title {
   font-weight: var(--font-medium, 500);
-  letter-spacing: -2px;
-  line-height: 1;
+  letter-spacing: -0.035em;   /* -2px at the 56px desktop size; em so it eases off as the title shrinks */
+  line-height: 1.05;
 }
 .kh-article__body h2,
 .kh-article__body h3 {
   font-weight: var(--font-medium, 500);
-  letter-spacing: -0.5px;
+  letter-spacing: -0.015em;   /* -0.5px at 32px */
 }
 
 /* 5 · Landing hero: the new site's home-hero composition - left on the
@@ -85,21 +85,14 @@
 .tat-hero__title {
   font-size: var(--text-5xl);
   font-weight: var(--font-medium, 500);
-  letter-spacing: -2px;
-  line-height: 1;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
 }
 .tat-hero__strapline,
-.tat-hero__byline {
-  margin-left: 0;
-  margin-right: 0;
-}
-.tat-hero__audio {
-  margin-left: 0;
-  margin-right: 0;
-}
+.tat-hero__byline,
+.tat-hero__audio,
 .tat-hero__cta {
-  margin-left: 0;
-  margin-right: 0;
+  margin-inline: 0;
 }
 
 /* 6 · Sidebar "hub start" button: a square line button (the old one was
@@ -110,8 +103,12 @@
   justify-content: center;
   width: 44px;
   height: 44px;
+  padding: 0;
+  background: transparent;
   border: 1px solid var(--marbl-white-15);
+  border-radius: 0;
   color: var(--marbl-white-70);
+  text-decoration: none;
   transition: color var(--transition-fast), border-color var(--transition-fast);
 }
 .kh-sidebar__top .kh-sidebar__home:hover,
@@ -120,18 +117,7 @@
   border-color: var(--marbl-ember);
 }
 
-/* 7 · Square everywhere: the KH cards and controls carried v2 radii. */
-.kh-toc,
-.kh-sidebar__toggle,
-.kh-sidebar__search,
-.kh-search-results,
-.repo-widget,
-.mwp-btn,
-.tat-hero__audio * {
-  border-radius: 0;
-}
-
-/* 8 · The subscribe CTAs below the TOC and under the repo card fill
+/* 7 · The subscribe CTAs below the TOC and under the repo card fill
    their column. */
 .kh-rail__cta,
 .kh-source__subscribe {
